@@ -19,30 +19,6 @@
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="super" />
 		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
 		<property name="authorities">
@@ -53,10 +29,202 @@
 				<bean class="security.Authority">
 					<property name="authority" value="CUSTOMER" />
 				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="DEVELOPER" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="CRITIC" />
+				</bean>
 			</list>
 		</property>
 	</bean>
 	
-	<!-- Other domain beans come here -->	
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="critic1" />
+		<property name="password" value="165d185050bab438668aef6faeee3be5" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CRITIC" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="critic2" />
+		<property name="password" value="88fc227c1f12e1f11b8b1584991c88fe" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CRITIC" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="critic3" />
+		<property name="password" value="8a253092f1d177ba06d104b69a159d93" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CRITIC" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Administrator -->	
+	
+	<bean id="administrator" class="security.Administrator">
+		<property name="name" value="administrator" />
+		<property name="surname" value="-" />
+		<property name="email" value="admin@email.com" />
+		<property name="phone" value="0000" />
+		<property name="userAccount" ref="userAccount2" />
+		<property name="sentMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Banner -->	
+	
+	<bean id="banner1" class="security.Banner">
+		<property name="picture" value="https://cdn.areajugones.es/wp-content/uploads/2017/01/tekken7coleccionista-1024x614.jpg" />
+	</bean>
+	
+	<bean id="banner2" class="security.Banner">
+		<property name="picture" value="https://media.redadn.es/imagenes/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-wii-u_289641.jpg" />
+	</bean>
+	
+	<bean id="banner3" class="security.Banner">
+		<property name="picture" value="http://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg?t=1490209724" />
+	</bean>
+	
+	<!-- Discount -->	
+	
+	<bean id="discount1" class="security.Discount">
+		<property name="code" value="" />
+		<property name="percentage" value="" />
+		<property name="used" value="" />
+	</bean>
+	
+	<bean id="discount2" class="security.Discount">
+		<property name="code" value="" />
+		<property name="percentage" value="" />
+		<property name="used" value="" />
+	</bean>
+	
+	<bean id="discount3" class="security.Discount">
+		<property name="code" value="" />
+		<property name="percentage" value="" />
+		<property name="used" value="" />
+	</bean>
+	
+	<bean id="discount4" class="security.Discount">
+		<property name="code" value="" />
+		<property name="percentage" value="" />
+		<property name="used" value="" />
+	</bean>
+	
+	<bean id="discount5" class="security.Discount">
+		<property name="code" value="" />
+		<property name="percentage" value="" />
+		<property name="used" value="" />
+	</bean>
+	
+	<!-- Critic -->	
+	
+	<bean id="critic1" class="security.Critic">
+		<property name="name" value="Axel" />
+		<property name="surname" value="Springer" />
+		<property name="email" value="critic1@email.com" />
+		<property name="phone" value="1111" />
+		<property name="magazine" value="Hobby Consolas" />
+		<property name="userAccount" ref="userAccount3" />
+		<property name="sentMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="critic2" class="security.Critic">
+		<property name="name" value=" Steve" />
+		<property name="surname" value="Jarratt" />
+		<property name="email" value="critic2@email.com" />
+		<property name="phone" value="2222" />
+		<property name="magazine" value="Edge" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="sentMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="critic3" class="security.Critic">
+		<property name="name" value="Andy" />
+		<property name="surname" value="McNamara" />
+		<property name="email" value="critic3@email.com" />
+		<property name="phone" value="3333" />
+		<property name="magazine" value="Game Informer" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="sentMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
 	
 </beans>
