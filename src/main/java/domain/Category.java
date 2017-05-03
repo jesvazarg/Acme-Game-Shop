@@ -44,7 +44,7 @@ public class Category extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@ManyToMany(mappedBy = "categories")
+	@ManyToMany()
 	public Collection<Game> getGames() {
 		return this.games;
 	}

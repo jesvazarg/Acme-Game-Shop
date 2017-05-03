@@ -87,9 +87,45 @@
 		</property>
 	</bean>
 	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="customer2" />
+		<property name="password" value="5ce4d191fd14ac85a1469fb8c29b7a7b" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="customer3" />
+		<property name="password" value="033f7f6121501ae98285ad77f216d5e7" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	<!-- Administrator -->	
 	
-	<bean id="administrator" class="security.Administrator">
+	<bean id="administrator" class="domain.Administrator">
 		<property name="name" value="administrator" />
 		<property name="surname" value="-" />
 		<property name="email" value="admin@email.com" />
@@ -107,47 +143,286 @@
 		</property>
 	</bean>
 	
+	<!-- Customer -->
+	<bean id="customer1" class="domain.Customer">
+		<property name="name" value="NameCustomer1" />
+		<property name="surname" value="SurnameCustomer1" />
+		<property name="email" value="customer1@email.com" />
+		<property name="phone" value="1234" />
+		<property name="birthDate" value="06/10/1980" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="shoppingCart" ref="shoppingCart1" />
+		<property name="sentMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="senses">
+			<list>
+				 <ref bean="sense1" />
+				 <ref bean="sense2" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				 <ref bean="comment1" />
+				 <ref bean="comment2" />
+			</list>
+		</property>
+		<property name="receipts">
+			<list>
+				 <ref bean="receipt1" />
+				 <ref bean="receipt2" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="customer2" class="domain.Customer">
+		<property name="name" value="NameCustomer2" />
+		<property name="surname" value="SurnameCustomer2" />
+		<property name="email" value="customer2@email.com" />
+		<property name="phone" value="1232" />
+		<property name="birthDate" value="06/10/1990" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="shoppingCart" ref="shoppingCart2" />
+		<property name="sentMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="senses">
+			<list>
+				 <ref bean="sense3" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				 <ref bean="comment3" />
+			</list>
+		</property>
+		<property name="receipts">
+			<list>
+				 <ref bean="receipt3" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="customer3" class="domain.Customer">
+		<property name="name" value="NameCustomer3" />
+		<property name="surname" value="SurnameCustomer3" />
+		<property name="email" value="customer3@email.com" />
+		<property name="phone" value="1233" />
+		<property name="birthDate" value="06/10/1999" />
+		<property name="userAccount" ref="userAccount8" />
+		<property name="shoppingCart" ref="shoppingCart3" />
+		<property name="sentMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receivedMessages">
+			<list>
+				
+			</list>
+		</property>
+		<property name="senses">
+			<list>
+				
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				
+			</list>
+		</property>
+		<property name="receipts">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Receipt -->
+	<bean id="receipt1" class="domain.Receipt">
+		<property name="moment" value="06/4/2017 16:00" />
+		<property name="customer" ref="customer1" />
+		<property name="orderedGames">
+			<list>
+				 <ref bean="orderedGame1" />
+				 <ref bean="orderedGame2" />
+			</list>
+		</property>
+	</bean>	
+	
+	<bean id="receipt2" class="domain.Receipt">
+		<property name="moment" value="09/11/2016 12:45" />
+		<property name="customer" ref="customer1" />
+		<property name="orderedGames">
+			<list>
+				<ref bean="orderedGame3" />
+			</list>
+		</property>
+	</bean>	
+	
+	<bean id="receipt3" class="domain.Receipt">
+		<property name="moment" value="12/10/2016 19:22" />
+		<property name="customer" ref="customer2" />
+		<property name="orderedGames">
+			<list>
+				<ref bean="orderedGame4" />
+			</list>
+		</property>
+	</bean>	
+	
+	<!-- Ordered Games -->
+	<bean id="orderedGame1" class="domain.OrderedGames">
+		<property name="title" value="Warhammer" />
+		<property name="price" value="44.90" />
+		<property name="receipt" ref="receipt1" />
+	</bean>	
+	
+	<bean id="orderedGame2" class="domain.OrderedGames">
+		<property name="title" value="World of Warcraft" />
+		<property name="price" value="20.50" />
+		<property name="receipt" ref="receipt1" />
+	</bean>
+	
+	<bean id="orderedGame3" class="domain.OrderedGames">
+		<property name="title" value="Age of Empire III" />
+		<property name="price" value="10.90" />
+		<property name="receipt" ref="receipt2" />
+	</bean>
+	
+	<bean id="orderedGame4" class="domain.OrderedGames">
+		<property name="title" value="Crash Bandicoot" />
+		<property name="price" value="11.90" />
+		<property name="receipt" ref="receipt3" />
+	</bean>
+		
+		
+	<!-- Comment -->
+	<bean id="comment1" class="domain.Comment">
+		<property name="title" value="Buenas" />
+		<property name="description" value="El juego me gusta mucho" />
+		<property name="moment" value="03/04/2017 19:00" />
+		<property name="score" value="9" />
+		<property name="customer" ref="customer1" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+	<bean id="comment2" class="domain.Comment">
+		<property name="title" value="Hola" />
+		<property name="description" value="No esta mal" />
+		<property name="moment" value="03/02/2017 19:00" />
+		<property name="score" value="5" />
+		<property name="customer" ref="customer1" />
+		<property name="game" ref="game2" />
+	</bean>
+	
+	<bean id="comment3" class="domain.Comment">
+		<property name="title" value="Saludos" />
+		<property name="description" value="No me ha gustado nada de nada" />
+		<property name="moment" value="03/01/2017 18:32" />
+		<property name="score" value="0" />
+		<property name="customer" ref="customer2" />
+		<property name="game" ref="game3" />
+	</bean>
+	
+	<!-- Sense -->
+	<bean id="sense1" class="domain.Sense">
+		<property name="like" value="true" />
+		<property name="customer" ref="customer1" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+	<bean id="sense2" class="domain.Sense">
+		<property name="like" value="true" />
+		<property name="customer" ref="customer1" />
+		<property name="game" ref="game2" />
+	</bean>
+	
+	<bean id="sense3" class="domain.Sense">
+		<property name="like" value="false" />
+		<property name="customer" ref="customer2" />
+		<property name="game" ref="game3" />
+	</bean>
+	
+	<!-- Shopping Cart -->	
+	<bean id="shoppingCart1" class="domain.ShoppingCart">
+		<property name="games">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="shoppingCart2" class="domain.ShoppingCart">
+		<property name="games">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="shoppingCart3" class="domain.ShoppingCart">
+		<property name="games">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
 	<!-- Banner -->	
 	
-	<bean id="banner1" class="security.Banner">
+	<bean id="banner1" class="domain.Banner">
 		<property name="picture" value="https://cdn.areajugones.es/wp-content/uploads/2017/01/tekken7coleccionista-1024x614.jpg" />
 	</bean>
 	
-	<bean id="banner2" class="security.Banner">
+	<bean id="banner2" class="domain.Banner">
 		<property name="picture" value="https://media.redadn.es/imagenes/the-legend-of-zelda-breath-of-the-wild-nintendo-switch-wii-u_289641.jpg" />
 	</bean>
 	
-	<bean id="banner3" class="security.Banner">
+	<bean id="banner3" class="domain.Banner">
 		<property name="picture" value="http://cdn.akamai.steamstatic.com/steam/apps/730/header.jpg?t=1490209724" />
 	</bean>
 	
 	<!-- Discount -->	
 	
-	<bean id="discount1" class="security.Discount">
+	<bean id="discount1" class="domain.Discount">
 		<property name="code" value="" />
 		<property name="percentage" value="" />
 		<property name="used" value="" />
 	</bean>
 	
-	<bean id="discount2" class="security.Discount">
+	<bean id="discount2" class="domain.Discount">
 		<property name="code" value="" />
 		<property name="percentage" value="" />
 		<property name="used" value="" />
 	</bean>
 	
-	<bean id="discount3" class="security.Discount">
+	<bean id="discount3" class="domain.Discount">
 		<property name="code" value="" />
 		<property name="percentage" value="" />
 		<property name="used" value="" />
 	</bean>
 	
-	<bean id="discount4" class="security.Discount">
+	<bean id="discount4" class="domain.Discount">
 		<property name="code" value="" />
 		<property name="percentage" value="" />
 		<property name="used" value="" />
 	</bean>
 	
-	<bean id="discount5" class="security.Discount">
+	<bean id="discount5" class="domain.Discount">
 		<property name="code" value="" />
 		<property name="percentage" value="" />
 		<property name="used" value="" />
@@ -155,7 +430,7 @@
 	
 	<!-- Critic -->	
 	
-	<bean id="critic1" class="security.Critic">
+	<bean id="critic1" class="domain.Critic">
 		<property name="name" value="Axel" />
 		<property name="surname" value="Springer" />
 		<property name="email" value="critic1@email.com" />
@@ -179,7 +454,7 @@
 		</property>
 	</bean>
 	
-	<bean id="critic2" class="security.Critic">
+	<bean id="critic2" class="domain.Critic">
 		<property name="name" value=" Steve" />
 		<property name="surname" value="Jarratt" />
 		<property name="email" value="critic2@email.com" />
@@ -203,7 +478,7 @@
 		</property>
 	</bean>
 	
-	<bean id="critic3" class="security.Critic">
+	<bean id="critic3" class="domain.Critic">
 		<property name="name" value="Andy" />
 		<property name="surname" value="McNamara" />
 		<property name="email" value="critic3@email.com" />
