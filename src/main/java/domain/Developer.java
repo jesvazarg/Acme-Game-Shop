@@ -10,6 +10,8 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Developer extends Actor {
@@ -22,6 +24,19 @@ public class Developer extends Actor {
 
 
 	// Attributes -------------------------------------------------------------
+
+	private String	company;
+
+
+	@NotBlank
+	public String getCompany() {
+		return this.company;
+	}
+
+	public void setCompany(final String company) {
+		this.company = company;
+	}
+
 
 	// Relationships ----------------------------------------------------------
 	private Collection<Game>	games;

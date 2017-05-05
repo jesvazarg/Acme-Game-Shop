@@ -8,9 +8,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -22,9 +20,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes = {
-	@Index(columnList = "copy")
-})
 public class Message extends DomainEntity {
 
 	// Constructors ----------------------------------------------------------
@@ -38,7 +33,8 @@ public class Message extends DomainEntity {
 	private String				text;
 	private Collection<String>	attachments;
 	private Date				moment;
-	private Boolean				copy;
+	private Boolean				deletedForSender;
+	private Boolean				deletedForRecipient;
 
 
 	@NotBlank
@@ -81,12 +77,20 @@ public class Message extends DomainEntity {
 		this.moment = moment;
 	}
 
-	public Boolean getCopy() {
-		return this.copy;
+	public Boolean getDeletedForSender() {
+		return this.deletedForSender;
 	}
 
-	public void setCopy(final Boolean copy) {
-		this.copy = copy;
+	public void setDeletedForSender(final Boolean deletedForSender) {
+		this.deletedForSender = deletedForSender;
+	}
+
+	public Boolean getDeletedForRecipient() {
+		return this.deletedForRecipient;
+	}
+
+	public void setDeletedForRecipient(final Boolean deletedForRecipient) {
+		this.deletedForRecipient = deletedForRecipient;
 	}
 
 
