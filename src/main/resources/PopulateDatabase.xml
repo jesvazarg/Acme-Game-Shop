@@ -244,6 +244,7 @@
 		<property name="senses">
 			<list>
 				 <ref bean="sense3" />
+				 <ref bean="sense4" />
 			</list>
 		</property>
 		<property name="comments">
@@ -340,6 +341,7 @@
 		<property name="games">
 			<list>
 				<ref bean="game2" />
+				<ref bean="game3" />
 			</list>
 		</property>
 	</bean>
@@ -363,7 +365,7 @@
 		</property>
 		<property name="games">
 			<list>
-				<ref bean="game3" />
+				<!-- <ref bean="game3" /> -->
 			</list>
 		</property>
 	</bean>
@@ -425,6 +427,7 @@
 		<property name="senses">
 			<list>
 				<ref bean="sense1" />
+				<ref bean="sense4" />
 			</list>
 		</property>
 		<property name="shoppingCarts">
@@ -476,7 +479,7 @@
 		<property name="sellsNumber" value="3" />
 		<property name="age" value="3" />
 		<property name="price" value="35.0" />
-		<property name="developer" ref="developer3" />
+		<property name="developer" ref="developer2" />
 		<property name="reviews">
 			<list>
 				
@@ -607,6 +610,12 @@
 		<property name="like" value="false" />
 		<property name="customer" ref="customer2" />
 		<property name="game" ref="game3" />
+	</bean>
+	
+	<bean id="sense4" class="domain.Sense">
+		<property name="like" value="true" />
+		<property name="customer" ref="customer2" />
+		<property name="game" ref="game1" />
 	</bean>
 	
 	<!-- Shopping Cart -->	

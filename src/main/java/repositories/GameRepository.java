@@ -15,6 +15,18 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select g from Game g where g.developer.id=?1")
 	Collection<Game> findByCustomerId(int id);
 
+	//C1: Los juegos que más "me gusta" tiene 
+	@Query("select distinct g from Game g join g.senses s where ((s.like=true) and (s.size=(select max(s.size) from Game g join g.senses s where s.like=true)))")
+	Collection<Game> gameMoreLikes();
+
+	//C1: Los juegos que menos "me gusta" tiene
+	@Query("select distinct g from Game g join g.senses s where ((s.like=false) and (s.size=(select max(s.size) from Game g join g.senses s where s.like=false)))")
+	Collection<Game> gameLessLikes();
+
+	//C4: Los juegos que superen la media de ventas por juego del sistema
+	@Query("select g from Game g where ((g.sellsNumber)>=(select avg(g.sellsNumber) from Game g))")
+	Collection<Game> gamesMoreThatAVG();
+
 	//C5:Los juegos con mayor número de ventas.
 	@Query("select g1 from Game g1 where g1.sellsNumber=(select max(g.sellsNumber) from Game g)")
 	Collection<Game> findBestSellerGames();
@@ -33,4 +45,5 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select count(s) *1.0 from Game g join g.senses s where s.like=false and g.id=?1")
 	Double dislikeFromAGame(int gameId);
 	/* select (select count(s) from Sense s where s.like=true group by s.game)*1.0/count(s1) from Sense s1 where s1.like=false group by s1.game; */
+
 }
