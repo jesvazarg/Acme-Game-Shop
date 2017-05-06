@@ -13,4 +13,8 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	@Query("select a from Actor a where a.userAccount.id = ?1")
 	Actor findByUserAccountId(int userAccountId);
 
+	//A1: El mínimo, media y máximo de número de mensajes enviados por actor
+	@Query("select min(a.sentMessages.size), avg(a.sentMessages.size), max(a.sentMessages.size) from Actor a")
+	Double[] minAvgMaxMessagesSent();
+
 }

@@ -403,7 +403,7 @@
 		<property name="title" value="Rome total war II" />
 		<property name="description" value="Juega en el papel de Julio César y experimenta las 50 puñaladas que recibió...¡¡en 3D!!" />
 		<property name="picture" value="http://www.hobbyconsolas.com/sites/hobbyconsolas.com/public/styles/main_element/public/media/image/2013/09/245606-analisis-total-war-rome-ii.jpg?itok=LtN-6MBi" />
-		<property name="sellsNumber" value="0" />
+		<property name="sellsNumber" value="10" />
 		<property name="age" value="16" />
 		<property name="price" value="45.0" />
 		<property name="developer" ref="developer1" />
@@ -438,7 +438,7 @@
 		<property name="title" value="Diablo III" />
 		<property name="description" value="¡Grindea como un esclavo y mira como en 3 meses te reiniciamos todo lo conseguido!" />
 		<property name="picture" value="http://www.3djuegos.com/juegos/2884/diablo_3/fotos/ficha/diablo_3-1953745.jpg" />
-		<property name="sellsNumber" value="0" />
+		<property name="sellsNumber" value="10" />
 		<property name="age" value="16" />
 		<property name="price" value="40.0" />
 		<property name="developer" ref="developer2" />
@@ -473,7 +473,7 @@
 		<property name="title" value="MarioKart 8" />
 		<property name="description" value="¡Vuelven las carreras mas locas con MarioKart 8" />
 		<property name="picture" value="http://static.hellofriki.com/wp-content/uploads/2014/11/mario_kart_8_tournament.jpg" />
-		<property name="sellsNumber" value="0" />
+		<property name="sellsNumber" value="3" />
 		<property name="age" value="3" />
 		<property name="price" value="35.0" />
 		<property name="developer" ref="developer3" />
