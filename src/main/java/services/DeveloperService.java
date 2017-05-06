@@ -155,29 +155,4 @@ public class DeveloperService {
 		return password;
 	}
 
-	//	public Double avgCommentsPerActor() {
-	//		return this.actorRepository.avgCommentsPerActor();
-	//	}
-	//
-	//	public Collection<Actor> find10PercentAvgCommentsPerActor() {
-	//		return this.actorRepository.find10PercentAvgCommentsPerActor();
-	//	}
-	//
-	//	public Double[] minAvMaxMessagesPerActor() {
-	//		return this.actorRepository.minAvMaxMessagesPerActor();
-	//	}
-	//
-	//	public Double[] minAvMaxMessagesReceivedPerActor() {
-	//		return this.actorRepository.minAvMaxMessagesReceivedPerActor();
-	//	}
-	//
-	//	public Collection<Actor> actorMoreGotMessages() {
-	//		return this.actorRepository.actorMoreGotMessages();
-	//	}
-	//
-	//	public Collection<Actor> findActorWithMostMessagesSent() {
-	//		final Collection<Actor> result = this.actorRepository.findActorWithMostMessagesSent();
-	//
-	//		return result;
-	//	}
 }
