@@ -105,7 +105,7 @@ public class MessageEmailService {
 		MessageEmail result;
 		final Actor actor = this.actorService.findByPrincipal();
 		Assert.notNull(actor);
-		Assert.isTrue(messageEmail.getSender().equals(actor));
+		Assert.isTrue(messageEmail.getSender().equals(actor) && messageEmail.getDeletedForSender() == false);
 		result = new MessageEmail();
 		result.setSubject(messageEmail.getSubject());
 		result.setText(messageEmail.getText());
@@ -119,7 +119,7 @@ public class MessageEmailService {
 
 	public MessageEmail reply(final MessageEmail messageEmail) {
 		Assert.notNull(messageEmail);
-		Assert.isTrue(messageEmail.getRecipient().equals(this.actorService.findByPrincipal()));
+		Assert.isTrue(messageEmail.getRecipient().equals(this.actorService.findByPrincipal()) && messageEmail.getDeletedForRecipient() == false);
 		final MessageEmail result = this.create();
 
 		result.setRecipient(messageEmail.getSender());
