@@ -14,7 +14,6 @@ import repositories.DeveloperRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Customer;
 import domain.Developer;
 import domain.Game;
 import domain.MessageEmail;
@@ -114,33 +113,35 @@ public class DeveloperService {
 
 	public Developer reconstructCreate(final CreateActorForm createActorForm) {
 		Assert.notNull(createActorForm);
-		Developer customer;
+		Developer developer;
 		String password;
 
 		Assert.isTrue(createActorForm.getPassword().equals(createActorForm.getConfirmPassword())); // Comprobamos que las dos contraseñas sean la misma
 		Assert.isTrue(createActorForm.getIsAgree()); // Comprobamos que acepte las condiciones
 
-		customer = this.create();
+		developer = this.create();
 		password = this.encryptPassword(createActorForm.getPassword());
 
-		customer.getUserAccount().setUsername(createActorForm.getUsername());
-		customer.getUserAccount().setPassword(password);
-		customer.setName(createActorForm.getName());
-		customer.setEmail(createActorForm.getEmail());
-		customer.setPhone(createActorForm.getPhone());
+		developer.getUserAccount().setUsername(createActorForm.getUsername());
+		developer.getUserAccount().setPassword(password);
+		developer.setName(createActorForm.getName());
+		developer.setSurname(createActorForm.getSurname());
+		developer.setEmail(createActorForm.getEmail());
+		developer.setPhone(createActorForm.getPhone());
 
-		return customer;
+		return developer;
 	}
 
-	public CreateActorForm desreconstructCreate(final Customer customer) {
+	public CreateActorForm desreconstructCreate(final Developer developer) {
 		CreateActorForm createActorForm;
 
 		createActorForm = new CreateActorForm();
 
-		createActorForm.setUsername(customer.getUserAccount().getUsername());
-		createActorForm.setName(customer.getName());
-		createActorForm.setEmail(customer.getEmail());
-		createActorForm.setPhone(customer.getPhone());
+		createActorForm.setUsername(developer.getUserAccount().getUsername());
+		createActorForm.setName(developer.getName());
+		createActorForm.setName(developer.getSurname());
+		createActorForm.setEmail(developer.getEmail());
+		createActorForm.setPhone(developer.getPhone());
 
 		return createActorForm;
 	}
