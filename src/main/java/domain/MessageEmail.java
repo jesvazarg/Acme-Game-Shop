@@ -20,10 +20,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Message extends DomainEntity {
+public class MessageEmail extends DomainEntity {
 
 	// Constructors ----------------------------------------------------------
-	public Message() {
+	public MessageEmail() {
 		super();
 	}
 

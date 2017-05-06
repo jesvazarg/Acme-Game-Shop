@@ -77,28 +77,28 @@ public class Actor extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 	private UserAccount			userAccount;
-	private Collection<Message>	sentMessages;
-	private Collection<Message>	receivedMessages;
+	private Collection<MessageEmail>	sentMessages;
+	private Collection<MessageEmail>	receivedMessages;
 	private CreditCard			creditCard;
 
 
 	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "sender")
-	public Collection<Message> getSentMessages() {
+	public Collection<MessageEmail> getSentMessages() {
 		return this.sentMessages;
 	}
-	public void setSentMessages(final Collection<Message> sentMessages) {
+	public void setSentMessages(final Collection<MessageEmail> sentMessages) {
 		this.sentMessages = sentMessages;
 	}
 
 	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "recipient")
-	public Collection<Message> getReceivedMessages() {
+	public Collection<MessageEmail> getReceivedMessages() {
 		return this.receivedMessages;
 	}
-	public void setReceivedMessages(final Collection<Message> receivedMessages) {
+	public void setReceivedMessages(final Collection<MessageEmail> receivedMessages) {
 		this.receivedMessages = receivedMessages;
 	}
 

@@ -756,7 +756,7 @@
 	
 	<!-- Message -->
 	
-	<bean id="message1" class="domain.Message">
+	<bean id="message1" class="domain.MessageEmail">
 		<property name="subject" value="Duda"/>
 		<property name="text" value="¿Es compatible con w7?"/>
 		<property name="deletedForSender" value="false"/>
@@ -770,7 +770,7 @@
 		<property name="recipient" ref="developer1"/>
 	</bean>
 	
-	<bean id="message2" class="domain.Message">
+	<bean id="message2" class="domain.MessageEmail">
 		<property name="subject" value="Re:Duda"/>
 		<property name="text" value="Si, pero solo los domingos"/>
 		<property name="deletedForSender" value="false"/>
@@ -784,7 +784,7 @@
 		<property name="recipient" ref="customer1"/>
 	</bean>
 	
-	<bean id="message3" class="domain.Message">
+	<bean id="message3" class="domain.MessageEmail">
 		<property name="subject" value="MarioKart 8"/>
 		<property name="text" value="Podriamos comprarnos este juego"/>
 		<property name="deletedForSender" value="false"/>
@@ -798,7 +798,7 @@
 		<property name="recipient" ref="customer2"/>
 	</bean>
 	
-	<bean id="message4" class="domain.Message">
+	<bean id="message4" class="domain.MessageEmail">
 		<property name="subject" value="Re: MarioKart 8"/>
 		<property name="text" value="¡Vale!"/>
 		<property name="deletedForSender" value="false"/>
@@ -812,7 +812,7 @@
 		<property name="recipient" ref="customer1"/>
 	</bean>
 	
-	<bean id="message5" class="domain.Message">
+	<bean id="message5" class="domain.MessageEmail">
 		<property name="subject" value="Re:Re: MarioKart 8"/>
 		<property name="text" value="Jugaré con Bowser"/>
 		<property name="deletedForSender" value="false"/>
