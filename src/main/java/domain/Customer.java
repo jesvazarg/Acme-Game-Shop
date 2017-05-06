@@ -28,19 +28,19 @@ public class Customer extends Actor {
 
 
 	// Attributes -------------------------------------------------------------
-	private Date	birthday;
+	private Date	birthdate;
 
 
 	@Past
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	public Date getBirthday() {
-		return this.birthday;
+	public Date getBirthdate() {
+		return this.birthdate;
 	}
 
-	public void setBirthday(final Date birthday) {
-		this.birthday = birthday;
+	public void setBirthdate(final Date birthdate) {
+		this.birthdate = birthdate;
 	}
 
 

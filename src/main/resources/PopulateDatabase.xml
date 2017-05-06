@@ -185,7 +185,7 @@
 		<property name="surname" value="SurnameCustomer1" />
 		<property name="email" value="customer1@email.com" />
 		<property name="phone" value="1234" />
-		<property name="birthday" value="06/10/1980" />
+		<property name="birthdate" value="06/10/1980" />
 		<property name="userAccount" ref="userAccount6" />
 		<property name="shoppingCart" ref="shoppingCart1" />
 		<property name="creditCard" ref="creditCard3"/>
@@ -227,7 +227,7 @@
 		<property name="surname" value="SurnameCustomer2" />
 		<property name="email" value="customer2@email.com" />
 		<property name="phone" value="1232" />
-		<property name="birthday" value="06/10/1990" />
+		<property name="birthdate" value="06/10/1990" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="shoppingCart" ref="shoppingCart2" />
 		<property name="sentMessages">
@@ -263,7 +263,7 @@
 		<property name="surname" value="SurnameCustomer3" />
 		<property name="email" value="customer3@email.com" />
 		<property name="phone" value="1233" />
-		<property name="birthday" value="06/10/1999" />
+		<property name="birthdate" value="06/10/1999" />
 		<property name="userAccount" ref="userAccount8" />
 		<property name="shoppingCart" ref="shoppingCart3" />
 		<property name="sentMessages">
