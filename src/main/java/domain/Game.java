@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -46,6 +47,7 @@ public class Game extends DomainEntity {
 	}
 
 	@NotBlank
+	@Column(unique = true)
 	public String getTitle() {
 		return this.title;
 	}

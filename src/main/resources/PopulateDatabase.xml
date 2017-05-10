@@ -399,6 +399,53 @@
 		<property name="cvv" value="678"/>
 	</bean>
 	
+	<!-- Category -->
+	
+	<bean id="category1" class="domain.Category">
+		<property name="name" value="shooter" />
+		<property name="games">
+			<list>
+				
+			</list>
+		</property>
+	</bean>	
+	
+	<bean id="category2" class="domain.Category">
+		<property name="name" value="strategy" />
+		<property name="games">
+			<list>
+				
+			</list>
+		</property>
+	</bean>	
+	
+	<bean id="category3" class="domain.Category">
+		<property name="name" value="multiplayer" />
+		<property name="games">
+			<list>
+				
+			</list>
+		</property>
+	</bean>	
+	
+	<bean id="category4" class="domain.Category">
+		<property name="name" value="singel player" />
+		<property name="games">
+			<list>
+				
+			</list>
+		</property>
+	</bean>	
+	
+	<bean id="category5" class="domain.Category">
+		<property name="name" value="sport" />
+		<property name="games">
+			<list>
+				
+			</list>
+		</property>
+	</bean>	
+	
 	<!-- Game -->
 	
 	<bean id="game1" class="domain.Game">
@@ -411,12 +458,15 @@
 		<property name="developer" ref="developer1" />
 		<property name="reviews">
 			<list>
-				
+				<ref bean="review1" />
+				<ref bean="review2" />
+				<ref bean="review4" />
 			</list>
 		</property>
 		<property name="categories">
 			<list>
-				
+				<ref bean="category2" />
+				<ref bean="category4" />
 			</list>
 		</property>
 		<property name="comments">
@@ -447,7 +497,8 @@
 		<property name="developer" ref="developer2" />
 		<property name="reviews">
 			<list>
-				
+				<ref bean="review3" />
+				<ref bean="review5" />
 			</list>
 		</property>
 		<property name="categories">
@@ -487,7 +538,7 @@
 		</property>
 		<property name="categories">
 			<list>
-				
+				<ref bean="category3" />
 			</list>
 		</property>
 		<property name="comments">
@@ -659,35 +710,35 @@
 	
 	<!-- Discount -->	
 	
-	<!-- <bean id="discount1" class="domain.Discount">
-		<property name="code" value="" />
-		<property name="percentage" value="" />
-		<property name="used" value="" />
+	<bean id="discount1" class="domain.Discount">
+		<property name="code" value="U46-FEO-GU8" />
+		<property name="percentage" value="10" />
+		<property name="used" value="true" />
 	</bean>
 	
 	<bean id="discount2" class="domain.Discount">
-		<property name="code" value="" />
-		<property name="percentage" value="" />
-		<property name="used" value="" />
+		<property name="code" value="HRJ-732-J9W" />
+		<property name="percentage" value="25" />
+		<property name="used" value="false" />
 	</bean>
 	
 	<bean id="discount3" class="domain.Discount">
-		<property name="code" value="" />
-		<property name="percentage" value="" />
-		<property name="used" value="" />
+		<property name="code" value="J9W-1FK-NKK" />
+		<property name="percentage" value="50" />
+		<property name="used" value="true" />
 	</bean>
 	
 	<bean id="discount4" class="domain.Discount">
-		<property name="code" value="" />
-		<property name="percentage" value="" />
-		<property name="used" value="" />
+		<property name="code" value="EJ9-HT9-H8F" />
+		<property name="percentage" value="50" />
+		<property name="used" value="false" />
 	</bean>
 	
 	<bean id="discount5" class="domain.Discount">
-		<property name="code" value="" />
-		<property name="percentage" value="" />
-		<property name="used" value="" />
-	</bean> -->
+		<property name="code" value="KN0-13F-JBE" />
+		<property name="percentage" value="75" />
+		<property name="used" value="false" />
+	</bean>
 	
 	<!-- Critic -->	
 	
@@ -710,7 +761,9 @@
 		</property>
 		<property name="reviews">
 			<list>
-				
+				<ref bean="review1" />
+				<ref bean="review2" />
+				<ref bean="review3" />
 			</list>
 		</property>
 	</bean>
@@ -734,7 +787,8 @@
 		</property>
 		<property name="reviews">
 			<list>
-				
+				<ref bean="review4" />
+				<ref bean="review5" />
 			</list>
 		</property>
 	</bean>
@@ -761,6 +815,58 @@
 				
 			</list>
 		</property>
+	</bean>
+	
+	<!-- Review -->	
+	
+	<bean id="review1" class="domain.Review">
+		<property name="title" value="Mojonazo" />
+		<property name="description" value="Este juego no vale na de na." />
+		<property name="moment" value="04/27/2017 12:30" />
+		<property name="score" value="1" />
+		<property name="draft" value="true" />
+		<property name="critic" ref="critic1" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+	<bean id="review2" class="domain.Review">
+		<property name="title" value="Poca chicha" />
+		<property name="description" value="Este juego se ve algo flojo." />
+		<property name="moment" value="05/02/2017 14:07" />
+		<property name="score" value="3" />
+		<property name="draft" value="false" />
+		<property name="critic" ref="critic1" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+	<bean id="review3" class="domain.Review">
+		<property name="title" value="Nombre increible" />
+		<property name="description" value="Me gusta las cosas satánicas." />
+		<property name="moment" value="05/10/2017 10:46" />
+		<property name="score" value="7" />
+		<property name="draft" value="false" />
+		<property name="critic" ref="critic1" />
+		<property name="game" ref="game2" />
+	</bean>
+	
+	<bean id="review4" class="domain.Review">
+		<property name="title" value="Gran experiencia" />
+		<property name="description" value="Es como si estuvieras dentro de la propia batalla." />
+		<property name="moment" value="05/09/2017 18:22" />
+		<property name="score" value="9" />
+		<property name="draft" value="false" />
+		<property name="critic" ref="critic2" />
+		<property name="game" ref="game1" />
+	</bean>
+	
+	<bean id="review5" class="domain.Review">
+		<property name="title" value="Repetitivo" />
+		<property name="description" value="No tiene mucha variedad y se te hace repetitivo." />
+		<property name="moment" value="05/10/2017 09:02" />
+		<property name="score" value="3" />
+		<property name="draft" value="true" />
+		<property name="critic" ref="critic2" />
+		<property name="game" ref="game2" />
 	</bean>
 	
 	<!-- Message -->

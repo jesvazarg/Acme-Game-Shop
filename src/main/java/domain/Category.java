@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.validation.Valid;
@@ -29,6 +30,7 @@ public class Category extends DomainEntity {
 
 
 	@NotBlank
+	@Column(unique = true)
 	public String getName() {
 		return this.name;
 	}
