@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,12 @@ public class ReceiptService {
 	public Receipt create() {
 		final Receipt result = new Receipt();
 		result.setCustomer(this.customerService.findByPrincipal());
+		Calendar calendar;
+
+		calendar = Calendar.getInstance();
+		calendar.set(Calendar.MILLISECOND, -10);
+
+		result.setMoment(calendar.getTime());
 
 		/* OrderedGames */
 		final Collection<OrderedGames> orderedGames = new ArrayList<OrderedGames>();

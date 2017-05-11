@@ -30,8 +30,10 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository	customerRepository;
 
-
 	// Supporting services ----------------------------------------------------
+	@Autowired
+	private ShoppingCartService	shoppingCartService;
+
 
 	// Constructors -----------------------------------------------------------
 	public CustomerService() {
@@ -98,6 +100,18 @@ public class CustomerService {
 		Assert.notNull(customer);
 		Customer result;
 
+		result = this.customerRepository.save(customer);
+		return result;
+	}
+
+	public Customer saveRegister(final Customer customer) {
+		Assert.notNull(customer);
+		Customer result;
+		ShoppingCart shoppingCart;
+
+		shoppingCart = this.shoppingCartService.create();
+		shoppingCart = this.shoppingCartService.saveRegister(shoppingCart);
+		customer.setShoppingCart(shoppingCart);
 		result = this.customerRepository.save(customer);
 		return result;
 	}
