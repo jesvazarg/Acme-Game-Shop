@@ -155,4 +155,24 @@ public class DeveloperService {
 		return password;
 	}
 
+	public Collection<Developer> developerMoreSells() {
+		return this.developerRepository.developerMoreSells();
+	}
+
+	public Collection<Developer> developerLessSells() {
+		return this.developerRepository.developerLessSells();
+	}
+
+	public Double avgDeveloperPerSellGames() {
+		return this.developerRepository.avgDeveloperPerSellGames();
+	}
+
+	public Collection<Developer> developerWithGameBetterReview() {
+		return this.developerRepository.developerWithGameBetterReview();
+	}
+
+	public Collection<Developer> developerWithGameWorstReview() {
+		return this.developerRepository.developerWithGameWorstReview();
+	}
+
 }

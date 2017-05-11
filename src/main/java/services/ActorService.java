@@ -194,4 +194,8 @@ public class ActorService {
 	//
 	//		return result;
 	//	}
+
+	public Double[] minAvgMaxMessagesReceived() {
+		return this.actorRepository.minAvgMaxMessagesReceived();
+	}
 }

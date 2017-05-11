@@ -114,4 +114,16 @@ public class GameService {
 		return result;
 	}
 
+	public Collection<Game> gameMoreLikes() {
+		return this.gameRepository.gameMoreLikes();
+	}
+
+	public Collection<Game> gameLessLikes() {
+		return this.gameRepository.gameLessLikes();
+	}
+
+	public Collection<Game> gamesMoreThatAVG() {
+		return this.gameRepository.gamesMoreThatAVG();
+	}
+
 }
