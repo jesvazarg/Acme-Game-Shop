@@ -9,7 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.CategoryRepository;
+import security.Authority;
+import domain.Actor;
 import domain.Category;
+import domain.Game;
 
 @Service
 @Transactional
@@ -22,6 +25,15 @@ public class CategoryService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private AdministratorService	administratorService;
+
+	@Autowired
+	private DeveloperService		developerService;
+
+	@Autowired
+	private GameService				gameService;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	// Constructors------------------------------------------------------------
@@ -60,9 +72,11 @@ public class CategoryService {
 	public Category save(final Category category) {
 		Assert.notNull(category);
 		Category result;
+		Actor principal;
 
-		Assert.notNull(this.administratorService.findByPrincipal());
-		Assert.isTrue(category.getGames().size() == 0);
+		principal = this.actorService.findByPrincipal();
+		if (this.actorService.checkAuthority(principal, Authority.ADMIN))
+			Assert.isTrue(category.getGames().size() == 0);
 
 		result = this.categoryRepository.save(category);
 
@@ -80,5 +94,83 @@ public class CategoryService {
 	}
 
 	// Other business methods -------------------------------------------------
+
+	//Este método no realiza un save por lo que se tendrá que hacer en el controlador
+	//Además se deberá realizar otro save para cada categoría
+	//No se realiza por si se añade una categoria al crear un juego
+	public Game addCategoryWoS(final Category category, final Game game) {
+		Collection<Category> categories;
+
+		Assert.notNull(category);
+		Assert.notNull(game);
+		Assert.notNull(this.developerService.findByPrincipal());
+		Assert.isTrue(!game.getCategories().contains(category));
+
+		categories = game.getCategories();
+		categories.add(category);
+		game.setCategories(categories);
+
+		return game;
+	}
+
+	//Leer las notaciones del método addCategoryWoS
+	public Game deleteCategoryWoS(final Category category, final Game game) {
+		Collection<Category> categories;
+
+		Assert.notNull(category);
+		Assert.notNull(game);
+		Assert.notNull(this.developerService.findByPrincipal());
+		Assert.isTrue(game.getCategories().contains(category));
+
+		categories = game.getCategories();
+		categories.remove(category);
+		game.setCategories(categories);
+
+		return game;
+	}
+
+	public void addCategory(final Category category, final Game game) {
+		Collection<Category> categories;
+		Collection<Game> games;
+
+		Assert.notNull(category);
+		Assert.notNull(game);
+		Assert.notNull(this.developerService.findByPrincipal());
+		Assert.isTrue(!game.getCategories().contains(category));
+
+		categories = game.getCategories();
+		categories.add(category);
+		game.setCategories(categories);
+		this.gameService.save(game);
+
+		Assert.isTrue(!category.getGames().contains(game));
+
+		games = category.getGames();
+		games.add(game);
+		category.setGames(games);
+		this.save(category);
+	}
+
+	public void deleteCategory(final Category category, final Game game) {
+		Collection<Category> categories;
+		Collection<Game> games;
+
+		Assert.notNull(category);
+		Assert.notNull(game);
+		Assert.notNull(this.developerService.findByPrincipal());
+		Assert.isTrue(game.getCategories().contains(category));
+
+		categories = game.getCategories();
+		categories.remove(category);
+		game.setCategories(categories);
+		this.gameService.save(game);
+
+		Assert.isTrue(category.getGames().contains(game));
+
+		games = category.getGames();
+		games.remove(game);
+		category.setGames(games);
+		this.save(category);
+	}
 
 }

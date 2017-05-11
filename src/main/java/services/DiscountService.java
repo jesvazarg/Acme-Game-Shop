@@ -110,6 +110,7 @@ public class DiscountService {
 
 		result = buffer.toString();
 
+		return result;
 	}
 
 }

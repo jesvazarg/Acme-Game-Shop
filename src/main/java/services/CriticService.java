@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -17,6 +18,7 @@ import domain.Administrator;
 import domain.Critic;
 import domain.MessageEmail;
 import domain.Review;
+import forms.CriticForm;
 
 @Service
 @Transactional
@@ -117,6 +119,51 @@ public class CriticService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public Critic reconstructProfile(final CriticForm criticForm, final String type) {
+		Assert.notNull(criticForm);
+		Critic critic = null;
+		Md5PasswordEncoder encoder;
+		String password;
+
+		Assert.isTrue(criticForm.getPassword().equals(criticForm.getConfirmPassword()));
+
+		if (type.equals("create")) {
+			critic = this.create();
+			Assert.isTrue(criticForm.getIsAgree());
+		} else if (type.equals("edit"))
+			critic = this.findByPrincipal();
+
+		password = criticForm.getPassword();
+
+		encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
+
+		critic.getUserAccount().setUsername(criticForm.getUsername());
+		critic.getUserAccount().setPassword(password);
+		critic.setName(criticForm.getName());
+		critic.setSurname(criticForm.getSurname());
+		critic.setEmail(criticForm.getEmail());
+		critic.setPhone(criticForm.getPhone());
+		critic.setMagazine(criticForm.getMagazine());
+
+		return critic;
+	}
+	public CriticForm constructProfile(final Critic critic) {
+		Assert.notNull(critic);
+		CriticForm criticForm;
+
+		criticForm = new CriticForm();
+		criticForm.setUsername(critic.getUserAccount().getUsername());
+		criticForm.setPassword(critic.getUserAccount().getPassword());
+		criticForm.setName(critic.getName());
+		criticForm.setSurname(critic.getSurname());
+		criticForm.setEmail(critic.getEmail());
+		criticForm.setPhone(critic.getPhone());
+		criticForm.setMagazine(critic.getMagazine());
+
+		return criticForm;
 	}
 
 }
