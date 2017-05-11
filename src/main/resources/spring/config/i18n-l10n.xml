@@ -29,6 +29,10 @@
 		<value>/views/customer/messages</value>
 		<value>/views/profile/messages</value>
 		<value>/views/review/messages</value>
+		<value>/views/receipt/messages</value>
+		<value>/views/orderedGames/messages</value>
+		<value>/views/comment/messages</value>
+		<value>/views/shoppingCart/messages</value>
 	</util:list>
 
 </beans>

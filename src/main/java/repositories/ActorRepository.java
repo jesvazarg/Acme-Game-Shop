@@ -18,7 +18,7 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	Double[] minAvgMaxMessagesSent();
 
 	//A2: El mínimo, media y máximo de número de mensajes recibidos por actor
-	@Query("select min(a.receivedMessages.size), avg(a.receivedMessages.size), max(a.receivedMessages.size) from Actor a;")
+	@Query("select min(a.receivedMessages.size), avg(a.receivedMessages.size), max(a.receivedMessages.size) from Actor a")
 	Double[] minAvgMaxMessagesReceived();
 
 }
