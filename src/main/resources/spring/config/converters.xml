@@ -29,6 +29,12 @@
 		<bean class="converters.CriticToStringConverter" />
 		<bean class="converters.DiscountToStringConverter" />
 		<bean class="converters.ReviewToStringConverter" />
+		<bean class="converters.CustomerToStringConverter" />
+		<bean class="converters.ReceiptToStringConverter" />
+		<bean class="converters.OrderedGamesToStringConverter" />
+		<bean class="converters.CommentToStringConverter" />
+		<bean class="converters.SenseToStringConverter" />
+		<bean class="converters.ShoppingCartToStringConverter" />
 		
 		<bean class="converters.StringToAdministratorConverter" /> 
 		<bean class="converters.StringToBannerConverter" /> 
@@ -36,6 +42,12 @@
 		<bean class="converters.StringToCriticConverter" /> 
 		<bean class="converters.StringToDiscountConverter" /> 
 		<bean class="converters.StringToReviewConverter" /> 
+		<bean class="converters.StringToCustomerConverter" /> 
+		<bean class="converters.StringToReceiptConverter" /> 
+		<bean class="converters.StringToOrderedGamesConverter" /> 
+		<bean class="converters.StringToCommentConverter" /> 
+		<bean class="converters.StringToSenseConverter" /> 
+		<bean class="converters.StringToShoppingCartConverter" /> 
 		
 	</util:list>
 	
