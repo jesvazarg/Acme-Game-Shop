@@ -75,6 +75,7 @@ public class CategoryService {
 		Actor principal;
 
 		principal = this.actorService.findByPrincipal();
+		Assert.isTrue((this.actorService.checkAuthority(principal, Authority.ADMIN)) || (this.actorService.checkAuthority(principal, Authority.DEVELOPER)));
 		if (this.actorService.checkAuthority(principal, Authority.ADMIN))
 			Assert.isTrue(category.getGames().size() == 0);
 

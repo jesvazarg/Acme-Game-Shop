@@ -17,7 +17,7 @@
 	<acme:input code="critic.phone" path="phone" />
 	<acme:input code="critic.magazine" path="picture" />
 	
-	<jstl:if test="${requestURI == 'chorbi/create.do'}">
+	<jstl:if test="${requestURI == 'critic/create.do'}">
 		<br/>
 		<form:checkbox path="isAgree"/>
 		<form:label path="isAgree">
