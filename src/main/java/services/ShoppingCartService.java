@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ShoppingCartRepository;
+import domain.Customer;
 import domain.Game;
 import domain.OrderedGames;
 import domain.Receipt;
@@ -88,7 +89,7 @@ public class ShoppingCartService {
 
 		gamesInCart = shoppingCart.getGames();
 
-		if (!gamesInCart.contains(game))
+		if (!gamesInCart.contains(game) && !this.haveGame(game))
 			gamesInCart.add(game);
 		shoppingCart.setGames(gamesInCart);
 		shoppingCart = this.save(shoppingCart);
@@ -96,7 +97,6 @@ public class ShoppingCartService {
 		return shoppingCart;
 
 	}
-
 	public ShoppingCart removeGameToShoppingCart(final Game game) {
 		Assert.notNull(game);
 		ShoppingCart shoppingCart;
@@ -134,5 +134,22 @@ public class ShoppingCartService {
 		final Collection<Game> gamesEmpty = new ArrayList<Game>();
 		shoppingCart.setGames(gamesEmpty);
 		this.save(shoppingCart);
+	}
+
+	public Boolean haveGame(final Game game) {
+		Boolean result = false;
+		Customer customer;
+		final Collection<OrderedGames> orderedGames = new ArrayList<OrderedGames>();
+
+		customer = this.customerService.findByPrincipal();
+		for (final Receipt aux : customer.getReceipts())
+			orderedGames.addAll(aux.getOrderedGames());
+
+		for (final OrderedGames aux1 : orderedGames)
+			if (game.getTitle().equals(aux1.getTitle())) {
+				result = true;
+				break;
+			}
+		return result;
 	}
 }
