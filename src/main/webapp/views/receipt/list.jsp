@@ -15,5 +15,15 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<p><spring:message code="profile.action.2" /></p>
+<display:table name="${receipts}" id="receipt" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
+	<acme:column code="receipt.moment" property="moment" format="{0,date,dd-MM-yyyy HH:mm}" sortable="false"/>
+	
+	<display:column >
+		<a href="receipt/customer/display.do?receiptId=${receipt.id}"><spring:message code="receipt.display"/></a>
+	</display:column>
+	
+</display:table>

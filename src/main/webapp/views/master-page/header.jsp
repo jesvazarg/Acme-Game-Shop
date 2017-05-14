@@ -41,6 +41,7 @@
 		
 		<security:authorize access="hasRole('CUSTOMER')">
 			<li><a href="shoppingCart/customer/display.do"><spring:message	code="master.page.customer.shoppingCart" /></a></li>
+			<li><a href="receipt/customer/list.do"><spring:message	code="master.page.customer.receipt.list" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
