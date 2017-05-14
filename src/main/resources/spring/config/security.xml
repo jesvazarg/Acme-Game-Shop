@@ -53,7 +53,8 @@
 		<security:intercept-url pattern="/receipt/customer/list.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/receipt/customer/display.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/sense/customer/like.do" access="hasRole('CUSTOMER')" /> 
-		<security:intercept-url pattern="/sense/customer/dislike.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/sense/customer/dislike.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/comment/customer/create.do" access="hasRole('CUSTOMER')" /> 
 
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
