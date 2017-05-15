@@ -23,11 +23,16 @@
 			<bean class="converters.Class1ToClass2" /> 
 		-->
 		
+		<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.AdministratorToStringConverter" />
 		<bean class="converters.BannerToStringConverter" />
 		<bean class="converters.CategoryToStringConverter" />
+		<bean class="converters.CreditCardToStringConverter" />
 		<bean class="converters.CriticToStringConverter" />
+		<bean class="converters.DeveloperToStringConverter" />
 		<bean class="converters.DiscountToStringConverter" />
+		<bean class="converters.GameToStringConverter" />
+		<!-- <bean class="converters.MessageEmailToStringConverter" /> -->
 		<bean class="converters.ReviewToStringConverter" />
 		<bean class="converters.CustomerToStringConverter" />
 		<bean class="converters.ReceiptToStringConverter" />
@@ -36,11 +41,16 @@
 		<bean class="converters.SenseToStringConverter" />
 		<bean class="converters.ShoppingCartToStringConverter" />
 		
+		<bean class="converters.StringToActorConverter" /> 
 		<bean class="converters.StringToAdministratorConverter" /> 
 		<bean class="converters.StringToBannerConverter" /> 
 		<bean class="converters.StringToCategoryConverter" /> 
+		<bean class="converters.StringToCreditCardConverter" /> 
 		<bean class="converters.StringToCriticConverter" /> 
+		<bean class="converters.StringToDeveloperConverter" /> 
 		<bean class="converters.StringToDiscountConverter" /> 
+		<bean class="converters.StringToGameConverter" /> 
+		<bean class="converters.StringToMessageEmailConverter" /> 
 		<bean class="converters.StringToReviewConverter" /> 
 		<bean class="converters.StringToCustomerConverter" /> 
 		<bean class="converters.StringToReceiptConverter" /> 

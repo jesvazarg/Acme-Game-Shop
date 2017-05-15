@@ -27,6 +27,7 @@
 		<value>/views/category/messages</value>
 		<value>/views/critic/messages</value>
 		<value>/views/customer/messages</value>
+		<value>/views/messageEmail/messages</value>
 		<value>/views/profile/messages</value>
 		<value>/views/review/messages</value>
 		<value>/views/receipt/messages</value>
