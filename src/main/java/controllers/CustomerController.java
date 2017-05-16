@@ -73,6 +73,42 @@ public class CustomerController extends AbstractController {
 		return result;
 	}
 
+	// Edition ---------------------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		CreateCustomerForm createCustomerForm;
+		Customer customer;
+
+		customer = this.customerService.findByPrincipal();
+		createCustomerForm = this.customerService.constructProfile(customer);
+		result = this.editionEditModelAndView(createCustomerForm);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveEdit(@Valid final CreateCustomerForm createCustomerForm, final BindingResult binding) {
+
+		ModelAndView result;
+		Customer customer;
+
+		if (binding.hasErrors())
+			result = this.editionEditModelAndView(createCustomerForm);
+		else
+			try {
+				customer = this.customerService.reconstructProfile(createCustomerForm, "edit");
+				this.customerService.save(customer);
+				result = new ModelAndView("redirect:/welcome/index.do");
+
+			} catch (final Throwable oops) {
+				result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error");
+
+			}
+		return result;
+	}
+
 	// Ancillary methods ------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final CreateCustomerForm createCustomerForm) {
 		ModelAndView result;
@@ -88,6 +124,25 @@ public class CustomerController extends AbstractController {
 		result = new ModelAndView("customer/create");
 		result.addObject("createCustomerForm", createCustomerForm);
 		result.addObject("requestURI", "customer/create.do");
+		result.addObject("message", message);
+
+		return result;
+	}
+
+	protected ModelAndView editionEditModelAndView(final CreateCustomerForm createCustomerForm) {
+		ModelAndView result;
+
+		result = this.editionEditModelAndView(createCustomerForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView editionEditModelAndView(final CreateCustomerForm createCustomerForm, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("customer/edit");
+		result.addObject("createCustomerForm", createCustomerForm);
+		result.addObject("requestURI", "customer/edit.do");
 		result.addObject("message", message);
 
 		return result;

@@ -10,21 +10,53 @@
 
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import security.Authority;
+import services.ActorService;
+import domain.Actor;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileController extends AbstractController {
 
+	// Service ---------------------------------------------------------------
+	@Autowired
+	private ActorService	actorService;
+
+
 	// Action-1 ---------------------------------------------------------------		
 
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
+	@RequestMapping(value = "/myProfile", method = RequestMethod.GET)
+	public ModelAndView displayMyProfile() {
 		ModelAndView result;
+		Actor actor;
+		Boolean isCustomer = false;
+		Boolean isDeveloper = false;
+		Boolean isCritic = false;
+		String account = "";
 
-		result = new ModelAndView("profile/action-1");
+		actor = this.actorService.findByPrincipal();
+
+		result = new ModelAndView("profile/display");
+
+		isCustomer = this.actorService.checkAuthority(actor, Authority.CUSTOMER);
+		if (isCustomer)
+			account = "customer";
+		isDeveloper = this.actorService.checkAuthority(actor, Authority.DEVELOPER);
+		if (isDeveloper)
+			account = "developer";
+		isCritic = this.actorService.checkAuthority(actor, Authority.CRITIC);
+		if (isCritic)
+			account = "critic";
+
+		result.addObject("profile", actor);
+		result.addObject("account", account);
+		result.addObject("requestURI", "profile/display");
 
 		return result;
 	}
