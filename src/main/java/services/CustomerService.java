@@ -2,7 +2,9 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -16,6 +18,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Comment;
 import domain.Customer;
+import domain.Game;
 import domain.MessageEmail;
 import domain.Receipt;
 import domain.Sense;
@@ -184,6 +187,30 @@ public class CustomerService {
 		createCustomerForm.setBirthdate(customer.getBirthdate());
 
 		return createCustomerForm;
+	}
+
+	@SuppressWarnings("deprecation")
+	public Integer edadCustomer(final Customer customer) {
+		Assert.notNull(customer);
+		Integer result;
+		Date calendarHoy;
+		Date cumple;
+
+		cumple = customer.getBirthdate();
+		calendarHoy = Calendar.getInstance().getTime();
+
+		result = calendarHoy.getYear() - cumple.getYear();
+		return result;
+	}
+
+	public Boolean canBuyThisGame(final Customer customer, final Game game) {
+		Assert.notNull(customer);
+		Assert.notNull(game);
+		Boolean result = false;
+
+		if (this.edadCustomer(customer) >= game.getAge())
+			result = true;
+		return result;
 	}
 
 }

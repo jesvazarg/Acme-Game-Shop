@@ -89,7 +89,7 @@ public class ShoppingCartService {
 
 		gamesInCart = shoppingCart.getGames();
 
-		if (!gamesInCart.contains(game) && !this.haveGame(game))
+		if (!gamesInCart.contains(game) && !this.haveGame(game) && this.customerService.canBuyThisGame(this.customerService.findByPrincipal(), game))
 			gamesInCart.add(game);
 		shoppingCart.setGames(gamesInCart);
 		shoppingCart = this.save(shoppingCart);
@@ -116,6 +116,7 @@ public class ShoppingCartService {
 
 	public void buyGamesInShoppingCart(final ShoppingCart shoppingCart) {
 		Assert.notNull(shoppingCart);
+		final Customer customer = this.customerService.findByPrincipal();
 
 		final Collection<Game> games = shoppingCart.getGames();
 
@@ -125,6 +126,7 @@ public class ShoppingCartService {
 
 		/* Ordered Games */
 		for (final Game aux : games) {
+			Assert.isTrue(this.customerService.canBuyThisGame(customer, aux));
 			final OrderedGames orderedGames = this.orderedGamesService.create();
 			orderedGames.setTitle(aux.getTitle());
 			orderedGames.setPrice(aux.getPrice());

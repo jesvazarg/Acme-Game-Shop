@@ -65,7 +65,9 @@
 		<security:intercept-url pattern="/sense/customer/like.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/sense/customer/dislike.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/comment/customer/create.do" access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/customer/edit.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/customer/edit.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/shoppingCart/customer/addGame.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/shoppingCart/customer/removeGame.do" access="hasRole('CUSTOMER')" /> 
 
 		<security:intercept-url pattern="/profile/action-1.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 

@@ -689,8 +689,8 @@
 	<bean id="shoppingCart3" class="domain.ShoppingCart">
 		<property name="games">
 			<list>
-				<ref bean="game1" />
-				<ref bean="game2" />
+				<!-- <ref bean="game1" />
+				<ref bean="game2" /> -->
 			</list>
 		</property>
 	</bean>
