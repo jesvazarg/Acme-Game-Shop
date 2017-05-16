@@ -19,7 +19,7 @@ import domain.Comment;
 import domain.Game;
 
 @Controller
-@RequestMapping("/receipt/customer")
+@RequestMapping("/comment/customer")
 public class CommentCustomerController extends AbstractController {
 
 	// Service ---------------------------------------------------------------
