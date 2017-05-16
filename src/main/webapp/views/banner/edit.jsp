@@ -7,14 +7,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form method="post" action="category/administrator/edit.do" modelAttribute="category" >
+<form:form method="post" action="banner/administrator/edit.do" modelAttribute="banner" >
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="games" />
 	
-	<acme:input code="category.name" path="name" />
+	<acme:input code="banner.picture" path="picture" />
 	
-	<acme:submit name="save" code="category.save" />
-	<acme:cancel url="category/administrator/list.do" code="category.cancel" />
+	<acme:submit name="save" code="banner.save" />
+	<acme:cancel url="banner/administrator/list.do" code="banner.cancel" />
 </form:form>

@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,6 +80,19 @@ public class BannerService {
 
 	// Other business methods -------------------------------------------------
 
-	//Crear método para obtener un único banner para mostrar y controlar de que no muestre nada si no hay ningún banner
+	public Banner getRandomBanner() {
+		Banner result = null;
+		List<Banner> banners;
+		Integer index;
+
+		banners = this.bannerRepository.findAll();
+		if (banners.size() > 0) {
+			index = (int) (Math.random() * banners.size());
+			result = banners.get(index);
+		}
+
+		return result;
+
+	}
 
 }
