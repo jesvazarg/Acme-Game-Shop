@@ -90,12 +90,11 @@ public class Game extends DomainEntity {
 
 
 	// Relationships ----------------------------------------------------------
-	private Developer					developer;
-	private Collection<Review>			reviews;
-	private Collection<Category>		categories;
-	private Collection<Comment>			comments;
-	private Collection<Sense>			senses;
-	private Collection<ShoppingCart>	shoppingCarts;
+	private Developer				developer;
+	private Collection<Review>		reviews;
+	private Collection<Category>	categories;
+	private Collection<Comment>		comments;
+	private Collection<Sense>		senses;
 
 
 	@Valid
@@ -151,17 +150,6 @@ public class Game extends DomainEntity {
 
 	public void setSenses(final Collection<Sense> senses) {
 		this.senses = senses;
-	}
-
-	@Valid
-	@NotNull
-	@ManyToMany(mappedBy = "games")
-	public Collection<ShoppingCart> getShoppingCarts() {
-		return this.shoppingCarts;
-	}
-
-	public void setShoppingCarts(final Collection<ShoppingCart> shoppingCarts) {
-		this.shoppingCarts = shoppingCarts;
 	}
 
 }

@@ -45,6 +45,7 @@
 
 		<security:intercept-url pattern="/administrator/action-1.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/administrator/action-2.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/game/listNotAuth.do" access="permitAll" /> 
 		
 		<!-- CUSTOMER, DEVELOPER and ADMINISTRATOR -->
 		
@@ -56,6 +57,8 @@
 		<security:intercept-url pattern="/messageEmail/forward.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageEmail/delete.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/myProfile.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/game/list.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/game/display.do" access="isAuthenticated()" /> 
 
 		<!-- CUSTOMER -->
 		<security:intercept-url pattern="/shoppingCart/customer/display.do" access="hasRole('CUSTOMER')" /> 

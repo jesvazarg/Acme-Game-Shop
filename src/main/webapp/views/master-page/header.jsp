@@ -46,9 +46,21 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a href="game/listNotAuth.do"><spring:message	code="master.page.game.list" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
+			<li><a href="game/list.do"><spring:message	code="master.page.game.list" /></a></li>
+			
+			<li><a class="fNiv"><spring:message	code="master.page.messages" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="messageEmail/listIn.do"><spring:message code="master.page.messagesEmail.received" /></a></li>
+					<li><a href="messageEmail/listOut.do"><spring:message code="master.page.messagesEmail.sent" /></a></li>
+					
+				</ul>
+			</li>
+			
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
@@ -64,14 +76,7 @@
 				</ul>
 			</li>
 			
-			<li><a class="fNiv"><spring:message	code="master.page.messages" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="messageEmail/listIn.do"><spring:message code="master.page.messagesEmail.received" /></a></li>
-					<li><a href="messageEmail/listOut.do"><spring:message code="master.page.messagesEmail.sent" /></a></li>
-					
-				</ul>
-			</li>
+			
 		</security:authorize>
 	</ul>
 </div>

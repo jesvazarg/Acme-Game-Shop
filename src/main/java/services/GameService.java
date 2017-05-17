@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.GameRepository;
 import domain.Category;
 import domain.Comment;
+import domain.Customer;
 import domain.Developer;
 import domain.Game;
 import domain.Review;
@@ -28,6 +29,9 @@ public class GameService {
 
 	@Autowired
 	private DeveloperService	developerService;
+
+	@Autowired
+	private CustomerService		customerService;
 
 
 	// Supporting services ----------------------------------------------------
@@ -77,7 +81,6 @@ public class GameService {
 		result.setComments(comments);
 		result.setReviews(reviews);
 		result.setSenses(senses);
-		result.setShoppingCarts(shoppingCarts);
 		result.setDeveloper(developer);
 
 		return result;
@@ -111,6 +114,23 @@ public class GameService {
 		developer = this.developerService.findOne(developerId);
 		result = this.gameRepository.findByCustomerId(developer.getId());
 
+		return result;
+	}
+
+	public Collection<Game> findAllUnderThirteen() {
+		Collection<Game> result;
+		result = this.gameRepository.findAllUnderThirteen();
+		return result;
+	}
+
+	public Collection<Game> findByAge() {
+		Collection<Game> result;
+		final Customer customer = this.customerService.findByPrincipal();
+		//		if(customerService.edadCustomer(customer)>=18){
+		//			result = gameRepository.findAll();
+		//		}else{
+		result = this.gameRepository.findAllByAge(this.customerService.edadCustomer(customer));
+		//}
 		return result;
 	}
 

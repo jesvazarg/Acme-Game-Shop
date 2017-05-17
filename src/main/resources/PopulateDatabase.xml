@@ -480,11 +480,6 @@
 				<ref bean="sense4" />
 			</list>
 		</property>
-		<property name="shoppingCarts">
-			<list>
-				
-			</list>
-		</property>
 	</bean>	
 	
 	<bean id="game2" class="domain.Game">
@@ -516,11 +511,6 @@
 				<ref bean="sense2" />
 			</list>
 		</property>
-		<property name="shoppingCarts">
-			<list>
-				
-			</list>
-		</property>
 	</bean>	
 	
 	<bean id="game3" class="domain.Game">
@@ -549,11 +539,6 @@
 		<property name="senses">
 			<list>
 				<ref bean="sense3" />
-			</list>
-		</property>
-		<property name="shoppingCarts">
-			<list>
-				
 			</list>
 		</property>
 	</bean>	

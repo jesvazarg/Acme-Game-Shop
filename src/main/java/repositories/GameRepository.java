@@ -15,6 +15,12 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select g from Game g where g.developer.id=?1")
 	Collection<Game> findByCustomerId(int id);
 
+	@Query("select g from Game g where g.age<13")
+	Collection<Game> findAllUnderThirteen();
+
+	@Query("select g from Game g where g.age<=?1")
+	Collection<Game> findAllByAge(int age);
+
 	//C1: Los juegos que más "me gusta" tiene 
 	@Query("select distinct g from Game g join g.senses s where ((s.like=true) and (s.size=(select max(s.size) from Game g join g.senses s where s.like=true)))")
 	Collection<Game> gameMoreLikes();
