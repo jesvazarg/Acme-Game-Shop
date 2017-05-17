@@ -44,7 +44,7 @@
 </div>
 
 <security:authorize access="hasRole('DEVELOPER')">
-<form:form method="post" action="game/delete.do" modelAttribute="game" >
+<form:form method="post" action="developer/game/delete.do" modelAttribute="game" >
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
