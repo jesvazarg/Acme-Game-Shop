@@ -54,14 +54,13 @@ public class SenseCustomerController extends AbstractController {
 				sense = this.senseService.createLike(game);
 				this.senseService.save(sense);
 			}
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/game/list.do");
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/game/list.do");
 		}
 
 		return result;
 	}
-
 	// Dislike ----------------------------------------------------------------
 	@RequestMapping(value = "/dislike", method = RequestMethod.GET)
 	public ModelAndView dislike(@RequestParam final int gameId) {
@@ -81,9 +80,9 @@ public class SenseCustomerController extends AbstractController {
 				sense = this.senseService.createDislike(game);
 				this.senseService.save(sense);
 			}
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/game/list.do");
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/game/list.do");
 		}
 
 		return result;

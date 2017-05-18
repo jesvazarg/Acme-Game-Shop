@@ -25,6 +25,39 @@
 		</a>
 	</display:column>
 	
+		<security:authorize access="hasRole('CUSTOMER')">
+			<display:column style="width:150px">
+					<jstl:set var="haveLike" value="${false}"/>
+					<jstl:set var="haveDislike" value="${false}"/>
+					<jstl:if test="${!principal.senses.isEmpty()}">
+						<jstl:forEach var="sense" items="${principal.senses}">
+							<jstl:choose>
+								<jstl:when test="${senseList.contains(sense)}">
+									<jstl:if test="${sense.game.id==game.id}">
+										<jstl:if test="${sense.like==true}">
+											<jstl:set var="haveLike" value="${true}"/>
+										</jstl:if>
+										<jstl:if test="${sense.like==false}">
+											<jstl:set var="haveDislike" value="${true}"/>
+										</jstl:if>
+									</jstl:if>
+								</jstl:when>
+							</jstl:choose>
+						</jstl:forEach>
+					</jstl:if>
+					<jstl:if test="${haveLike==false}">
+						<li><a href="sense/customer/like.do?gameId=${game.id}">
+							<spring:message code="game.like"/>
+						</a></li>
+					</jstl:if>
+					<jstl:if test="${haveDislike==false}">
+						<li><a href="sense/customer/dislike.do?gameId=${game.id}">
+							<spring:message code="game.dislike"/></a></li>
+					</jstl:if>
+			</display:column>
+			
+	</security:authorize>
+	
 </display:table>
 
 
