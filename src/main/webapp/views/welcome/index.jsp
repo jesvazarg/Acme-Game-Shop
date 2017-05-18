@@ -19,3 +19,7 @@
 <p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
+
+<jstl:if test="${banner != null}">
+	<img src="${banner.picture}" style = "max-width: 300 px; max-height: 300px;"/>
+</jstl:if>

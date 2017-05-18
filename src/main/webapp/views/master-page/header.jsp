@@ -21,20 +21,21 @@
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
-				</ul>
-			</li>
+			<li><a href="category/administrator/list.do"><spring:message code="master.page.administrator.category.list" /></a></li>
+			<li><a href="banner/administrator/list.do"><spring:message code="master.page.administrator.banner.list" /></a></li>
+			<li><a href="discount/administrator/list.do"><spring:message code="master.page.administrator.discount.list" /></a></li>
+			<li><a href="critic/administrator/create.do"><spring:message code="master.page.administrator.critic.register" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('CRITIC')">
+			<li><a href="review/critic/list.do"><spring:message code="master.page.critic.review.list" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="customer/create.do"><spring:message code="master.page.customer.register" /></a></li>					
+					<li><a href="customer/create.do"><spring:message code="master.page.customer.register" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

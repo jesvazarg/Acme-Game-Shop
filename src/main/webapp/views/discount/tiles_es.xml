@@ -21,6 +21,11 @@
 		<put-attribute name="body" value="/views/discount/list.jsp" />
 	</definition>
 	
+	<definition name="discount/create" extends="master.page">	
+		<put-attribute name="title" value="Crear descuento" />
+		<put-attribute name="body" value="/views/discount/edit.jsp" />
+	</definition>
+	
 	<definition name="discount/edit" extends="master.page">	
 		<put-attribute name="title" value="Editar descuento" />
 		<put-attribute name="body" value="/views/discount/edit.jsp" />

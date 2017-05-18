@@ -9,7 +9,11 @@
 
 <display:table name="${banners}" id="banner" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 	
-	<acme:column code="banner.picture" property="picture" sortable="false"/>
+	<spring:message code="banner.picture" var="pictureHeader" />
+	<display:column title="${pictureHeader}">
+		<a href="${banner.picture}"><img src="${banner.picture}" style = "max-width: 100 px; max-height: 100px;"/></a>
+	</display:column>
+	
 	
 	<spring:message code="banner.edit" var="editHeader" />
 	<display:column title="${editHeader}">
