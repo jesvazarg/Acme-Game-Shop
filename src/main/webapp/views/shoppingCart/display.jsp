@@ -27,7 +27,16 @@
 	</display:column>
 </display:table>
 
-<jstl:if test="${not empty games }">
-		<a href="shoppingCart/customer/buy.do?"><spring:message code="shoppingCart.buy" /></a>
-</jstl:if>
+<form:form method="post" action="shoppingCart/customer/buy.do" modelAttribute="shoppingCart" >
+
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="games" />
+	
+	<jstl:if test="${not empty games }">
+		<input type="submit" name="save" value="<spring:message code="shoppingCart.buy" />" />&nbsp; 
+	</jstl:if>
+</form:form>
+
+
 
