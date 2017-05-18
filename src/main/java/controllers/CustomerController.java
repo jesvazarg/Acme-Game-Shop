@@ -66,13 +66,15 @@ public class CustomerController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				System.out.println(oops);
-				result = this.createEditModelAndView(createCustomerForm, "customer.commit.error");
-
+				if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
+					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.password");
+				else if (createCustomerForm.getIsAgree().equals(false))
+					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.isAgree");
+				else
+					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error");
 			}
 		return result;
 	}
-
 	// Edition ---------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -103,7 +105,10 @@ public class CustomerController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error");
+				if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
+					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error.password");
+				else
+					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error");
 
 			}
 		return result;

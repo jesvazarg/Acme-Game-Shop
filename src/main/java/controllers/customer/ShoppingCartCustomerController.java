@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CreditCardService;
 import services.CustomerService;
 import services.GameService;
 import services.ShoppingCartService;
 import controllers.AbstractController;
+import domain.Customer;
 import domain.Game;
 import domain.ShoppingCart;
 
@@ -33,6 +35,9 @@ public class ShoppingCartCustomerController extends AbstractController {
 
 	@Autowired
 	private GameService			gameService;
+
+	@Autowired
+	private CreditCardService	creditCardService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -58,6 +63,7 @@ public class ShoppingCartCustomerController extends AbstractController {
 	@RequestMapping(value = "/buy", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final ShoppingCart shoppingCart, final BindingResult binding) {
 		ModelAndView result;
+		final Customer customer = this.customerService.findByPrincipal();
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(shoppingCart);
@@ -66,7 +72,15 @@ public class ShoppingCartCustomerController extends AbstractController {
 				this.shoppingCartService.buyGamesInShoppingCart(shoppingCart);
 				result = new ModelAndView("redirect:/shoppingCart/customer/display.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error");
+				/* Comprobacion si tiene tarjeta de credito valida */
+				try {
+					if (!(this.creditCardService.checkCreditCardBoolean(customer.getCreditCard())))
+						result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.creditCard");
+					else
+						result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error");
+				} catch (final Throwable juu) {
+					result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.creditCard");
+				}
 			}
 
 		return result;
