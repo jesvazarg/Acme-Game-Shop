@@ -34,6 +34,9 @@ public class ShoppingCartService {
 	@Autowired
 	private OrderedGamesService		orderedGamesService;
 
+	@Autowired
+	private CreditCardService		creditCardService;
+
 
 	// Constructors -----------------------------------------------------------
 	public ShoppingCartService() {
@@ -117,6 +120,7 @@ public class ShoppingCartService {
 	public void buyGamesInShoppingCart(final ShoppingCart shoppingCart) {
 		Assert.notNull(shoppingCart);
 		final Customer customer = this.customerService.findByPrincipal();
+		Assert.isTrue(this.creditCardService.checkCreditCardBoolean(customer.getCreditCard()));
 
 		final Collection<Game> games = shoppingCart.getGames();
 
