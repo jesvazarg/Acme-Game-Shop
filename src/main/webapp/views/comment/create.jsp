@@ -50,7 +50,7 @@
 	<acme:textarea code="comment.description" path="description" />
 	
 	<acme:submit name="save" code="comment.save" />
-	<acme:cancel url="game/customer/list.do" code="comment.cancel" />
+	<acme:cancel url="game/display.do?gameId=${comment.game.id}" code="comment.cancel" />
 </form:form>
 
 

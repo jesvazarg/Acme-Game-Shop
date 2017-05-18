@@ -90,3 +90,20 @@
 	</jstl:if>
 </form:form>
 </security:authorize>
+
+<h3><spring:message code="game.comments"/></h3>
+<display:table name="${game.comments}" id="comment" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
+	
+	<acme:column code="review.title" property="title" sortable="false"/>
+	<acme:column code="review.moment" property="moment" sortable="false"/>
+	<acme:column code="review.score" property="score" sortable="true"/>
+	
+	<spring:message code="review.display"/>
+	<display:column title="${displayHeader}">
+		<a href="comment/customer/display.do?commentId=${comment.id}"><spring:message code="review.display"/></a>
+	</display:column>
+	
+</display:table>
+
+<acme:button url="comment/customer/create.do?gameId=${game.id}" code="game.comment.create"/>
+

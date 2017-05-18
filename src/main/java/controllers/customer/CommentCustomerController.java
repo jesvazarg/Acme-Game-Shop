@@ -62,14 +62,13 @@ public class CommentCustomerController extends AbstractController {
 		else
 			try {
 				this.commentService.save(comment);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/game/display.do?gameId=" + comment.getGame().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(comment, "comment.commit.error");
 			}
 
 		return result;
 	}
-
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Comment comment) {

@@ -93,6 +93,7 @@ public class GameController extends AbstractController {
 		result = new ModelAndView("game/display");
 		result.addObject("game", game);
 		result.addObject("reviews", reviews);
+		result.addObject("requestURI", "game/list.do");
 
 		return result;
 	}
