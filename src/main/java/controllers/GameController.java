@@ -14,6 +14,7 @@ import services.ActorService;
 import services.GameService;
 import services.ReviewService;
 import services.SenseService;
+import services.ShoppingCartService;
 import domain.Actor;
 import domain.Game;
 import domain.Review;
@@ -26,16 +27,19 @@ public class GameController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private GameService		gameService;
+	private GameService			gameService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private ReviewService	reviewService;
+	private ReviewService		reviewService;
 
 	@Autowired
-	private SenseService	senseService;
+	private SenseService		senseService;
+
+	@Autowired
+	private ShoppingCartService	shoppingCartService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -84,14 +88,17 @@ public class GameController extends AbstractController {
 		ModelAndView result;
 		Game game;
 		Collection<Review> reviews;
+		Boolean canAddToShoppingcart;
 
 		final Actor actor = this.actorService.findByPrincipal();
 
 		game = this.gameService.findOne(gameId);
 		reviews = this.reviewService.findAllPublishedReview(gameId);
+		canAddToShoppingcart = this.shoppingCartService.canAddToShoppingCart(game);
 
 		result = new ModelAndView("game/display");
 		result.addObject("game", game);
+		result.addObject("canAddToShoppingcart", canAddToShoppingcart);
 		result.addObject("reviews", reviews);
 		result.addObject("requestURI", "game/list.do");
 

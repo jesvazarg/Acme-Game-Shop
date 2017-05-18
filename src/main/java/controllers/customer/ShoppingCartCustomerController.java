@@ -81,8 +81,7 @@ public class ShoppingCartCustomerController extends AbstractController {
 		game = this.gameService.findOne(gameId);
 		this.shoppingCartService.addGameToShoppingCart(game);
 
-		result = new ModelAndView("game/display");
-		result.addObject("game", game);
+		result = new ModelAndView("redirect:/game/display.do?gameId=" + gameId);
 
 		return result;
 	}
@@ -96,8 +95,7 @@ public class ShoppingCartCustomerController extends AbstractController {
 		game = this.gameService.findOne(gameId);
 		this.shoppingCartService.removeGameToShoppingCart(game);
 
-		result = new ModelAndView("game/display");
-		result.addObject("game", game);
+		result = new ModelAndView("redirect:/shoppingCart/customer/display.do");
 
 		return result;
 	}

@@ -105,5 +105,12 @@
 	
 </display:table>
 
-<acme:button url="comment/customer/create.do?gameId=${game.id}" code="game.comment.create"/>
+<security:authorize access="hasRole('CUSTOMER')">
 
+<acme:button url="comment/customer/create.do?gameId=${game.id}" code="game.comment.create"/>
+<br/>
+
+<jstl:if test="${canAddToShoppingcart==true}">
+<acme:button url="shoppingCart/customer/addGame.do?gameId=${game.id}" code="game.add.shoppingcart"/>
+</jstl:if>
+</security:authorize>

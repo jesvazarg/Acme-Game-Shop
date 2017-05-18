@@ -154,4 +154,30 @@ public class ShoppingCartService {
 			}
 		return result;
 	}
+
+	public Boolean canAddToShoppingCart(final Game game) {
+		Boolean result = true;
+		Customer customer;
+		ShoppingCart shoppingCart;
+		Collection<Game> gamesInCart;
+		final Collection<OrderedGames> orderedGames = new ArrayList<OrderedGames>();
+
+		customer = this.customerService.findByPrincipal();
+		shoppingCart = customer.getShoppingCart();
+		gamesInCart = shoppingCart.getGames();
+
+		for (final Receipt aux : customer.getReceipts())
+			orderedGames.addAll(aux.getOrderedGames());
+
+		for (final OrderedGames aux1 : orderedGames)
+			if (game.getTitle().equals(aux1.getTitle())) {
+				result = false;
+				break;
+			}
+		if (gamesInCart.contains(game) || !this.customerService.canBuyThisGame(customer, game))
+			result = false;
+
+		return result;
+
+	}
 }

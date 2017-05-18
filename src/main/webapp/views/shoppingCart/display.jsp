@@ -17,9 +17,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table name="${games}" id="games" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
+<display:table name="${games}" id="game" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 	<acme:column code="game.title" property="title" sortable="false"/>
 	<acme:column code="game.price" property="price" sortable="true"/>
+	<display:column>
+		<a href="shoppingCart/customer/removeGame.do?gameId=${game.id}"><spring:message
+		code="shoppingCart.remove"/>
+		</a>
+	</display:column>
 </display:table>
 
 <jstl:if test="${not empty games }">
