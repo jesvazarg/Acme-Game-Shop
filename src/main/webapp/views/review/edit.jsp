@@ -22,7 +22,7 @@
 		<spring:message code="review.score" />
 	</form:label>
 	<form:select path="score" >
-		<form:option value=" " label="----" /> 
+		<form:option value="-1" label="----" /> 
 		<form:option value="0" label="0" />
 		<form:option value="1" label="1" />
 		<form:option value="2" label="2" />
@@ -49,6 +49,9 @@
 	<acme:submit name="save" code="review.save" />
 	<jstl:if test="${review.id != 0}">
 		<acme:submit name="delete" code="review.delete" />
+		<acme:cancel url="review/display.do?reviewId=${review.id}" code="review.cancel" />
 	</jstl:if>
-	<acme:cancel url="game/display.do?gameId=${review.game.id}" code="review.cancel" />
+	<jstl:if test="${review.id == 0}">
+		<acme:cancel url="game/display.do?gameId=${review.game.id}" code="review.cancel" />
+	</jstl:if>
 </form:form>

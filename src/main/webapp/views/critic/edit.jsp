@@ -15,9 +15,9 @@
 	<acme:input code="critic.surname" path="surname" />
 	<acme:input code="critic.email" path="email" />
 	<acme:input code="critic.phone" path="phone" />
-	<acme:input code="critic.magazine" path="picture" />
+	<acme:input code="critic.magazine" path="magazine" />
 	
-	<jstl:if test="${requestURI == 'critic/create.do'}">
+	<jstl:if test="${requestURI == 'critic/administrator/create.do'}">
 		<br/>
 		<form:checkbox path="isAgree"/>
 		<form:label path="isAgree">

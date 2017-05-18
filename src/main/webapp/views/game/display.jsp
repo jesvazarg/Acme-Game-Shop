@@ -42,6 +42,28 @@
 	</ul>
 	
 </div>
+<h3><spring:message code="game.reviews"/></h3>
+<display:table name="${reviews}" id="review" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
+	
+	<acme:column code="review.title" property="title" sortable="true"/>
+	<acme:column code="review.moment" property="moment" sortable="true"/>
+	<acme:column code="review.score" property="score" sortable="true"/>
+	
+	<spring:message code="review.critic" var="criticHeader" />
+	<display:column title="${criticHeader}">
+		<a href="profile/display.do?actorId=${review.critic.id}"><jstl:out value="${review.critic.name}" /></a>
+	</display:column>
+	
+	<spring:message code="review.display" var="displayHeader" />
+	<display:column title="${displayHeader}" >
+		<a href="review/display.do?reviewId=${review.id}"><spring:message code="review.display"/></a>
+	</display:column>
+	
+</display:table>
+
+<security:authorize access="hasRole('CRITIC')">
+	<acme:button code="game.newReview" url="review/critic/create.do?gameId=${game.id}"/>
+</security:authorize>
 
 <security:authorize access="hasRole('DEVELOPER')">
 <form:form method="post" action="developer/game/delete.do" modelAttribute="game" >

@@ -22,8 +22,13 @@
 	</definition>
 	
 	<definition name="game/create" extends="master.page">	
+		<put-attribute name="title" value="Create game" />
+		<put-attribute name="body" value="/views/game/edit.jsp" />
+	</definition>
+	
+	<definition name="game/edit" extends="master.page">	
 		<put-attribute name="title" value="Edit game" />
-		<put-attribute name="body" value="/views/game/create.jsp" />
+		<put-attribute name="body" value="/views/game/edit.jsp" />
 	</definition>
 	
 	<definition name="game/list" extends="master.page">	

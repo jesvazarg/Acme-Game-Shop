@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.GameService;
+import services.ReviewService;
 import domain.Actor;
 import domain.Game;
+import domain.Review;
 
 @Controller
 @RequestMapping("/game")
@@ -26,6 +28,9 @@ public class GameController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private ReviewService	reviewService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -68,13 +73,16 @@ public class GameController extends AbstractController {
 	public ModelAndView display(@RequestParam final int gameId) {
 		ModelAndView result;
 		Game game;
+		Collection<Review> reviews;
 
 		final Actor actor = this.actorService.findByPrincipal();
 
 		game = this.gameService.findOne(gameId);
+		reviews = this.reviewService.findAllPublishedReview(gameId);
 
 		result = new ModelAndView("game/display");
 		result.addObject("game", game);
+		result.addObject("reviews", reviews);
 
 		return result;
 	}

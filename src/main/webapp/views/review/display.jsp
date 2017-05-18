@@ -23,7 +23,7 @@
 	
 	<ul>
 		<li>
-			<b><spring:message code="review.socre" />:</b>
+			<b><spring:message code="review.score" />:</b>
 			<jstl:out value="${review.score}" />
 		</li>
 		
@@ -44,9 +44,9 @@
 		
 	</ul>
 	
-	<security:authorize access="hasRole('CRITIC')">
+	<jstl:if test="${isCritic}">
 		<acme:button code="review.edit" url="review/critic/edit.do?reviewId=${review.id}"/>
-	</security:authorize>
+	</jstl:if>
 	
 </div>
 

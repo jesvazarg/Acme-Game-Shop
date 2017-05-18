@@ -41,6 +41,13 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select g1 from Game g1 where g1.sellsNumber=(select min(g.sellsNumber) from Game g)")
 	Collection<Game> findWorstSellerGames();
 
+	//C6: Los juegos con mayor y menor puntuación en sus comentarios.
+	//	@Query("")
+	//	Collection<Game> findGamesMostComments();
+	//
+	//	@Query("")
+	//	Collection<Game> findGamesLessComments();
+
 	//C10: Ratio de "me gusta" vs "no me gusta" por cada juego.
 
 	//C10.1 : "Me gusta"'s de un juego
@@ -51,5 +58,12 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select count(s) *1.0 from Game g join g.senses s where s.like=false and g.id=?1")
 	Double dislikeFromAGame(int gameId);
 	/* select (select count(s) from Sense s where s.like=true group by s.game)*1.0/count(s1) from Sense s1 where s1.like=false group by s1.game; */
+
+	//B1 Los juegos con mejores y peores críticas.
+	//	@Query("")
+	//	Collection<Game> findGamesMostReviews();
+	//
+	//	@Query("")
+	//	Collection<Game> findGamesLessReviews();
 
 }

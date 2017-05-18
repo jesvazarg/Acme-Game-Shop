@@ -86,13 +86,26 @@ public class CriticService {
 		return result;
 	}
 
-	public Critic save(final Critic critic) {
+	public Critic saveRegister(final Critic critic) {
 		Assert.notNull(critic);
 		Critic result;
 		Administrator principal;
 
 		principal = this.administratorService.findByPrincipal();
 		Assert.notNull(principal);
+
+		result = this.criticRepository.save(critic);
+		return result;
+	}
+
+	public Critic save(final Critic critic) {
+		Assert.notNull(critic);
+		Critic result;
+		Critic principal;
+
+		principal = this.findByPrincipal();
+		Assert.notNull(principal);
+		Assert.isTrue(critic.getId() == principal.getId());
 
 		result = this.criticRepository.save(critic);
 		return result;
