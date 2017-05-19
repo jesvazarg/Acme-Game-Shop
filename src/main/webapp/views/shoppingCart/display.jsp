@@ -27,16 +27,23 @@
 	</display:column>
 </display:table>
 
-<form:form method="post" action="shoppingCart/customer/buy.do" modelAttribute="shoppingCart" >
-
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="games" />
+<jstl:if test="${not empty games }">
+	<spring:message code="discount.code"/>
+	<input type="text" value="" id="code" />
+	<input type="button" id="buttonBuy"
+	value="<spring:message code="shoppingCart.buy"/>" />
 	
-	<jstl:if test="${not empty games }">
-		<input type="submit" name="save" value="<spring:message code="shoppingCart.buy" />" />&nbsp; 
-	</jstl:if>
-</form:form>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#buttonBuy").click(function(){
+				window.location.replace('shoppingCart/customer/buy.do?code=' + $("#code").val());
+			});
+			$("#buttonBuy").onsubmit(function(){
+				window.location.replace('shoppingCart/customer/buy.do?code=' + $("#code").val());
+			});
+		});
+	</script>
+</jstl:if>
 
 
 

@@ -117,7 +117,7 @@ public class ShoppingCartService {
 
 	}
 
-	public void buyGamesInShoppingCart(final ShoppingCart shoppingCart) {
+	public void buyGamesInShoppingCart(final ShoppingCart shoppingCart, final Integer percentage) {
 		Assert.notNull(shoppingCart);
 		final Customer customer = this.customerService.findByPrincipal();
 		Assert.isTrue(this.creditCardService.checkCreditCardBoolean(customer.getCreditCard()));
@@ -133,7 +133,7 @@ public class ShoppingCartService {
 			Assert.isTrue(this.customerService.canBuyThisGame(customer, aux));
 			final OrderedGames orderedGames = this.orderedGamesService.create();
 			orderedGames.setTitle(aux.getTitle());
-			orderedGames.setPrice(aux.getPrice());
+			orderedGames.setPrice(aux.getPrice() * ((100 - percentage) / 100.0));
 			orderedGames.setReceipt(receipt);
 			this.orderedGamesService.save(orderedGames);
 		}

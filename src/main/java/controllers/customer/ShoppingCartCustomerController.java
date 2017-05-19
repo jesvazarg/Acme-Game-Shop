@@ -3,11 +3,8 @@ package controllers.customer;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.CreditCardService;
 import services.CustomerService;
+import services.DiscountService;
 import services.GameService;
 import services.ShoppingCartService;
 import controllers.AbstractController;
 import domain.Customer;
+import domain.Discount;
 import domain.Game;
 import domain.ShoppingCart;
 
@@ -38,6 +37,9 @@ public class ShoppingCartCustomerController extends AbstractController {
 
 	@Autowired
 	private CreditCardService	creditCardService;
+
+	@Autowired
+	private DiscountService		discountService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -60,32 +62,64 @@ public class ShoppingCartCustomerController extends AbstractController {
 
 	// Buy games ---------------------------------------------------------------
 
-	@RequestMapping(value = "/buy", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final ShoppingCart shoppingCart, final BindingResult binding) {
-		ModelAndView result;
-		final Customer customer = this.customerService.findByPrincipal();
+	//	@RequestMapping(value = "/buy", method = RequestMethod.POST, params = "save")
+	//	public ModelAndView save(@Valid final ShoppingCart shoppingCart, final BindingResult binding) {
+	//		ModelAndView result;
+	//		final Customer customer = this.customerService.findByPrincipal();
+	//
+	//		if (binding.hasErrors())
+	//			result = this.createEditModelAndView(shoppingCart);
+	//		else
+	//			try {
+	//				this.shoppingCartService.buyGamesInShoppingCart(shoppingCart);
+	//				result = new ModelAndView("redirect:/shoppingCart/customer/display.do");
+	//			} catch (final Throwable oops) {
+	//				/* Comprobacion si tiene tarjeta de credito valida */
+	//				try {
+	//					if (!(this.creditCardService.checkCreditCardBoolean(customer.getCreditCard())))
+	//						result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.creditCard");
+	//					else
+	//						result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error");
+	//				} catch (final Throwable juu) {
+	//					result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.creditCard");
+	//				}
+	//			}
+	//
+	//		return result;
+	//	}
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(shoppingCart);
-		else
-			try {
-				this.shoppingCartService.buyGamesInShoppingCart(shoppingCart);
+	@RequestMapping(value = "/buy", method = RequestMethod.GET)
+	public ModelAndView searchButton(@RequestParam final String code) {
+		ModelAndView result;
+		Customer customer;
+		ShoppingCart shoppingCart;
+		Integer percentage = 0;
+
+		customer = this.customerService.findByPrincipal();
+		shoppingCart = customer.getShoppingCart();
+
+		if (customer.getCreditCard() == null)
+			result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.notCreditCard");
+		else if (!(this.creditCardService.checkCreditCardBoolean(customer.getCreditCard())))
+			result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.validCreditCard");
+		else if (code != "") {
+			Discount discount;
+			discount = this.discountService.getDiscountWithCode(code);
+			if (discount == null)
+				result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.discunt");
+			else {
+				percentage = discount.getPercentage();
+				this.shoppingCartService.buyGamesInShoppingCart(shoppingCart, percentage);
+				this.discountService.useDiscount(discount);
 				result = new ModelAndView("redirect:/shoppingCart/customer/display.do");
-			} catch (final Throwable oops) {
-				/* Comprobacion si tiene tarjeta de credito valida */
-				try {
-					if (!(this.creditCardService.checkCreditCardBoolean(customer.getCreditCard())))
-						result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.creditCard");
-					else
-						result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error");
-				} catch (final Throwable juu) {
-					result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.creditCard");
-				}
 			}
+		} else {
+			this.shoppingCartService.buyGamesInShoppingCart(shoppingCart, percentage);
+			result = new ModelAndView("redirect:/shoppingCart/customer/display.do");
+		}
 
 		return result;
 	}
-
 	// Add games -------------------------------------------------------------------
 	@RequestMapping(value = "/addGame", method = RequestMethod.GET)
 	public ModelAndView addGame(@RequestParam final int gameId) {

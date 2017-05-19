@@ -45,7 +45,7 @@
 			
 		 <li>	
 			<b><spring:message code="profile.birthDate" />:</b>
-			<fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${profile.birthdate}" />
+			<fmt:formatDate type="date" dateStyle="long" value="${profile.birthdate}" />
 		</li> 
 		
 		</jstl:if>

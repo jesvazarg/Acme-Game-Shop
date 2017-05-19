@@ -113,4 +113,8 @@ public class DiscountService {
 		return result;
 	}
 
+	public Discount getDiscountWithCode(final String code) {
+		return this.discountRepository.getDiscountWithCode(code);
+	}
+
 }
