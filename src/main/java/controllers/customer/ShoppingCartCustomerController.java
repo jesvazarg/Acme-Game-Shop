@@ -62,32 +62,6 @@ public class ShoppingCartCustomerController extends AbstractController {
 
 	// Buy games ---------------------------------------------------------------
 
-	//	@RequestMapping(value = "/buy", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView save(@Valid final ShoppingCart shoppingCart, final BindingResult binding) {
-	//		ModelAndView result;
-	//		final Customer customer = this.customerService.findByPrincipal();
-	//
-	//		if (binding.hasErrors())
-	//			result = this.createEditModelAndView(shoppingCart);
-	//		else
-	//			try {
-	//				this.shoppingCartService.buyGamesInShoppingCart(shoppingCart);
-	//				result = new ModelAndView("redirect:/shoppingCart/customer/display.do");
-	//			} catch (final Throwable oops) {
-	//				/* Comprobacion si tiene tarjeta de credito valida */
-	//				try {
-	//					if (!(this.creditCardService.checkCreditCardBoolean(customer.getCreditCard())))
-	//						result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.creditCard");
-	//					else
-	//						result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error");
-	//				} catch (final Throwable juu) {
-	//					result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.creditCard");
-	//				}
-	//			}
-	//
-	//		return result;
-	//	}
-
 	@RequestMapping(value = "/buy", method = RequestMethod.GET)
 	public ModelAndView searchButton(@RequestParam final String code) {
 		ModelAndView result;
@@ -106,7 +80,9 @@ public class ShoppingCartCustomerController extends AbstractController {
 			Discount discount;
 			discount = this.discountService.getDiscountWithCode(code);
 			if (discount == null)
-				result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.discunt");
+				result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.invalidDiscunt");
+			else if (discount.getUsed() == true)
+				result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.discuntUsed");
 			else {
 				percentage = discount.getPercentage();
 				this.shoppingCartService.buyGamesInShoppingCart(shoppingCart, percentage);
@@ -161,7 +137,13 @@ public class ShoppingCartCustomerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final ShoppingCart shoppingCart, final String message) {
 		ModelAndView result;
 		Collection<Game> games;
+		//		String error = null;
+
 		games = shoppingCart.getGames();
+		//		if (message.equals("shoppingCart.commit.error.notCreditCard"))
+		//			error = "perfil";
+		//		else if (message.equals("shoppingCart.commit.error.validCreditCard"))
+		//			error = "creditCard";
 
 		result = new ModelAndView("shoppingCart/display");
 		result.addObject("shoppingCart", shoppingCart);

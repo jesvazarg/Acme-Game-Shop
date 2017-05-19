@@ -116,4 +116,8 @@ public class ReviewService {
 		return this.reviewRepository.findAllPublishedReview(gameId);
 	}
 
+	public Review findPublishedReview(final int gameId, final int criticId) {
+		return this.reviewRepository.findPublishReview(gameId, criticId);
+	}
+
 }

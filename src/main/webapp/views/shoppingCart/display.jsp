@@ -44,6 +44,20 @@
 		});
 	</script>
 </jstl:if>
+<jstl:if test="${empty games }">
+	</br>
+	<img src="https://media.giphy.com/media/ORTPDqxMQD4I/giphy.gif" style = "max-width: 200 px; max-height: 200px;"/>
+</jstl:if>
+</br></br>
+<jstl:if test="${message.equals('shoppingCart.commit.error.notCreditCard')}">
+	<acme:button url="creditCard/customer/create.do" code="shoppingCart.newCreditCard"/>
+</jstl:if>
+<jstl:if test="${message.equals('shoppingCart.commit.error.validCreditCard')}">
+	<acme:button url="creditCard/customer/edit.do" code="shoppingCart.editCreditCard"/>
+</jstl:if>
+<jstl:if test="${message.equals('shoppingCart.commit.error.invalidDiscunt') || message.equals('shoppingCart.commit.error.discuntUsed')}">
+	<img src="https://media.giphy.com/media/10VWDDhFOr9pvO/source.gif" style = "max-width: 200 px; max-height: 200px;"/>
+</jstl:if>
 
 
 

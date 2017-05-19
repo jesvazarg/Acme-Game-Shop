@@ -102,7 +102,18 @@ public class ReviewCriticController extends AbstractController {
 					result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(review, "review.commit.error");
+				Review publishReview;
+				Boolean checkDraft = true;
+
+				publishReview = this.reviewService.findPublishedReview(review.getGame().getId(), review.getCritic().getId());
+				if (publishReview != null)
+					if ((publishReview.getId() != review.getId()) && (review.getDraft() == false))
+						checkDraft = false;
+
+				if (checkDraft)
+					result = this.editModelAndView(review, "review.commit.error");
+				else
+					result = this.editModelAndView(review, "review.commit.error.draft");
 
 			}
 		return result;

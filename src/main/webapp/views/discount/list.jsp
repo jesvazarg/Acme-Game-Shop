@@ -9,17 +9,22 @@
 
 <display:table name="${discounts}" id="discount" class="displaytag" pagesize="10" keepStatus="true" requestURI="${requestURI}">
 	
-	<acme:column code="discount.code" property="code" sortable="false"/>
-	<acme:column code="discount.percentage" property="percentage" sortable="true"/>
-	<acme:column code="discount.used" property="used" sortable="true"/>
+	<jstl:set var="style" value="none"/>
+	<jstl:if test="${discount.used == false}">
+		<jstl:set var="style" value="font-weight:bold;text-shadow: 0.1em 0.1em 0.2em darkgrey"/>
+	</jstl:if>
+	
+	<acme:column code="discount.code" property="code" sortable="false" style="${style}"/>
+	<acme:column code="discount.percentage" property="percentage" sortable="true" style="${style}"/>
+	<acme:column code="discount.used" property="used" sortable="true" style="${style}"/>
 	
 	<spring:message code="discount.edit" var="editHeader" />
-	<display:column title="${editHeader}">
+	<display:column title="${editHeader}" style="${style}">
 		<a href="discount/administrator/edit.do?discountId=${discount.id}"><jstl:out value="${editHeader}" /></a>
 	</display:column>
 	
 	<spring:message code="discount.delete" var="deleteHeader" />
-	<display:column title="${deleteHeader}" >
+	<display:column title="${deleteHeader}" style="${style}">
 		<a href="discount/administrator/delete.do?discountId=${discount.id}"><jstl:out value="${deleteHeader}" /></a>
 	</display:column>
 	
