@@ -15,7 +15,6 @@
 
 	
 	<acme:column code="game.title" property="title"/>
-	<acme:column code="game.description" property="description"/>
 	<acme:column code="game.picture" property="picture"/>
 	<acme:column code="game.age" property="age"/>
 	<acme:column code="game.price" property="price"/>

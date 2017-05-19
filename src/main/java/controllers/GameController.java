@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.CustomerService;
 import services.GameService;
 import services.ReviewService;
 import services.SenseService;
 import services.ShoppingCartService;
 import domain.Actor;
+import domain.Customer;
 import domain.Game;
 import domain.Review;
 import domain.Sense;
@@ -31,6 +33,9 @@ public class GameController extends AbstractController {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private CustomerService		customerService;
 
 	@Autowired
 	private ReviewService		reviewService;
@@ -72,7 +77,11 @@ public class GameController extends AbstractController {
 		final Actor actor = this.actorService.findByPrincipal();
 		senses = this.senseService.findAll();
 
-		games = this.gameService.findByAge();
+		final Customer customer = this.customerService.findByUserAccount(actor.getUserAccount());
+		if (customer != null)
+			games = this.gameService.findByAge();
+		else
+			games = this.gameService.findAll();
 
 		result = new ModelAndView("game/list");
 		result.addObject("games", games);

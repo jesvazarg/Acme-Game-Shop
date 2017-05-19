@@ -32,7 +32,7 @@
 		<bean class="converters.DeveloperToStringConverter" />
 		<bean class="converters.DiscountToStringConverter" />
 		<bean class="converters.GameToStringConverter" />
-		<!-- <bean class="converters.MessageEmailToStringConverter" /> -->
+		<bean class="converters.MessageEmailToStringConverter" />
 		<bean class="converters.ReviewToStringConverter" />
 		<bean class="converters.CustomerToStringConverter" />
 		<bean class="converters.ReceiptToStringConverter" />

@@ -1,6 +1,8 @@
 
 package controllers.developer;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.CategoryService;
 import services.GameService;
+import domain.Category;
 import domain.Game;
 
 @Controller
@@ -23,6 +27,9 @@ public class GameDeveloperController {
 
 	@Autowired
 	private GameService		gameService;
+
+	@Autowired
+	private CategoryService	categoryService;
 
 	@Autowired
 	private ActorService	actorService;
@@ -68,7 +75,7 @@ public class GameDeveloperController {
 		else
 			try {
 				this.gameService.save(game);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:../../game/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(game, "game.commit.error");
 			}
@@ -105,9 +112,13 @@ public class GameDeveloperController {
 	protected ModelAndView createEditModelAndView(final Game game, final String message) {
 		ModelAndView result;
 
+		Collection<Category> categories;
+		categories = this.categoryService.findAll();
+
 		result = new ModelAndView("game/edit");
 		result.addObject("game", game);
-		result.addObject("requestURI", "game/edit.do");
+		result.addObject("categories", categories);
+		result.addObject("requestURI", "game/developer/edit.do");
 		result.addObject("message", message);
 
 		return result;

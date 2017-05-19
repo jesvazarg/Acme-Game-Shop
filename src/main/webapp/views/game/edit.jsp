@@ -7,7 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form method="post" action="developer/game/edit.do" modelAttribute="game" >
+<form:form method="post" action="game/developer/edit.do" modelAttribute="game" >
 	
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -18,19 +18,19 @@
 	<form:hidden path="sellsNumber" />
 	
 	<acme:input code="game.title" path="title" />
-	<acme:input code="game.description" path="title" />
-	<acme:input code="game.picture" path="title" />
-	<acme:input code="game.age" path="title" />
-	<acme:input code="game.price" path="title" />
-	<form:label path="properties">
+	<acme:input code="game.description" path="description" />
+	<acme:input code="game.picture" path="picture" />
+	<acme:input code="game.age" path="age" />
+	<acme:input code="game.price" path="price" />
+	<form:label path="categories">
 		<spring:message code="game.categories"/>
 	</form:label>
-	<jstl:forEach var="categories" items="${categories}">
+	<jstl:forEach var="category" items="${categories}">
 		<form:checkbox path ="categories" value="${categories}"/><jstl:out value="${category.name}"/>
 	</jstl:forEach>
 	<form:errors path="categories" cssClass="error"/>
 	
-	
+	<br/>
 	<acme:submit name="save" code="category.save" />
-	<acme:cancel url="game/developer/list.do" code="game.cancel" />
+	<acme:cancel url="game/list.do" code="game.cancel" />
 </form:form>

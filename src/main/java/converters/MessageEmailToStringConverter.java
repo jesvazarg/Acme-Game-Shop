@@ -9,7 +9,7 @@ import domain.MessageEmail;
 
 @Component
 @Transactional
-public class EmailMessageToStringConverter implements Converter<MessageEmail, String> {
+public class MessageEmailToStringConverter implements Converter<MessageEmail, String> {
 
 	@Override
 	public String convert(final MessageEmail messageEmail) {

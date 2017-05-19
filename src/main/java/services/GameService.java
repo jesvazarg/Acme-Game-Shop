@@ -82,6 +82,7 @@ public class GameService {
 		result.setReviews(reviews);
 		result.setSenses(senses);
 		result.setDeveloper(developer);
+		result.setSellsNumber(0);
 
 		return result;
 	}

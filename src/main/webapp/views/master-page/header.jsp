@@ -31,6 +31,17 @@
 			<li><a href="review/critic/list.do"><spring:message code="master.page.critic.review.list" /></a></li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('DEVELOPER')">
+			<li><a class="fNiv"><spring:message	code="master.page.game" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="game/list.do"><spring:message code="master.page.game.list" /></a></li>
+					<li><a href="game/developer/create.do"><spring:message code="master.page.game.create" /></a></li>
+					
+				</ul>
+			</li>
+		</security:authorize>
+		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>
 				<ul>

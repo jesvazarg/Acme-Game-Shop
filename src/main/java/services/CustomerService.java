@@ -138,7 +138,7 @@ public class CustomerService {
 		Customer result;
 
 		result = this.customerRepository.findByUserAccountId(userAccount.getId());
-		Assert.notNull(result);
+		//Assert.notNull(result);
 
 		return result;
 	}
