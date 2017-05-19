@@ -28,6 +28,6 @@
 	</jstl:if>
 	
 	<acme:submit name="save" code="critic.save" />
-	<acme:cancel url="" code="critic.cancel" />
+	<acme:cancel url="profile/myProfile.do" code="critic.cancel" />
 </form:form>
 

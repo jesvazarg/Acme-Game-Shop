@@ -100,7 +100,7 @@ public class ShoppingCartCustomerController extends AbstractController {
 		return result;
 	}
 
-	// Add games -------------------------------------------------------------------
+	// Remove games -------------------------------------------------------------------
 	@RequestMapping(value = "/removeGame", method = RequestMethod.GET)
 	public ModelAndView removeGame(@RequestParam final int gameId) {
 		ModelAndView result;

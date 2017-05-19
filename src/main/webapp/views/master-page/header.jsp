@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<img src="images/logo.png" alt="Acme-Game-Shop Co., Inc." />
+	<a href=""><img src="images/logo.jpg" alt="Acme-Game-Shop Co., Inc." style = "max-width: 853px; max-height: 177px;"/></a>
 </div>
 
 <div>
@@ -72,6 +72,12 @@
 					<li><a href="profile/myProfile.do"><spring:message code="master.page.profile.display" /></a></li>
 					<security:authorize access="hasRole('CUSTOMER')">
 							<li><a href="customer/edit.do"><spring:message code="master.page.edit.profile" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('CRITIC')">
+							<li><a href="critic/edit.do"><spring:message code="master.page.edit.profile" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('DEVELOPER')">
+							<li><a href="developer/edit.do"><spring:message code="master.page.edit.profile" /></a></li>
 					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>

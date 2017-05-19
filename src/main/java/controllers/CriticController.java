@@ -56,7 +56,7 @@ public class CriticController extends AbstractController {
 			try {
 				critic = this.criticService.reconstructProfile(criticForm, "edit");
 				this.criticService.save(critic);
-				result = new ModelAndView("redirect:/welcome/index.do");
+				result = new ModelAndView("redirect:/profile/myProfile.do");
 
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(criticForm, "critic.commit.error");
