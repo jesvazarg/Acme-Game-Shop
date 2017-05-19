@@ -16,21 +16,28 @@
 	<form:hidden path="reviews" />
 	<form:hidden path="senses" />
 	<form:hidden path="sellsNumber" />
+	<form:hidden path="categories" />
 	
 	<acme:input code="game.title" path="title" />
 	<acme:input code="game.description" path="description" />
 	<acme:input code="game.picture" path="picture" />
 	<acme:input code="game.age" path="age" />
 	<acme:input code="game.price" path="price" />
-	<form:label path="categories">
+	
+	<%-- <form:label path="categories">
 		<spring:message code="game.categories"/>
 	</form:label>
 	<jstl:forEach var="category" items="${categories}">
 		<form:checkbox path ="categories" value="${categories}"/><jstl:out value="${category.name}"/>
 	</jstl:forEach>
-	<form:errors path="categories" cssClass="error"/>
+	<form:errors path="categories" cssClass="error"/> --%>
 	
 	<br/>
 	<acme:submit name="save" code="category.save" />
-	<acme:cancel url="game/list.do" code="game.cancel" />
+	<jstl:if test="${game.id != 0}">
+		<input type="submit" name="delete"
+			value="<spring:message code="game.delete" />"
+			onclick="return confirm('<spring:message code="game.confirm.delete" />')" />&nbsp;
+	</jstl:if>
+	<acme:cancel url="game/display.do?gameId=${game.id}" code="game.cancel" />
 </form:form>

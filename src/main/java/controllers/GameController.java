@@ -12,12 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CustomerService;
+import services.DeveloperService;
 import services.GameService;
 import services.ReviewService;
 import services.SenseService;
 import services.ShoppingCartService;
 import domain.Actor;
 import domain.Customer;
+import domain.Developer;
 import domain.Game;
 import domain.Review;
 import domain.Sense;
@@ -36,6 +38,9 @@ public class GameController extends AbstractController {
 
 	@Autowired
 	private CustomerService		customerService;
+
+	@Autowired
+	private DeveloperService	developerService;
 
 	@Autowired
 	private ReviewService		reviewService;
@@ -98,18 +103,29 @@ public class GameController extends AbstractController {
 		Game game;
 		Collection<Review> reviews;
 		Boolean canAddToShoppingcart;
+		Boolean isOwner = false;
 
 		final Actor actor = this.actorService.findByPrincipal();
-
+		final Customer customer = this.customerService.findByUserAccount(actor.getUserAccount());
+		final Developer developer = this.developerService.findByUserAccountId(actor.getUserAccount().getId());
 		game = this.gameService.findOne(gameId);
+
+		if (developer != null && game.getDeveloper().equals(developer))
+			isOwner = true;
+
 		reviews = this.reviewService.findAllPublishedReview(gameId);
-		canAddToShoppingcart = this.shoppingCartService.canAddToShoppingCart(game);
+
+		if (customer != null)
+			canAddToShoppingcart = this.shoppingCartService.canAddToShoppingCart(game);
+		else
+			canAddToShoppingcart = false;
 
 		result = new ModelAndView("game/display");
 		result.addObject("game", game);
 		result.addObject("canAddToShoppingcart", canAddToShoppingcart);
 		result.addObject("reviews", reviews);
-		result.addObject("requestURI", "game/list.do");
+		result.addObject("isOwner", isOwner);
+		result.addObject("requestURI", "game/display.do");
 
 		return result;
 	}

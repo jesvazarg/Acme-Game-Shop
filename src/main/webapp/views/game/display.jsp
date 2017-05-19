@@ -36,10 +36,29 @@
 			<jstl:out value="${game.price}" />
 		</li>
 		
+		<li>
+			
+			<b><spring:message code="game.categories" />:</b>
+			<ul>
+				<jstl:forEach var="category" items="${game.categories}">
+					<li><jstl:out value="${category.name}" /></li>
+				</jstl:forEach>
+			</ul>
+			
+			<security:authorize access="hasRole('DEVELOPER')">
+				<a href="game/developer/editCategories.do?gameId=${game.id}"><spring:message code="game.categories.edit" /></a>
+			</security:authorize>
+		</li>
 
 
 		
 	</ul>
+
+<security:authorize access="hasRole('DEVELOPER')">
+	<jstl:if test="${isOwner==true}">
+		<acme:button url="game/developer/edit.do?gameId=${game.id}" code="game.edit"/>
+	</jstl:if>
+</security:authorize>
 	
 </div>
 <h3><spring:message code="game.reviews"/></h3>
@@ -65,32 +84,6 @@
 	<acme:button code="game.newReview" url="review/critic/create.do?gameId=${game.id}"/>
 </security:authorize>
 
-<security:authorize access="hasRole('DEVELOPER')">
-<form:form method="post" action="developer/game/delete.do" modelAttribute="game" >
-
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="title" />
-	<form:hidden path="description"/>
-	<form:hidden path="picture"/>
-	<form:hidden path="age" />
-	<form:hidden path="price" />
-	<form:hidden path="developer" />
-	<form:hidden path="sellsNumber" />
-	<form:hidden path="reviews" />
-	<form:hidden path="categories" />
-	<form:hidden path="comments" />
-	<form:hidden path="senses" />
-	
-	
-	<jstl:if test="${game.id != 0}">
-		<input type="submit" name="delete"
-			value="<spring:message code="game.delete" />"
-			onclick="return confirm('<spring:message code="game.confirm.delete" />')" />&nbsp;
-	</jstl:if>
-</form:form>
-</security:authorize>
-
 <h3><spring:message code="game.comments"/></h3>
 <display:table name="${game.comments}" id="comment" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 	
@@ -114,3 +107,5 @@
 <acme:button url="shoppingCart/customer/addGame.do?gameId=${game.id}" code="game.add.shoppingcart"/>
 </jstl:if>
 </security:authorize>
+
+<acme:button url="game/list.do?" code="game.goBack" />
