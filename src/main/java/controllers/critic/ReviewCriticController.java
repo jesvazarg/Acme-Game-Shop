@@ -96,7 +96,10 @@ public class ReviewCriticController extends AbstractController {
 		else
 			try {
 				this.reviewService.save(review);
-				result = new ModelAndView("redirect:../display.do?gameId=" + review.getGame().getId());
+				if (review.getId() == 0)
+					result = new ModelAndView("redirect:/game/display.do?gameId=" + review.getGame().getId());
+				else
+					result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(review, "review.commit.error");
@@ -104,7 +107,6 @@ public class ReviewCriticController extends AbstractController {
 			}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Review review, final BindingResult binding) {
 		ModelAndView result;
