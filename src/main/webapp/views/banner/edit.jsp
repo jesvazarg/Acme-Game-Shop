@@ -14,6 +14,11 @@
 	
 	<acme:input code="banner.picture" path="picture" />
 	
-	<acme:submit name="save" code="banner.save" />
+	<jstl:if test="${banner.id != 0}">
+		<acme:submit name="save" code="banner.save" />
+	</jstl:if>
+	<jstl:if test="${banner.id == 0}">
+		<acme:submit name="register" code="banner.save" />
+	</jstl:if>
 	<acme:cancel url="banner/administrator/list.do" code="banner.cancel" />
 </form:form>

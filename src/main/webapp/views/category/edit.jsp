@@ -15,6 +15,11 @@
 	
 	<acme:input code="category.name" path="name" />
 	
-	<acme:submit name="save" code="category.save" />
+	<jstl:if test="${category.id != 0}">
+		<acme:submit name="save" code="category.save" />
+	</jstl:if>
+	<jstl:if test="${category.id == 0}">
+		<acme:submit name="register" code="category.save" />
+	</jstl:if>
 	<acme:cancel url="category/administrator/list.do" code="category.cancel" />
 </form:form>

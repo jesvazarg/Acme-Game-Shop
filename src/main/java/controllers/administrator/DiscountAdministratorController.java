@@ -71,6 +71,25 @@ public class DiscountAdministratorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "register")
+	public ModelAndView register(@Valid final Discount discount, final BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createModelAndView(discount);
+		else
+			try {
+				this.discountService.save(discount);
+				result = new ModelAndView("redirect:list.do");
+
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(discount, "discount.commit.error");
+
+			}
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Discount discount, final BindingResult binding) {
 

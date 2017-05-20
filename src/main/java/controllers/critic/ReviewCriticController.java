@@ -86,6 +86,39 @@ public class ReviewCriticController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "register")
+	public ModelAndView register(@Valid Review review, final BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createModelAndView(review);
+		else
+			try {
+				review = this.reviewService.save(review);
+				if (review.getDraft())
+					result = new ModelAndView("redirect:list.do");
+				else
+					result = new ModelAndView("redirect:/game/display.do?gameId=" + review.getGame().getId());
+
+			} catch (final Throwable oops) {
+				Review publishReview;
+				Boolean checkDraft = true;
+
+				publishReview = this.reviewService.findPublishedReview(review.getGame().getId(), review.getCritic().getId());
+				if (publishReview != null)
+					if ((publishReview.getId() != review.getId()) && (review.getDraft() == false))
+						checkDraft = false;
+
+				if (checkDraft)
+					result = this.createModelAndView(review, "review.commit.error");
+				else
+					result = this.createModelAndView(review, "review.commit.error.draft");
+
+			}
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Review review, final BindingResult binding) {
 
@@ -96,10 +129,7 @@ public class ReviewCriticController extends AbstractController {
 		else
 			try {
 				this.reviewService.save(review);
-				if (review.getId() == 0)
-					result = new ModelAndView("redirect:/game/display.do?gameId=" + review.getGame().getId());
-				else
-					result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
 				Review publishReview;
@@ -118,6 +148,7 @@ public class ReviewCriticController extends AbstractController {
 			}
 		return result;
 	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Review review, final BindingResult binding) {
 		ModelAndView result;

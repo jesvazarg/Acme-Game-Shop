@@ -71,6 +71,28 @@ public class CategoryAdministratorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "register")
+	public ModelAndView register(@Valid final Category category, final BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createModelAndView(category);
+		else
+			try {
+				this.categoryService.save(category);
+				result = new ModelAndView("redirect:list.do");
+
+			} catch (final Throwable oops) {
+				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
+					result = this.createModelAndView(category, "category.commit.error.duplicate");
+				else
+					result = this.createModelAndView(category, "category.commit.error");
+
+			}
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Category category, final BindingResult binding) {
 
@@ -84,7 +106,10 @@ public class CategoryAdministratorController extends AbstractController {
 				result = new ModelAndView("redirect:list.do");
 
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(category, "category.commit.error");
+				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
+					result = this.editModelAndView(category, "category.commit.error.duplicate");
+				else
+					result = this.editModelAndView(category, "category.commit.error");
 
 			}
 		return result;

@@ -16,6 +16,11 @@
 	
 	<acme:input code="discount.percentage" path="percentage" />
 	
-	<acme:submit name="save" code="discount.save" />
+	<jstl:if test="${discount.id != 0}">
+		<acme:submit name="save" code="discount.save" />
+	</jstl:if>
+	<jstl:if test="${discount.id == 0}">
+		<acme:submit name="register" code="discount.save" />
+	</jstl:if>
 	<acme:cancel url="discount/administrator/list.do" code="discount.cancel" />
 </form:form>

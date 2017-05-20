@@ -188,6 +188,7 @@ public class CategoryService {
 			games = c.getGames();
 			if (games.contains(game)) {
 				games.remove(game);
+				c.setGames(games);
 				this.categoryRepository.save(c);
 			}
 		}

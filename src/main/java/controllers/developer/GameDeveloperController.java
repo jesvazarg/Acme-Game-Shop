@@ -67,16 +67,20 @@ public class GameDeveloperController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Game game, final BindingResult binding) {
+	public ModelAndView save(@Valid Game game, final BindingResult binding) {
 		ModelAndView result;
-
-		final Collection<Category> categories = game.getCategories();
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(game);
 		else
 			try {
-				this.gameService.save(game);
+				if (game.getId() != 0) {
+					this.categoryService.select(game.getCategories(), game);
+					game = this.gameService.save(game);
+				} else {
+					game = this.gameService.save(game);
+					this.categoryService.select(game.getCategories(), game);
+				}
 				result = new ModelAndView("redirect:../../game/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(game, "game.commit.error");

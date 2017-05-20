@@ -46,12 +46,13 @@
 		<form:checkbox path="draft"/>
 		<br/>
 	
-	<acme:submit name="save" code="review.save" />
 	<jstl:if test="${review.id != 0}">
+		<acme:submit name="save" code="review.save" />
 		<acme:submit name="delete" code="review.delete" />
 		<acme:cancel url="review/display.do?reviewId=${review.id}" code="review.cancel" />
 	</jstl:if>
 	<jstl:if test="${review.id == 0}">
+		<acme:submit name="register" code="review.save" />
 		<acme:cancel url="game/display.do?gameId=${review.game.id}" code="review.cancel" />
 	</jstl:if>
 </form:form>

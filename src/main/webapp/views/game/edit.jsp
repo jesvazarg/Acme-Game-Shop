@@ -27,7 +27,7 @@
 		<spring:message code="game.categories"/>
 	</form:label>
 	<jstl:forEach var="category" items="${categories}">
-		<form:checkbox path ="categories" value="${categories}"/><jstl:out value="${category.name}"/>
+		<form:checkbox path ="categories" value="${category}"/><jstl:out value="${category.name}"/>
 	</jstl:forEach>
 	<form:errors path="categories" cssClass="error"/>
 	

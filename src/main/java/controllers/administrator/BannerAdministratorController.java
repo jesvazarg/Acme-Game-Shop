@@ -71,6 +71,25 @@ public class BannerAdministratorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "register")
+	public ModelAndView register(@Valid final Banner banner, final BindingResult binding) {
+
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createModelAndView(banner);
+		else
+			try {
+				this.bannerService.save(banner);
+				result = new ModelAndView("redirect:list.do");
+
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(banner, "banner.commit.error");
+
+			}
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Banner banner, final BindingResult binding) {
 
