@@ -98,23 +98,28 @@ public class DiscountService {
 		String characters;
 		int index;
 
-		buffer = new StringBuffer();
-		characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		do {
+			buffer = new StringBuffer();
+			characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-		for (int i = 1; i <= 9; i++) {
-			index = (int) (Math.random() * characters.length());
-			buffer.append(characters.charAt(index));
-			if ((i % 3 == 0) && (i < 9))
-				buffer.append("-");
-		}
-
-		result = buffer.toString();
+			for (int i = 1; i <= 9; i++) {
+				index = (int) (Math.random() * characters.length());
+				buffer.append(characters.charAt(index));
+				if ((i % 3 == 0) && (i < 9))
+					buffer.append("-");
+			}
+			result = buffer.toString();
+		} while (this.getDiscountWithCode(result) != null);
 
 		return result;
 	}
 
 	public Discount getDiscountWithCode(final String code) {
 		return this.discountRepository.getDiscountWithCode(code);
+	}
+
+	public Double[] MaxAvgMinPercentagePerDiscount() {
+		return this.MaxAvgMinPercentagePerDiscount();
 	}
 
 }

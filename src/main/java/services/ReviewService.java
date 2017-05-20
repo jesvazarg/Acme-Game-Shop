@@ -120,4 +120,8 @@ public class ReviewService {
 		return this.reviewRepository.findPublishReview(gameId, criticId);
 	}
 
+	public Double[] MaxAvgMinReviewsPerCritic() {
+		return this.MaxAvgMinReviewsPerCritic();
+	}
+
 }

@@ -14,7 +14,7 @@ public interface DiscountRepository extends JpaRepository<Discount, Integer> {
 	Discount getDiscountWithCode(String code);
 
 	//A3 El mínimo, media y máximo de descuento de los cupones.
-	//	@Query("")
-	//	Double[] MaxAvgMinPercentagePerDiscount();
+	@Query("select min(d.percentage), avg(d.percentage), max(d.percentage) from Discount d")
+	Double[] MaxAvgMinPercentagePerDiscount();
 
 }

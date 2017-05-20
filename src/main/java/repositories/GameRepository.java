@@ -42,7 +42,7 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	Collection<Game> findWorstSellerGames();
 
 	//C6: Los juegos con mayor y menor puntuación en sus comentarios.
-	//	@Query("")
+	//	@Query("select sum(r1.score) from Game g1 join g1.reviews r1 group by g1;")
 	//	Collection<Game> findGamesMostComments();
 	//
 	//	@Query("")
@@ -60,7 +60,7 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	/* select (select count(s) from Sense s where s.like=true group by s.game)*1.0/count(s1) from Sense s1 where s1.like=false group by s1.game; */
 
 	//B1 Los juegos con mejores y peores críticas.
-	//	@Query("")
+	//	@Query("select sum(r1.score) from Game g1 join g1.reviews r1 group by g1;")
 	//	Collection<Game> findGamesMostReviews();
 	//
 	//	@Query("")
