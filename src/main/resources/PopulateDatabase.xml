@@ -429,7 +429,7 @@
 	</bean>	
 	
 	<bean id="category4" class="domain.Category">
-		<property name="name" value="singel player" />
+		<property name="name" value="single player" />
 		<property name="games">
 			<list>
 				<ref bean="game1" />
@@ -806,8 +806,8 @@
 	<!-- Review -->	
 	
 	<bean id="review1" class="domain.Review">
-		<property name="title" value="Mojonazo" />
-		<property name="description" value="Este juego no vale na de na." />
+		<property name="title" value="Hastiado" />
+		<property name="description" value="Este juego parece que ha sido realizado por un par de lúmpenes." />
 		<property name="moment" value="04/27/2017 12:30" />
 		<property name="score" value="1" />
 		<property name="draft" value="true" />
@@ -816,8 +816,8 @@
 	</bean>
 	
 	<bean id="review2" class="domain.Review">
-		<property name="title" value="Poca chicha" />
-		<property name="description" value="Este juego se ve algo flojo." />
+		<property name="title" value="Deplorable" />
+		<property name="description" value="Tras deleitarme con el uso intrínseco de este juego, he comprobado que el contenido es un tanto pobre y soez." />
 		<property name="moment" value="05/02/2017 14:07" />
 		<property name="score" value="3" />
 		<property name="draft" value="false" />
@@ -826,8 +826,8 @@
 	</bean>
 	
 	<bean id="review3" class="domain.Review">
-		<property name="title" value="Nombre increible" />
-		<property name="description" value="Me gusta las cosas satánicas." />
+		<property name="title" value="Nombre fastuoso" />
+		<property name="description" value="El nombre es fastuoso, sin embargo el juego no lo es." />
 		<property name="moment" value="05/10/2017 10:46" />
 		<property name="score" value="7" />
 		<property name="draft" value="false" />
@@ -837,7 +837,7 @@
 	
 	<bean id="review4" class="domain.Review">
 		<property name="title" value="Gran experiencia" />
-		<property name="description" value="Es como si estuvieras dentro de la propia batalla." />
+		<property name="description" value="Es como si estuvieras dentro de la propia batalla. Además me gusta su estilo barroco en las texturas." />
 		<property name="moment" value="05/09/2017 18:22" />
 		<property name="score" value="9" />
 		<property name="draft" value="false" />

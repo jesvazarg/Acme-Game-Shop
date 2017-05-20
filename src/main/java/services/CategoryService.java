@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -200,6 +202,19 @@ public class CategoryService {
 		}
 
 		return categories;
+	}
+
+	public List<Category> findCategoryOrderBySellsNumber() {
+		List<Category> lista;
+		final List<Category> res = new ArrayList<Category>();
+
+		lista = this.categoryRepository.findCategoryOrderBySellsNumber();
+		if (!lista.isEmpty()) {
+			res.add(lista.get(0));
+			res.add(lista.get(lista.size() - 1));
+		}
+
+		return res;
 	}
 
 }

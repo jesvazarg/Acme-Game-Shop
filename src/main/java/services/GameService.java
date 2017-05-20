@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,6 @@ import domain.Developer;
 import domain.Game;
 import domain.Review;
 import domain.Sense;
-import domain.ShoppingCart;
 
 @Service
 @Transactional
@@ -68,13 +68,11 @@ public class GameService {
 		Collection<Review> reviews;
 		Collection<Category> categories;
 		Collection<Comment> comments;
-		Collection<ShoppingCart> shoppingCarts;
 
 		senses = new ArrayList<Sense>();
 		reviews = new ArrayList<Review>();
 		categories = new ArrayList<Category>();
 		comments = new ArrayList<Comment>();
-		shoppingCarts = new ArrayList<ShoppingCart>();
 
 		result = new Game();
 		result.setCategories(categories);
@@ -145,6 +143,30 @@ public class GameService {
 
 	public Collection<Game> gamesMoreThatAVG() {
 		return this.gameRepository.gamesMoreThatAVG();
+	}
+
+	public List<Game> findGameBestAndWorstScoreReviews() {
+		List<Game> lista;
+		final List<Game> res = new ArrayList<Game>();
+
+		lista = this.gameRepository.findGamesOrderByScoreReviews();
+		if (!lista.isEmpty()) {
+			res.add(lista.get(0));
+			res.add(lista.get(lista.size() - 1));
+		}
+		return res;
+	}
+
+	public List<Game> findGameBestAndWorstScoreComments() {
+		List<Game> lista;
+		final List<Game> res = new ArrayList<Game>();
+
+		lista = this.gameRepository.findGamesOrderByScoreComments();
+		if (!lista.isEmpty()) {
+			res.add(lista.get(0));
+			res.add(lista.get(lista.size() - 1));
+		}
+		return res;
 	}
 
 }

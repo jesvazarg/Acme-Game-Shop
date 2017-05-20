@@ -2,6 +2,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -42,11 +43,8 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	Collection<Game> findWorstSellerGames();
 
 	//C6: Los juegos con mayor y menor puntuación en sus comentarios.
-	//	@Query("select sum(r1.score) from Game g1 join g1.reviews r1 group by g1;")
-	//	Collection<Game> findGamesMostComments();
-	//
-	//	@Query("")
-	//	Collection<Game> findGamesLessComments();
+	@Query("select g from Game g join g.comments c group by g order by sum(c.score) DESC")
+	List<Game> findGamesOrderByScoreComments();
 
 	//C10: Ratio de "me gusta" vs "no me gusta" por cada juego.
 
@@ -60,10 +58,7 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	/* select (select count(s) from Sense s where s.like=true group by s.game)*1.0/count(s1) from Sense s1 where s1.like=false group by s1.game; */
 
 	//B1 Los juegos con mejores y peores críticas.
-	//	@Query("select sum(r1.score) from Game g1 join g1.reviews r1 group by g1;")
-	//	Collection<Game> findGamesMostReviews();
-	//
-	//	@Query("")
-	//	Collection<Game> findGamesLessReviews();
+	@Query("select g from Game g join g.reviews r group by g order by sum(r.score) DESC")
+	List<Game> findGamesOrderByScoreReviews();
 
 }
