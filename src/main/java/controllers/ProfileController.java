@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
@@ -29,7 +30,7 @@ public class ProfileController extends AbstractController {
 	private ActorService	actorService;
 
 
-	// Action-1 ---------------------------------------------------------------		
+	// MyProfile ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/myProfile", method = RequestMethod.GET)
 	public ModelAndView displayMyProfile() {
@@ -47,12 +48,16 @@ public class ProfileController extends AbstractController {
 		isCustomer = this.actorService.checkAuthority(actor, Authority.CUSTOMER);
 		if (isCustomer)
 			account = "customer";
-		isDeveloper = this.actorService.checkAuthority(actor, Authority.DEVELOPER);
-		if (isDeveloper)
-			account = "developer";
-		isCritic = this.actorService.checkAuthority(actor, Authority.CRITIC);
-		if (isCritic)
-			account = "critic";
+		else {
+			isDeveloper = this.actorService.checkAuthority(actor, Authority.DEVELOPER);
+			if (isDeveloper)
+				account = "developer";
+			else {
+				isCritic = this.actorService.checkAuthority(actor, Authority.CRITIC);
+				if (isCritic)
+					account = "critic";
+			}
+		}
 
 		result.addObject("profile", actor);
 		result.addObject("account", account);
@@ -61,22 +66,40 @@ public class ProfileController extends AbstractController {
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
+	// Display ---------------------------------------------------------------		
 
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int actorId) {
 		ModelAndView result;
+		Actor actor;
+		Boolean isCustomer;
+		Boolean isDeveloper;
+		Boolean isCritic;
+		String account = "";
 
-		result = new ModelAndView("profile/action-2");
+		actor = this.actorService.findOne(actorId);
+
+		result = new ModelAndView("profile/display");
+
+		isCustomer = this.actorService.checkAuthority(actor, Authority.CUSTOMER);
+		if (isCustomer)
+			account = "customer";
+		else {
+			isDeveloper = this.actorService.checkAuthority(actor, Authority.DEVELOPER);
+			if (isDeveloper)
+				account = "developer";
+			else {
+				isCritic = this.actorService.checkAuthority(actor, Authority.CRITIC);
+				if (isCritic)
+					account = "critic";
+			}
+		}
+
+		result.addObject("profile", actor);
+		result.addObject("account", account);
+		result.addObject("requestURI", "profile/display");
 
 		return result;
-	}
-
-	// Action-2 ---------------------------------------------------------------		
-
-	@RequestMapping("/action-3")
-	public ModelAndView action3() {
-		throw new RuntimeException("Oops! An *expected* exception was thrown. This is normal behaviour.");
 	}
 
 }

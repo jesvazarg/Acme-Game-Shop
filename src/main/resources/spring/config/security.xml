@@ -34,7 +34,8 @@
 		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 
-		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
+		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" />
+		<security:intercept-url pattern="/misc/conditions.do" access="permitAll" />  
 
 		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
@@ -45,7 +46,7 @@
 
 		<security:intercept-url pattern="/game/listNotAuth.do" access="permitAll" /> 
 		
-		<!-- CUSTOMER, DEVELOPER and ADMINISTRATOR -->
+		<!-- CUSTOMER, DEVELOPER, CRITIC and ADMINISTRATOR -->
 		
 		<security:intercept-url pattern="/messageEmail/create.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageEmail/listIn.do" access="isAuthenticated()" /> 
@@ -53,8 +54,11 @@
 		<security:intercept-url pattern="/messageEmail/display.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageEmail/reply.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageEmail/forward.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/messageEmail/delete.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/messageEmail/delete.do" access="isAuthenticated()" />
+		 
 		<security:intercept-url pattern="/profile/myProfile.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/profile/display.do" access="isAuthenticated()" />
+		
 		<security:intercept-url pattern="/game/list.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/game/display.do" access="isAuthenticated()" /> 
 		
@@ -63,14 +67,19 @@
 		<!-- CUSTOMER -->
 		<security:intercept-url pattern="/shoppingCart/customer/display.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/shoppingCart/customer/buy.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/shoppingCart/customer/addGame.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/shoppingCart/customer/removeGame.do" access="hasRole('CUSTOMER')" />
+		
 		<security:intercept-url pattern="/receipt/customer/list.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/receipt/customer/display.do" access="hasRole('CUSTOMER')" />
+		
 		<security:intercept-url pattern="/sense/customer/like.do" access="hasRole('CUSTOMER')" /> 
 		<security:intercept-url pattern="/sense/customer/dislike.do" access="hasRole('CUSTOMER')" />
+		
 		<security:intercept-url pattern="/comment/customer/create.do" access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/customer/edit.do" access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/shoppingCart/customer/addGame.do" access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/shoppingCart/customer/removeGame.do" access="hasRole('CUSTOMER')" /> 
+		
+		<security:intercept-url pattern="/customer/edit.do" access="hasRole('CUSTOMER')" /> 
+
 
 		<!-- DEVELOPER -->
 		
