@@ -25,6 +25,13 @@ import domain.Sense;
 import domain.ShoppingCart;
 import forms.CreateCustomerForm;
 
+/**
+ * Esta clase permite definir los metodos correspondientes
+ * al usuario Customer de nuestra aplicación
+ * 
+ * @author Student
+ * 
+ */
 @Service
 @Transactional
 public class CustomerService {
@@ -44,6 +51,13 @@ public class CustomerService {
 	}
 
 	// Simple CRUD methods ----------------------------------------------------
+	/**
+	 * Metodo que permite dado un id devuelve el Customer con ese id.
+	 * 
+	 * @param customerId
+	 *            Int
+	 * @return Customer
+	 */
 	public Customer findOne(final int customerId) {
 		Customer result;
 
@@ -53,6 +67,11 @@ public class CustomerService {
 		return result;
 	}
 
+	/**
+	 * Metodo que devuelve todos los Customers de nuestra aplicación
+	 * 
+	 * @return Collection<Customer>
+	 */
 	public Collection<Customer> findAll() {
 		Collection<Customer> result;
 
@@ -61,6 +80,11 @@ public class CustomerService {
 		return result;
 	}
 
+	/**
+	 * Este metodo permite crear un nuevo customer
+	 * 
+	 * @return Customer
+	 */
 	public Customer create() {
 		final UserAccount userAccount = new UserAccount();
 
@@ -99,6 +123,13 @@ public class CustomerService {
 		return result;
 	}
 
+	/**
+	 * Nos guarda un Customer en la base de datos. Este metodo se usa cuando queremos
+	 * editar el perfil de un Customer
+	 * 
+	 * @param customer
+	 * @return Customer
+	 */
 	public Customer save(final Customer customer) {
 		Assert.notNull(customer);
 		Customer result;
@@ -107,6 +138,13 @@ public class CustomerService {
 		return result;
 	}
 
+	/**
+	 * Nos guarda un Customer en la base de datos. Este metodo se usa cuando queremos
+	 * registrar un nuevo Customer en el sistema.
+	 * 
+	 * @param customer
+	 * @return Customer
+	 */
 	public Customer saveRegister(final Customer customer) {
 		Assert.notNull(customer);
 		Customer result;
@@ -120,6 +158,11 @@ public class CustomerService {
 	}
 
 	// Other business methods -------------------------------------------------
+	/**
+	 * Este metodo nos devuelve el Customer que esta logueado en nuestro sistema actualmente
+	 * 
+	 * @return Customer
+	 */
 	public Customer findByPrincipal() {
 		Customer result;
 		UserAccount userAccount;
@@ -132,6 +175,12 @@ public class CustomerService {
 		return result;
 	}
 
+	/**
+	 * Este metodo nos devuelve el un Customer dado su UserAccount
+	 * 
+	 * @param userAccount
+	 * @return Customer
+	 */
 	public Customer findByUserAccount(final UserAccount userAccount) {
 		Assert.notNull(userAccount);
 
@@ -143,6 +192,15 @@ public class CustomerService {
 		return result;
 	}
 
+	/**
+	 * Metodo que dado un formulario nos devuelve un Customer
+	 * 
+	 * @param createCustomerForm
+	 *            Formulario
+	 * @param type
+	 *            Puede tomar los valores create o edit
+	 * @return Customer
+	 */
 	public Customer reconstructProfile(final CreateCustomerForm createCustomerForm, final String type) {
 		Assert.notNull(createCustomerForm);
 		Customer customer = null;
@@ -173,6 +231,12 @@ public class CustomerService {
 
 		return customer;
 	}
+	/**
+	 * Metodo que dado un Customer nos devuelve un formulario
+	 * 
+	 * @param customer
+	 * @return CreateCustomerForm
+	 */
 	public CreateCustomerForm constructProfile(final Customer customer) {
 		Assert.notNull(customer);
 		CreateCustomerForm createCustomerForm;
@@ -189,6 +253,12 @@ public class CustomerService {
 		return createCustomerForm;
 	}
 
+	/**
+	 * Metodo que dado un Customer nos devuelve la edad de dicho Customer
+	 * 
+	 * @param customer
+	 * @return Integer
+	 */
 	@SuppressWarnings("deprecation")
 	public Integer edadCustomer(final Customer customer) {
 		Assert.notNull(customer);
@@ -203,6 +273,13 @@ public class CustomerService {
 		return result;
 	}
 
+	/**
+	 * Dado un Customer y un Game nos dice si ese Customer puede comprar dicho Game
+	 * 
+	 * @param customer
+	 * @param game
+	 * @return Boolean
+	 */
 	public Boolean canBuyThisGame(final Customer customer, final Game game) {
 		Assert.notNull(customer);
 		Assert.notNull(game);
@@ -212,5 +289,4 @@ public class CustomerService {
 			result = true;
 		return result;
 	}
-
 }
