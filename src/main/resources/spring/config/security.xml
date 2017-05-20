@@ -72,11 +72,12 @@
 		<security:intercept-url pattern="/shoppingCart/customer/addGame.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/shoppingCart/customer/removeGame.do" access="hasRole('CUSTOMER')" /> 
 
-		<!-- CUSTOMER -->
+		<!-- DEVELOPER -->
 		
 		<security:intercept-url pattern="/game/developer/create.do" access="hasRole('DEVELOPER')" /> 
 		<security:intercept-url pattern="/game/developer/edit.do" access="hasRole('DEVELOPER')" /> 
 		<security:intercept-url pattern="/game/developer/delete.do" access="hasRole('DEVELOPER')" /> 
+		<security:intercept-url pattern="/game/developer/editCategories.do" access="hasRole('DEVELOPER')" /> 
 		
 		<!-- ADMINISTRATOR -->
 		

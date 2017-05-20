@@ -54,4 +54,11 @@ public class Category extends DomainEntity {
 		this.games = games;
 	}
 
+	public void addGame(final Game game) {
+		this.games.add(game);
+	}
+	public void removeIngredient(final Game game) {
+		this.games.remove(game);
+	}
+
 }

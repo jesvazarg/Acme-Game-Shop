@@ -70,6 +70,8 @@ public class GameDeveloperController {
 	public ModelAndView save(@Valid final Game game, final BindingResult binding) {
 		ModelAndView result;
 
+		final Collection<Category> categories = game.getCategories();
+
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(game);
 		else
@@ -100,6 +102,45 @@ public class GameDeveloperController {
 		return result;
 	}
 
+	// Add property -----------------------------------------------------------
+
+	@RequestMapping(value = "/editCategories", method = RequestMethod.GET)
+	public ModelAndView editProperties(@RequestParam final int gameId) {
+		ModelAndView result;
+		Game game;
+
+		game = this.gameService.findOne(gameId);
+
+		try {
+			result = this.createEditModelAndViewGame(game);
+			result.addObject("editProperties", true);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/editCategories", method = RequestMethod.POST, params = "save")
+	public ModelAndView editProperties(@Valid final Game game, final BindingResult binding) {
+		ModelAndView result;
+
+		final Collection<Category> categories = game.getCategories();
+		if (binding.hasErrors())
+			result = this.createEditModelAndViewGame(game);
+		else
+			try {
+				this.categoryService.select(game.getCategories(), game);
+				this.gameService.save(game);
+
+				result = new ModelAndView("redirect:/game/display.do?gameId=" + game.getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndViewGame(game, "game.commit.error");
+			}
+
+		return result;
+	}
+
 	// Ancillary methods ------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Game game) {
 		ModelAndView result;
@@ -119,6 +160,32 @@ public class GameDeveloperController {
 		result.addObject("game", game);
 		result.addObject("categories", categories);
 		result.addObject("requestURI", "game/developer/edit.do");
+		result.addObject("message", message);
+
+		return result;
+	}
+
+	// Ancillary methods Game ----------------------------------------------
+
+	protected ModelAndView createEditModelAndViewGame(final Game game) {
+		ModelAndView result;
+
+		result = this.createEditModelAndViewGame(game, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndViewGame(final Game game, final String message) {
+		ModelAndView result;
+		Collection<Category> categories;
+
+		categories = this.categoryService.findAll();
+
+		result = new ModelAndView("game/edit");
+		result.addObject("game", game);
+		result.addObject("editProperties", true);
+		result.addObject("requestURI", "game/developer/editCategories.do?gameId=" + game.getId());
+		result.addObject("categories", categories);
 		result.addObject("message", message);
 
 		return result;

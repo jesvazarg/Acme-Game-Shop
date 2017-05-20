@@ -12,6 +12,7 @@ import repositories.CategoryRepository;
 import security.Authority;
 import domain.Actor;
 import domain.Category;
+import domain.Developer;
 import domain.Game;
 
 @Service
@@ -172,6 +173,32 @@ public class CategoryService {
 		games.remove(game);
 		category.setGames(games);
 		this.save(category);
+	}
+
+	public Collection<Category> select(final Collection<Category> categories, final Game game) {
+		Assert.notNull(game);
+
+		Developer developer;
+		developer = this.developerService.findByPrincipal();
+		Assert.notNull(developer);
+
+		final Collection<Category> allCategories = this.categoryRepository.findAll();
+		Collection<Game> games;
+		for (final Category c : allCategories) {
+			games = c.getGames();
+			if (games.contains(game)) {
+				games.remove(game);
+				this.categoryRepository.save(c);
+			}
+		}
+
+		for (Category category : categories) {
+			Assert.notNull(category);
+			category.addGame(game);
+			category = this.categoryRepository.save(category);
+		}
+
+		return categories;
 	}
 
 }

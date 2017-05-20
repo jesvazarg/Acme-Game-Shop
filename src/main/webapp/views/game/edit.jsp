@@ -16,7 +16,6 @@
 	<form:hidden path="reviews" />
 	<form:hidden path="senses" />
 	<form:hidden path="sellsNumber" />
-	<form:hidden path="categories" />
 	
 	<acme:input code="game.title" path="title" />
 	<acme:input code="game.description" path="description" />
@@ -24,13 +23,13 @@
 	<acme:input code="game.age" path="age" />
 	<acme:input code="game.price" path="price" />
 	
-	<%-- <form:label path="categories">
+	<form:label path="categories">
 		<spring:message code="game.categories"/>
 	</form:label>
 	<jstl:forEach var="category" items="${categories}">
 		<form:checkbox path ="categories" value="${categories}"/><jstl:out value="${category.name}"/>
 	</jstl:forEach>
-	<form:errors path="categories" cssClass="error"/> --%>
+	<form:errors path="categories" cssClass="error"/>
 	
 	<br/>
 	<acme:submit name="save" code="category.save" />

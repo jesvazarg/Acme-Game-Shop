@@ -45,9 +45,9 @@
 				</jstl:forEach>
 			</ul>
 			
-			<security:authorize access="hasRole('DEVELOPER')">
+			<%-- <security:authorize access="hasRole('DEVELOPER')">
 				<a href="game/developer/editCategories.do?gameId=${game.id}"><spring:message code="game.categories.edit" /></a>
-			</security:authorize>
+			</security:authorize> --%>
 		</li>
 
 

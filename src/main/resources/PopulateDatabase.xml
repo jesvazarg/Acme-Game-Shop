@@ -441,7 +441,7 @@
 		<property name="name" value="sport" />
 		<property name="games">
 			<list>
-				
+				<ref bean="game2" />
 			</list>
 		</property>
 	</bean>	
@@ -498,7 +498,7 @@
 		</property>
 		<property name="categories">
 			<list>
-				
+				<ref bean="category5" />
 			</list>
 		</property>
 		<property name="comments">

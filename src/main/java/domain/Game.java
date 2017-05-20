@@ -120,6 +120,7 @@ public class Game extends DomainEntity {
 	}
 
 	@Valid
+	@NotNull
 	@ManyToMany(mappedBy = "games")
 	public Collection<Category> getCategories() {
 		return this.categories;
