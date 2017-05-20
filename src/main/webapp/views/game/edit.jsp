@@ -33,10 +33,5 @@
 	
 	<br/>
 	<acme:submit name="save" code="category.save" />
-	<jstl:if test="${game.id != 0}">
-		<input type="submit" name="delete"
-			value="<spring:message code="game.delete" />"
-			onclick="return confirm('<spring:message code="game.confirm.delete" />')" />&nbsp;
-	</jstl:if>
 	<acme:cancel url="game/display.do?gameId=${game.id}" code="game.cancel" />
 </form:form>

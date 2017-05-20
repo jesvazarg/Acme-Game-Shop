@@ -45,9 +45,6 @@
 				</jstl:forEach>
 			</ul>
 			
-			<%-- <security:authorize access="hasRole('DEVELOPER')">
-				<a href="game/developer/editCategories.do?gameId=${game.id}"><spring:message code="game.categories.edit" /></a>
-			</security:authorize> --%>
 		</li>
 
 
@@ -57,6 +54,12 @@
 <security:authorize access="hasRole('DEVELOPER')">
 	<jstl:if test="${isOwner==true}">
 		<acme:button url="game/developer/edit.do?gameId=${game.id}" code="game.edit"/>
+	</jstl:if>
+</security:authorize>
+
+<security:authorize access="hasRole('DEVELOPER')">
+	<jstl:if test="${isOwner==true}">
+		<acme:button url="game/developer/delete.do?gameId=${game.id}" code="game.delete" />
 	</jstl:if>
 </security:authorize>
 	
