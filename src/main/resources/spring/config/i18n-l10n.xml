@@ -26,6 +26,7 @@
 		<value>/views/administrator/messages</value>
 		<value>/views/banner/messages</value>
 		<value>/views/category/messages</value>
+		<value>/views/creditCard/messages</value>
 		<value>/views/critic/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/discount/messages</value>

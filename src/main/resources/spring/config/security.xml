@@ -46,6 +46,12 @@
 
 		<security:intercept-url pattern="/game/listNotAuth.do" access="permitAll" /> 
 		
+		<!-- CUSTOMER and DEVELOPER -->
+		<security:intercept-url pattern="/creditCard/actor/display.do" access="hasAnyRole('CUSTOMER','DEVELOPER')" /> 
+		<security:intercept-url pattern="/creditCard/actor/create.do" access="hasAnyRole('CUSTOMER','DEVELOPER')" /> 
+		<security:intercept-url pattern="/creditCard/actor/edit.do" access="hasAnyRole('CUSTOMER','DEVELOPER')" />
+		<security:intercept-url pattern="/creditCard/actor/delete.do" access="hasRole('CUSTOMER')" />
+		
 		<!-- CUSTOMER, DEVELOPER, CRITIC and ADMINISTRATOR -->
 		
 		<security:intercept-url pattern="/messageEmail/create.do" access="isAuthenticated()" /> 

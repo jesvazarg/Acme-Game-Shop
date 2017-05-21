@@ -40,6 +40,7 @@ public class ProfileController extends AbstractController {
 		Boolean isDeveloper = false;
 		Boolean isCritic = false;
 		String account = "";
+		final Boolean sameActor = true;
 
 		actor = this.actorService.findByPrincipal();
 
@@ -61,6 +62,7 @@ public class ProfileController extends AbstractController {
 
 		result.addObject("profile", actor);
 		result.addObject("account", account);
+		result.addObject("sameActor", sameActor);
 		result.addObject("requestURI", "profile/display");
 
 		return result;
@@ -76,10 +78,14 @@ public class ProfileController extends AbstractController {
 		Boolean isDeveloper;
 		Boolean isCritic;
 		String account = "";
+		Boolean sameActor = false;
 
 		actor = this.actorService.findOne(actorId);
 
 		result = new ModelAndView("profile/display");
+
+		if (actor.equals(this.actorService.findByPrincipal()))
+			sameActor = true;
 
 		isCustomer = this.actorService.checkAuthority(actor, Authority.CUSTOMER);
 		if (isCustomer)
@@ -97,6 +103,7 @@ public class ProfileController extends AbstractController {
 
 		result.addObject("profile", actor);
 		result.addObject("account", account);
+		result.addObject("sameActor", sameActor);
 		result.addObject("requestURI", "profile/display");
 
 		return result;

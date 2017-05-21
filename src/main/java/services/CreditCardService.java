@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import repositories.CreditCardRepository;
 import domain.Actor;
 import domain.CreditCard;
-import domain.Developer;
+import domain.Customer;
 import forms.CreateCreditCardForm;
 
 @Service
@@ -25,7 +25,7 @@ public class CreditCardService {
 
 	// Supporting services ----------------------------------------------------
 	@Autowired
-	private DeveloperService		developerService;
+	private CustomerService			customerService;
 
 	@Autowired
 	private ActorService			actorService;
@@ -92,12 +92,12 @@ public class CreditCardService {
 
 	public void delete(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
-		Developer principal;
+		Customer principal;
 
-		principal = this.developerService.findByPrincipal();
+		principal = this.customerService.findByPrincipal();
 		Assert.notNull(principal);
 		principal.setCreditCard(null);
-		this.developerService.save(principal);
+		this.customerService.save(principal);
 		Assert.isTrue(creditCard.getId() != 0);
 
 		this.creditCardRepository.delete(creditCard);

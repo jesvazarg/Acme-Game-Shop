@@ -70,4 +70,20 @@
 	
 </div>
 
-
+<security:authorize access="hasAnyRole('CUSTOMER', 'DEVELOPER','ADMIN', 'CRITIC')">
+	<jstl:if test="${sameActor==false}">
+	<div>
+		<acme:button code="messageEmail.create" url="messageEmail/create.do?chorbieId=${profile.id}"/>
+	</div>
+	</jstl:if>
+</security:authorize>
+<security:authorize access="hasAnyRole('CUSTOMER', 'DEVELOPER')">
+	<jstl:if test="${sameActor==true}">
+		<jstl:if test="${profile.creditCard != null}">
+			<acme:button code="profile.creditCard.display" url="creditCard/actor/display.do"/>
+		</jstl:if>
+		<jstl:if test="${profile.creditCard == null}">
+			<acme:button code="profile.creditCard.create" url="creditCard/actor/create.do"/>
+		</jstl:if>
+	</jstl:if>
+</security:authorize>
