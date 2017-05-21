@@ -7,20 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.CreditCardRepository;
-import domain.CreditCard;
+import repositories.MessageEmailRepository;
+import domain.MessageEmail;
 
 @Component
 @Transactional
-public class StringToMessageEmailConverter implements Converter<String, CreditCard> {
+public class StringToMessageEmailConverter implements Converter<String, MessageEmail> {
 
 	@Autowired
-	CreditCardRepository	creditCardRepository;
+	MessageEmailRepository	messageEmailRepository;
 
 
 	@Override
-	public CreditCard convert(final String text) {
-		CreditCard result;
+	public MessageEmail convert(final String text) {
+		MessageEmail result;
 		int id;
 
 		try {
@@ -28,7 +28,7 @@ public class StringToMessageEmailConverter implements Converter<String, CreditCa
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.creditCardRepository.findOne(id);
+				result = this.messageEmailRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

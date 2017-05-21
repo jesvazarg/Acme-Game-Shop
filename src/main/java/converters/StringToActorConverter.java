@@ -7,20 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.GameRepository;
-import domain.Game;
+import repositories.ActorRepository;
+import domain.Actor;
 
 @Component
 @Transactional
-public class StringToActorConverter implements Converter<String, Game> {
+public class StringToActorConverter implements Converter<String, Actor> {
 
 	@Autowired
-	GameRepository	gameRepository;
+	ActorRepository	actorRepository;
 
 
 	@Override
-	public Game convert(final String text) {
-		Game result;
+	public Actor convert(final String text) {
+		Actor result;
 		int id;
 
 		try {
@@ -28,7 +28,7 @@ public class StringToActorConverter implements Converter<String, Game> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.gameRepository.findOne(id);
+				result = this.actorRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
