@@ -80,7 +80,7 @@ public class CreditCardActorController extends AbstractController {
 		else
 			try {
 				creditCard = this.creditCardService.reconstructCreditCard(createCreditCardForm, "create");
-				this.creditCardService.save(creditCard);
+				this.creditCardService.saveRegister(creditCard);
 				result = new ModelAndView("redirect:/creditCard/actor/display.do");
 
 			} catch (final Throwable oops) {

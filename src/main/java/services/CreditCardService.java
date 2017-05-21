@@ -62,7 +62,7 @@ public class CreditCardService {
 		return result;
 	}
 
-	public CreditCard save(final CreditCard creditCard) {
+	public CreditCard saveRegister(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
 		CreditCard result;
 		Actor principal;
@@ -79,7 +79,7 @@ public class CreditCardService {
 		return result;
 	}
 
-	public CreditCard saveRegister(final CreditCard creditCard) {
+	public CreditCard save(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
 		CreditCard result;
 

@@ -51,7 +51,6 @@ public class CreateCreditCardForm {
 
 	@NotNull
 	@Range(min = 1, max = 12)
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public Integer getExpirationMonth() {
 		return this.expirationMonth;
 	}
@@ -61,7 +60,6 @@ public class CreateCreditCardForm {
 
 	@NotNull
 	@Min(2017)
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public Integer getExpirationYear() {
 		return this.expirationYear;
 	}
@@ -71,7 +69,6 @@ public class CreateCreditCardForm {
 
 	@NotNull
 	@Range(min = 100, max = 999)
-	@SafeHtml(whitelistType = WhiteListType.SIMPLE_TEXT)
 	public Integer getCvv() {
 		return this.cvv;
 	}
