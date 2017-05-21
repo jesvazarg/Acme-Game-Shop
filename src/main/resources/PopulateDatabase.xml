@@ -264,7 +264,7 @@
 		<property name="surname" value="SurnameCustomer3" />
 		<property name="email" value="customer3@email.com" />
 		<property name="phone" value="1233" />
-		<property name="birthdate" value="06/10/1999" />
+		<property name="birthdate" value="06/10/2010" />
 		<property name="userAccount" ref="userAccount8" />
 		<property name="shoppingCart" ref="shoppingCart3" />
 		<property name="sentMessages">
