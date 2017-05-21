@@ -12,6 +12,11 @@
 <div>
 	<ul>
 		<li>
+			<b><spring:message code="game.developer"/>:</b>
+			<a href="profile/display.do?actorId=${game.developer.id}"><jstl:out value="${game.developer.name}" /></a>
+		</li>
+		
+		<li>
 			<b><spring:message code="game.title"/>:</b>
 			<jstl:out value="${game.title}" />
 		</li>
@@ -22,8 +27,7 @@
 		</li>
 		
 		<li>
-			<b><spring:message code="game.picture"/>:</b>
-			<jstl:out value="${game.picture}"/>
+			<img src="${game.picture}" style = "max-width: 400 px; max-height: 400px;"/>
 		</li>
 		
 		<li>

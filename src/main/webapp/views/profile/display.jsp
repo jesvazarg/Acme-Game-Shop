@@ -73,7 +73,7 @@
 <security:authorize access="hasAnyRole('CUSTOMER', 'DEVELOPER','ADMIN', 'CRITIC')">
 	<jstl:if test="${sameActor==false}">
 	<div>
-		<acme:button code="messageEmail.create" url="messageEmail/create.do?chorbieId=${profile.id}"/>
+		<acme:button code="messageEmail.create" url="messageEmail/create.do?actorId=${profile.id}"/>
 	</div>
 	</jstl:if>
 </security:authorize>

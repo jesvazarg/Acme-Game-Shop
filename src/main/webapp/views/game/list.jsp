@@ -15,7 +15,10 @@
 
 	
 	<acme:column code="game.title" property="title"/>
-	<acme:column code="game.picture" property="picture"/>
+	<spring:message code="game.picture" var="pictureHeader" />
+	<display:column title="${pictureHeader}">
+		<a href="${game.picture}"><img src="${game.picture}" style = "max-width: 100 px; max-height: 100px;"/></a>
+	</display:column>
 	<acme:column code="game.age" property="age"/>
 	<acme:column code="game.price" property="price"/>
 	<display:column>
