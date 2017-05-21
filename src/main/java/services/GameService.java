@@ -31,6 +31,9 @@ public class GameService {
 	private DeveloperService	developerService;
 
 	@Autowired
+	private CategoryService		categoryService;
+
+	@Autowired
 	private CustomerService		customerService;
 
 
@@ -101,6 +104,12 @@ public class GameService {
 		Developer developer;
 		developer = this.developerService.findByPrincipal();
 		Assert.isTrue(game.getDeveloper().equals(developer));
+
+		Collection<Category> categories;
+
+		categories = game.getCategories();
+		for (final Category category : categories)
+			this.categoryService.deleteGame(category, game);
 
 		this.gameRepository.delete(game);
 	}

@@ -177,6 +177,13 @@ public class CategoryService {
 		this.save(category);
 	}
 
+	public void deleteGame(final Category category, final Game game) {
+		Assert.notNull(category);
+		Assert.notNull(game);
+		category.getGames().remove(game);
+		this.categoryRepository.save(category);
+	}
+
 	public Collection<Category> select(final Collection<Category> categories, final Game game) {
 		Assert.notNull(game);
 
