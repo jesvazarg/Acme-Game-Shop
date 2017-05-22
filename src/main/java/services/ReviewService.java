@@ -121,7 +121,7 @@ public class ReviewService {
 	}
 
 	public Double[] MaxAvgMinReviewsPerCritic() {
-		return this.MaxAvgMinReviewsPerCritic();
+		return this.reviewRepository.MaxAvgMinReviewsPerCritic();
 	}
 
 }

@@ -119,7 +119,7 @@ public class DiscountService {
 	}
 
 	public Double[] MaxAvgMinPercentagePerDiscount() {
-		return this.MaxAvgMinPercentagePerDiscount();
+		return this.discountRepository.MaxAvgMinPercentagePerDiscount();
 	}
 
 }

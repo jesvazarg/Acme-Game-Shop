@@ -13,7 +13,12 @@
 	<ul>
 		<li>
 			<b><spring:message code="game.developer"/>:</b>
-			<a href="profile/display.do?actorId=${game.developer.id}"><jstl:out value="${game.developer.name}" /></a>
+			<security:authorize access="isAuthenticated()">
+				<a href="profile/display.do?actorId=${game.developer.id}"><jstl:out value="${game.developer.name}" /></a>
+			</security:authorize>
+			<security:authorize access="!isAuthenticated()">
+				<jstl:out value="${game.developer.name}" />
+			</security:authorize>
 		</li>
 		
 		<li>
@@ -75,15 +80,28 @@
 	<acme:column code="review.moment" property="moment" sortable="true"/>
 	<acme:column code="review.score" property="score" sortable="true"/>
 	
-	<spring:message code="review.critic" var="criticHeader" />
-	<display:column title="${criticHeader}">
-		<a href="profile/display.do?actorId=${review.critic.id}"><jstl:out value="${review.critic.name}" /></a>
-	</display:column>
+	<security:authorize access="isAuthenticated()">
+		<spring:message code="review.critic" var="criticHeader" />
+		<display:column title="${criticHeader}">
+			<a href="profile/display.do?actorId=${review.critic.id}"><jstl:out value="${review.critic.name}" /></a>
+		</display:column>
 	
-	<spring:message code="review.display" var="displayHeader" />
-	<display:column title="${displayHeader}" >
-		<a href="review/display.do?reviewId=${review.id}"><spring:message code="review.display"/></a>
-	</display:column>
+		<spring:message code="review.display" var="displayHeader" />
+		<display:column title="${displayHeader}" >
+			<a href="review/display.do?reviewId=${review.id}"><spring:message code="review.display"/></a>
+		</display:column>
+	</security:authorize>
+	<security:authorize access="!isAuthenticated()">
+		<spring:message code="review.critic" var="criticHeader" />
+		<display:column title="${criticHeader}">
+			<jstl:out value="${review.critic.name}" />
+		</display:column>
+	
+		<spring:message code="review.display" var="displayHeader" />
+		<display:column title="${displayHeader}" >
+			<a href="review/displayNotAuth.do?reviewId=${review.id}"><spring:message code="review.display"/></a>
+		</display:column>
+	</security:authorize>
 	
 </display:table>
 
@@ -115,4 +133,10 @@
 </jstl:if>
 </security:authorize>
 
-<acme:button url="game/list.do?" code="game.goBack" />
+<security:authorize access="isAuthenticated()">
+	<acme:button url="game/list.do" code="game.goBack" />
+</security:authorize>
+
+<security:authorize access="!isAuthenticated()">
+	<acme:button url="game/listNotAuth.do" code="game.goBack" />
+</security:authorize>

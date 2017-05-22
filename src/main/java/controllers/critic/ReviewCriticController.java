@@ -79,9 +79,14 @@ public class ReviewCriticController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int reviewId) {
 		ModelAndView result;
 		Review review;
+		Critic critic;
 
 		review = this.reviewService.findOne(reviewId);
-		result = this.editModelAndView(review);
+		critic = this.criticService.findByPrincipal();
+		if (review.getCritic().getId() == critic.getId())
+			result = this.editModelAndView(review);
+		else
+			result = new ModelAndView("redirect:/");
 
 		return result;
 	}

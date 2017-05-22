@@ -21,6 +21,7 @@
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
+			<li><a href="administrator/dashboard.do"><spring:message code="master.page.administrator.dashboard" /></a></li>
 			<li><a href="category/administrator/list.do"><spring:message code="master.page.administrator.category.list" /></a></li>
 			<li><a href="banner/administrator/list.do"><spring:message code="master.page.administrator.banner.list" /></a></li>
 			<li><a href="discount/administrator/list.do"><spring:message code="master.page.administrator.discount.list" /></a></li>

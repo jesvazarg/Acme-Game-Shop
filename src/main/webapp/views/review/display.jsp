@@ -10,15 +10,16 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div>
-	
-	<h3><jstl:out value="${review.title}" /></h3>
-	<br/>
-
-	<b><jstl:out value="${review.moment}" /></b>
-	<!-- <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${review.moment}" /> -->
-	<br/><br/>
-
-	<jstl:out value="${review.description}" />
+	<fieldset>
+		<legend class="dashLegend"><b><jstl:out value="${review.title}" /></b></legend>
+		<br/>
+		
+		<jstl:out value="${review.moment}" />
+		<!-- <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${review.moment}" /> -->
+		<br/><br/>
+		
+		<jstl:out value="${review.description}" />
+	</fieldset>
 	<br/>
 	
 	<ul>
@@ -31,20 +32,32 @@
 			<b><spring:message code="review.draft" />:</b>
 			<jstl:out value="${review.draft}" />
 		</li>
-		
-		<li>
-			<b><spring:message code="review.game" />:</b>
-			<a href="game/display.do?gameId=${review.game.id}"><jstl:out value="${review.game.title}" /></a>
-		</li>
-		
-		<li>
-			<b><spring:message code="review.critic" />:</b>
-			<a href="profile/display.do?actorId=${review.critic.id}"><jstl:out value="${review.critic.name}" /></a>
-		</li>
+		<security:authorize access="isAuthenticated()">
+			<li>
+				<b><spring:message code="review.game" />:</b>
+				<a href="game/display.do?gameId=${review.game.id}"><jstl:out value="${review.game.title}" /></a>
+			</li>
+			
+			<li>
+				<b><spring:message code="review.critic" />:</b>
+				<a href="profile/display.do?actorId=${review.critic.id}"><jstl:out value="${review.critic.name}" /></a>
+			</li>
+		</security:authorize>
+		<security:authorize access="!isAuthenticated()">
+			<li>
+				<b><spring:message code="review.game" />:</b>
+				<a href="game/displayNotAuth.do?gameId=${review.game.id}"><jstl:out value="${review.game.title}" /></a>
+			</li>
+			
+			<li>
+				<b><spring:message code="review.critic" />:</b>
+				<jstl:out value="${review.critic.name}" />
+			</li>
+		</security:authorize>
 		
 	</ul>
 	
-	<jstl:if test="${isCritic}">
+	<jstl:if test="${isMine}">
 		<acme:button code="review.edit" url="review/critic/edit.do?reviewId=${review.id}"/>
 	</jstl:if>
 	

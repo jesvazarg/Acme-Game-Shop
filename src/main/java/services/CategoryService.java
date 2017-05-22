@@ -220,7 +220,6 @@ public class CategoryService {
 			res.add(lista.get(0));
 			res.add(lista.get(lista.size() - 1));
 		}
-
 		return res;
 	}
 

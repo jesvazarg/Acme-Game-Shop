@@ -96,6 +96,32 @@ public class GameController extends AbstractController {
 		return result;
 	}
 
+	// DisplayNotAuth ----------------------------------------------------------------
+	@RequestMapping(value = "/displayNotAuth", method = RequestMethod.GET)
+	public ModelAndView displayNotAuth(@RequestParam final int gameId) {
+		ModelAndView result;
+		Game game;
+		Collection<Review> reviews;
+		final Boolean canAddToShoppingcart = false;
+		final Boolean isOwner = false;
+
+		game = this.gameService.findOne(gameId);
+
+		reviews = this.reviewService.findAllPublishedReview(gameId);
+		if (game.getAge() > 13)
+			result = new ModelAndView("redirect:/game/listNotAuth.do");
+		else {
+			result = new ModelAndView("game/display");
+			result.addObject("game", game);
+			result.addObject("canAddToShoppingcart", canAddToShoppingcart);
+			result.addObject("reviews", reviews);
+			result.addObject("isOwner", isOwner);
+			result.addObject("requestURI", "game/displayNotAuth.do");
+		}
+
+		return result;
+	}
+
 	// Display ----------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int gameId) {

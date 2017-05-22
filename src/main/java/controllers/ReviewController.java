@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.ReviewService;
 import domain.Actor;
+import domain.Critic;
 import domain.Review;
 
 @Controller
@@ -30,23 +31,43 @@ public class ReviewController extends AbstractController {
 		super();
 	}
 
-	// List ---------------------------------------------------------------
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView list(final int reviewId) {
+	// Display ---------------------------------------------------------------
+	@RequestMapping(value = "/displayNotAuth", method = RequestMethod.GET)
+	public ModelAndView displayNotAuth(final int reviewId) {
 		ModelAndView result;
 		Review review;
-		Actor actor;
-		Boolean isCritic = false;
+		final Boolean isMine = false;
 
-		actor = this.actorService.findByPrincipal();
 		review = this.reviewService.findOne(reviewId);
-
-		if (review.getCritic().equals(actor))
-			isCritic = true;
 
 		result = new ModelAndView("review/display");
 		result.addObject("review", review);
-		result.addObject("isCritic", isCritic);
+		result.addObject("isMine", isMine);
+		result.addObject("requestURI", "review/displayNotAuth.do");
+
+		return result;
+	}
+
+	// Display ---------------------------------------------------------------
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(final int reviewId) {
+		ModelAndView result;
+		Review review;
+		Actor principal;
+		Critic critic;
+		Boolean isMine = false;
+
+		review = this.reviewService.findOne(reviewId);
+		principal = this.actorService.findByPrincipal();
+		if (this.actorService.checkAuthority(principal, "CRITIC")) {
+			critic = (Critic) principal;
+			if (critic.getId() == review.getCritic().getId())
+				isMine = true;
+		}
+
+		result = new ModelAndView("review/display");
+		result.addObject("review", review);
+		result.addObject("isMine", isMine);
 		result.addObject("requestURI", "review/display.do");
 
 		return result;

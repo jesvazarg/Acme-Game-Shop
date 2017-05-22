@@ -22,9 +22,12 @@
 	<acme:column code="game.age" property="age"/>
 	<acme:column code="game.price" property="price"/>
 	<display:column>
-		<a href="game/display.do?gameId=${game.id}"><spring:message
-		code="game.display"/>
-		</a>
+		<security:authorize access="isAuthenticated()">
+			<a href="game/display.do?gameId=${game.id}"><spring:message code="game.display"/></a>
+		</security:authorize>
+		<security:authorize access="!isAuthenticated()">
+			<a href="game/displayNotAuth.do?gameId=${game.id}"><spring:message code="game.display"/></a>
+		</security:authorize>
 	</display:column>
 	
 		<security:authorize access="hasRole('CUSTOMER')">
