@@ -88,6 +88,7 @@
 		<security:intercept-url pattern="/sense/customer/dislike.do" access="hasRole('CUSTOMER')" />
 		
 		<security:intercept-url pattern="/comment/customer/create.do" access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/comment/customer/delete.do" access="hasRole('CUSTOMER')" />
 		
 		<security:intercept-url pattern="/customer/edit.do" access="hasRole('CUSTOMER')" /> 
 

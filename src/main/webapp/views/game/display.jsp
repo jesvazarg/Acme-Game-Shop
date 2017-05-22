@@ -121,6 +121,14 @@
 		<a href="comment/display.do?commentId=${comment.id}"><spring:message code="review.display"/></a>
 	</display:column>
 	
+	<security:authorize access="hasRole('CUSTOMER')">
+	<jstl:if test="${comment.customer.id==actor.id}">
+	<display:column>
+		<a href="comment/customer/delete.do?commentId=${comment.id}"><spring:message code="game.delete"/></a>
+	</display:column>
+	</jstl:if>
+	</security:authorize>
+	
 </display:table>
 
 <security:authorize access="hasRole('CUSTOMER')">

@@ -69,6 +69,21 @@ public class CommentCustomerController extends AbstractController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@Valid final int commentId) {
+		ModelAndView result;
+		final Comment comment;
+		final Game game;
+
+		comment = this.commentService.findOne(commentId);
+		game = comment.getGame();
+
+		this.commentService.delete(comment);
+		result = new ModelAndView("redirect:/game/display.do?gameId=" + game.getId());
+
+		return result;
+	}
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Comment comment) {

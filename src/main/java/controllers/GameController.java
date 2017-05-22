@@ -151,6 +151,7 @@ public class GameController extends AbstractController {
 		result.addObject("canAddToShoppingcart", canAddToShoppingcart);
 		result.addObject("reviews", reviews);
 		result.addObject("isOwner", isOwner);
+		result.addObject("actor", actor);
 		result.addObject("requestURI", "game/display.do");
 
 		return result;
