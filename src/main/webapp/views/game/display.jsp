@@ -118,7 +118,7 @@
 	
 	<spring:message code="review.display"/>
 	<display:column title="${displayHeader}">
-		<a href="comment/customer/display.do?commentId=${comment.id}"><spring:message code="review.display"/></a>
+		<a href="comment/display.do?commentId=${comment.id}"><spring:message code="review.display"/></a>
 	</display:column>
 	
 </display:table>

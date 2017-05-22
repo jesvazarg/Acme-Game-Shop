@@ -48,6 +48,7 @@
 		<security:intercept-url pattern="/game/displayNotAuth.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/review/displayNotAuth.do" access="permitAll" />
+		<security:intercept-url pattern="/comment/display.do" access="permitAll" />
 		
 		<!-- CUSTOMER and DEVELOPER -->
 		<security:intercept-url pattern="/creditCard/actor/display.do" access="hasAnyRole('CUSTOMER','DEVELOPER')" /> 
