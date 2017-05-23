@@ -36,7 +36,7 @@
 			<li><a class="fNiv"><spring:message	code="master.page.game" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="game/list.do"><spring:message code="master.page.game.list" /></a></li>
+					<li><a href="game/listMyGames.do"><spring:message code="master.page.game.listMyGames" /></a></li>
 					<li><a href="game/developer/create.do"><spring:message code="master.page.game.create" /></a></li>
 					
 				</ul>

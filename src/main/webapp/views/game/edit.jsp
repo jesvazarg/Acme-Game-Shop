@@ -7,6 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<jstl:if test="${!message.equals('game.commit.error.notCreditCard') && !message.equals('game.commit.error.validCreditCard')}">
 <form:form method="post" action="game/developer/edit.do" modelAttribute="game" >
 	
 	<form:hidden path="id" />
@@ -34,4 +35,12 @@
 	<br/>
 	<acme:submit name="save" code="category.save" />
 	<acme:cancel url="game/display.do?gameId=${game.id}" code="game.cancel" />
+	
 </form:form>
+</jstl:if>
+<jstl:if test="${message.equals('game.commit.error.notCreditCard')}">
+	<acme:button url="creditCard/developer/create.do" code="game.newCreditCard"/>
+</jstl:if>
+<jstl:if test="${message.equals('game.commit.error.validCreditCard')}">
+	<acme:button url="creditCard/developer/edit.do" code="game.editCreditCard"/>
+</jstl:if>

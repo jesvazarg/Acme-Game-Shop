@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CategoryService;
+import services.CreditCardService;
 import services.DeveloperService;
 import services.GameService;
 import domain.Actor;
@@ -40,6 +41,9 @@ public class GameDeveloperController {
 	@Autowired
 	private DeveloperService	developerService;
 
+	@Autowired
+	private CreditCardService	creditCardService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -63,6 +67,11 @@ public class GameDeveloperController {
 
 		game = this.gameService.create();
 
+		if (developer.getCreditCard() == null)
+			return result = this.createEditModelAndView(game, "game.commit.error.notCreditCard");
+		else if (!(this.creditCardService.checkCreditCardBoolean(developer.getCreditCard())))
+			return result = this.createEditModelAndView(game, "game.commit.error.validCreditCard");
+
 		result = this.createEditModelAndView(game);
 
 		return result;
@@ -81,6 +90,11 @@ public class GameDeveloperController {
 
 		if (developer == null || !game.getDeveloper().equals(developer))
 			return result = new ModelAndView("redirect:../../welcome/index.do");
+
+		if (developer.getCreditCard() == null)
+			return result = this.createEditModelAndView(game, "game.commit.error.notCreditCard");
+		else if (!(this.creditCardService.checkCreditCardBoolean(developer.getCreditCard())))
+			return result = this.createEditModelAndView(game, "game.commit.error.validCreditCard");
 
 		result = this.createEditModelAndView(game);
 

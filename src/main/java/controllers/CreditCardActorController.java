@@ -1,5 +1,5 @@
 
-package controllers.actor;
+package controllers;
 
 import javax.validation.Valid;
 
@@ -14,13 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.CreditCardService;
 import services.CustomerService;
-import controllers.AbstractController;
 import domain.CreditCard;
 import domain.Customer;
 import forms.CreateCreditCardForm;
 
 @Controller
-@RequestMapping("/creditCard/actor")
+@RequestMapping("/creditCard")
 public class CreditCardActorController extends AbstractController {
 
 	// Service ---------------------------------------------------------------		
@@ -81,7 +80,7 @@ public class CreditCardActorController extends AbstractController {
 			try {
 				creditCard = this.creditCardService.reconstructCreditCard(createCreditCardForm, "create");
 				this.creditCardService.saveRegister(creditCard);
-				result = new ModelAndView("redirect:/creditCard/actor/display.do");
+				result = new ModelAndView("redirect:/creditCard/display.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.error");
@@ -117,7 +116,7 @@ public class CreditCardActorController extends AbstractController {
 			try {
 				creditCard = this.creditCardService.reconstructCreditCard(createCreditCardForm, "edit");
 				this.creditCardService.save(creditCard);
-				result = new ModelAndView("redirect:/creditCard/actor/display.do");
+				result = new ModelAndView("redirect:/creditCard/display.do");
 
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.error");
@@ -159,7 +158,7 @@ public class CreditCardActorController extends AbstractController {
 
 		result = new ModelAndView("creditCard/create");
 		result.addObject("createCreditCardForm", createCreditCardForm);
-		result.addObject("requestURI", "creditCard/actor/create.do");
+		result.addObject("requestURI", "creditCard/create.do");
 		result.addObject("message", message);
 
 		return result;
@@ -178,7 +177,7 @@ public class CreditCardActorController extends AbstractController {
 
 		result = new ModelAndView("creditCard/edit");
 		result.addObject("createCreditCardForm", createCreditCardForm);
-		result.addObject("requestURI", "creditCard/actor/edit.do");
+		result.addObject("requestURI", "creditCard/edit.do");
 		result.addObject("message", message);
 
 		return result;

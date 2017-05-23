@@ -96,6 +96,32 @@ public class GameController extends AbstractController {
 		return result;
 	}
 
+	// ListMyGames ----------------------------------------------------------------
+	@RequestMapping(value = "/listMyGames", method = RequestMethod.GET)
+	public ModelAndView listMyGames() {
+		ModelAndView result;
+		Collection<Game> games;
+		Collection<Sense> senses;
+
+		final Actor actor = this.actorService.findByPrincipal();
+		Developer developer;
+		developer = this.developerService.findByUserAccountId(actor.getUserAccount().getId());
+		senses = this.senseService.findAll();
+
+		final Customer customer = this.customerService.findByUserAccount(actor.getUserAccount());
+		if (customer != null)
+			games = this.gameService.findByAge();
+		else
+			games = this.gameService.findByDeveloperId(developer.getId());
+
+		result = new ModelAndView("game/list");
+		result.addObject("games", games);
+		result.addObject("principal", actor);
+		result.addObject("senseList", senses);
+
+		return result;
+	}
+
 	// DisplayNotAuth ----------------------------------------------------------------
 	@RequestMapping(value = "/displayNotAuth", method = RequestMethod.GET)
 	public ModelAndView displayNotAuth(@RequestParam final int gameId) {

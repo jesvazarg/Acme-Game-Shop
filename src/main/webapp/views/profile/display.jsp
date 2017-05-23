@@ -80,10 +80,10 @@
 <security:authorize access="hasAnyRole('CUSTOMER', 'DEVELOPER')">
 	<jstl:if test="${sameActor==true}">
 		<jstl:if test="${profile.creditCard != null}">
-			<acme:button code="profile.creditCard.display" url="creditCard/actor/display.do"/>
+			<acme:button code="profile.creditCard.display" url="creditCard/display.do"/>
 		</jstl:if>
 		<jstl:if test="${profile.creditCard == null}">
-			<acme:button code="profile.creditCard.create" url="creditCard/actor/create.do"/>
+			<acme:button code="profile.creditCard.create" url="creditCard/create.do"/>
 		</jstl:if>
 	</jstl:if>
 </security:authorize>
