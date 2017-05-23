@@ -29,6 +29,7 @@
 		<value>/views/creditCard/messages</value>
 		<value>/views/critic/messages</value>
 		<value>/views/customer/messages</value>
+		<value>/views/developer/messages</value>
 		<value>/views/discount/messages</value>
 		<value>/views/game/messages</value>
 		<value>/views/messageEmail/messages</value>

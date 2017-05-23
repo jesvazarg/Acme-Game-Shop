@@ -18,6 +18,7 @@ import domain.Developer;
 import domain.Game;
 import domain.MessageEmail;
 import forms.CreateActorForm;
+import forms.CreateDeveloperForm;
 
 @Service
 @Transactional
@@ -173,6 +174,53 @@ public class DeveloperService {
 
 	public Collection<Developer> developerWithGameWorstReview() {
 		return this.developerRepository.developerWithGameWorstReview();
+	}
+
+	public Developer reconstructProfile(final CreateDeveloperForm createDeveloperForm, final String type) {
+		Assert.notNull(createDeveloperForm);
+		Developer developer = null;
+		Md5PasswordEncoder encoder;
+		String password;
+
+		Assert.isTrue(createDeveloperForm.getPassword().equals(createDeveloperForm.getConfirmPassword()));
+
+		//Creo uno nuevo vacio para meterle los datos del formulario a dicho customer
+		if (type.equals("create")) {
+			developer = this.create();
+			Assert.isTrue(createDeveloperForm.getIsAgree());
+		} else if (type.equals("edit"))
+			developer = this.findByPrincipal();
+
+		password = createDeveloperForm.getPassword();
+
+		encoder = new Md5PasswordEncoder();
+		password = encoder.encodePassword(password, null);
+
+		developer.getUserAccount().setUsername(createDeveloperForm.getUsername());
+		developer.getUserAccount().setPassword(password);
+		developer.setName(createDeveloperForm.getName());
+		developer.setSurname(createDeveloperForm.getSurname());
+		developer.setEmail(createDeveloperForm.getEmail());
+		developer.setPhone(createDeveloperForm.getPhone());
+		developer.setCompany(createDeveloperForm.getCompany());
+
+		return developer;
+	}
+
+	public CreateDeveloperForm constructProfile(final Developer developer) {
+		Assert.notNull(developer);
+		CreateDeveloperForm createDeveloperForm;
+
+		createDeveloperForm = new CreateDeveloperForm();
+		createDeveloperForm.setUsername(developer.getUserAccount().getUsername());
+		createDeveloperForm.setPassword(developer.getUserAccount().getPassword());
+		createDeveloperForm.setName(developer.getName());
+		createDeveloperForm.setSurname(developer.getSurname());
+		createDeveloperForm.setEmail(developer.getEmail());
+		createDeveloperForm.setPhone(developer.getPhone());
+		createDeveloperForm.setCompany(developer.getCompany());
+
+		return createDeveloperForm;
 	}
 
 }

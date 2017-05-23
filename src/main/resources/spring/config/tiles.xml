@@ -29,6 +29,7 @@
 		<value>/views/creditCard/tiles.xml</value>
 		<value>/views/critic/tiles.xml</value>
 		<value>/views/customer/tiles.xml</value>
+		<value>/views/developer/tiles.xml</value>
 		<value>/views/discount/tiles.xml</value>
 		<value>/views/game/tiles.xml</value>
 		<value>/views/messageEmail/tiles.xml</value>

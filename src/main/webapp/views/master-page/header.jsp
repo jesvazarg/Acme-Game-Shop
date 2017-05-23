@@ -48,6 +48,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="customer/create.do"><spring:message code="master.page.customer.register" /></a></li>
+					<li><a href="developer/create.do"><spring:message code="master.page.developer.register" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

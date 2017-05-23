@@ -43,6 +43,7 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/customer/create.do" access="permitAll" />
+		<security:intercept-url pattern="/developer/create.do" access="permitAll" />
 
 		<security:intercept-url pattern="/game/listNotAuth.do" access="permitAll" /> 
 		<security:intercept-url pattern="/game/displayNotAuth.do" access="permitAll" /> 
@@ -94,6 +95,8 @@
 
 
 		<!-- DEVELOPER -->
+		
+		<security:intercept-url pattern="/developer/edit.do" access="hasRole('DEVELOPER')" /> 
 		
 		<security:intercept-url pattern="/game/developer/create.do" access="hasRole('DEVELOPER')" /> 
 		<security:intercept-url pattern="/game/developer/edit.do" access="hasRole('DEVELOPER')" /> 
