@@ -116,6 +116,20 @@
 	<acme:column code="review.moment" property="moment" sortable="false"/>
 	<acme:column code="review.score" property="score" sortable="true"/>
 	
+	<security:authorize access="isAuthenticated()">
+	<spring:message code="comment.customer" var="customerHeader" />
+		<display:column title="${customerHeader}">
+			<a href="profile/display.do?actorId=${comment.customer.id}"><jstl:out value="${comment.customer.name}" /></a>
+		</display:column>
+	</security:authorize>
+	
+	<security:authorize access="!isAuthenticated()">
+	<spring:message code="comment.customer" var="customerHeader" />
+		<display:column title="${customerHeader}">
+			<jstl:out value="${comment.customer.name}" />
+		</display:column>
+	</security:authorize>
+	
 	<spring:message code="review.display"/>
 	<display:column title="${displayHeader}">
 		<a href="comment/display.do?commentId=${comment.id}"><spring:message code="review.display"/></a>

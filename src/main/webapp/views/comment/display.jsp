@@ -21,6 +21,18 @@
 			<b><spring:message code="comment.score"/>:</b>
 			<jstl:out value="${comment.description}" />
 		</li>
+		<security:authorize access="isAuthenticated()">
+		<li>
+			<b><spring:message code="comment.customer"/>:</b>
+			<a href="profile/display.do?actorId=${comment.customer.id}"><jstl:out value="${comment.customer.name}" /></a>
+		</li>
+		</security:authorize>
+		<security:authorize access="!isAuthenticated()">
+		<li>
+			<b><spring:message code="comment.customer"/>:</b>
+			<jstl:out value="${comment.customer.name}" />
+		</li>
+		</security:authorize>
 	</ul>
 </div>
 
