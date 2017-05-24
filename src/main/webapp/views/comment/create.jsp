@@ -50,7 +50,13 @@
 	<acme:textarea code="comment.description" path="description" />
 	
 	<acme:submit name="save" code="comment.save" />
+	<jstl:if test="${comment.game!=null }">
 	<acme:cancel url="game/display.do?gameId=${comment.game.id}" code="comment.cancel" />
+	</jstl:if>
+	
+	<jstl:if test="${comment.game==null }">
+	<acme:cancel url="game/list.do" code="comment.cancel" />
+	</jstl:if>
 </form:form>
 
 

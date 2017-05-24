@@ -52,7 +52,14 @@
 		<acme:cancel url="review/display.do?reviewId=${review.id}" code="review.cancel" />
 	</jstl:if>
 	<jstl:if test="${review.id == 0}">
-		<acme:submit name="register" code="review.save" />
-		<acme:cancel url="game/display.do?gameId=${review.game.id}" code="review.cancel" />
+		<jstl:if test="${review.game != null}">
+			<acme:submit name="register" code="review.save" />
+			<acme:cancel url="game/display.do?gameId=${review.game.id}" code="review.cancel" />
+		</jstl:if>
+		
+		<jstl:if test="${review.game == null}">
+			<acme:submit name="register" code="review.save" />
+			<acme:cancel url="game/list.do" code="review.cancel" />
+		</jstl:if>
 	</jstl:if>
 </form:form>

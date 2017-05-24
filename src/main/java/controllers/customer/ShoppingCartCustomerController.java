@@ -137,17 +137,17 @@ public class ShoppingCartCustomerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final ShoppingCart shoppingCart, final String message) {
 		ModelAndView result;
 		Collection<Game> games;
-		//		String error = null;
+		Double total = 0.0;
 
 		games = shoppingCart.getGames();
-		//		if (message.equals("shoppingCart.commit.error.notCreditCard"))
-		//			error = "perfil";
-		//		else if (message.equals("shoppingCart.commit.error.validCreditCard"))
-		//			error = "creditCard";
+
+		for (final Game aux : games)
+			total = total + aux.getPrice();
 
 		result = new ModelAndView("shoppingCart/display");
 		result.addObject("shoppingCart", shoppingCart);
 		result.addObject("games", games);
+		result.addObject("total", total);
 		result.addObject("requestURI", "shoppingCart/customer/display.do");
 		result.addObject("message", message);
 

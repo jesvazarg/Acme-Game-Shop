@@ -58,7 +58,10 @@ public class CommentCustomerController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(comment);
+			if (comment.getGame() == null)
+				result = this.createEditModelAndView(comment, "comment.commit.error.not.game");
+			else
+				result = this.createEditModelAndView(comment);
 		else
 			try {
 				this.commentService.save(comment);

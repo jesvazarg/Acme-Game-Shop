@@ -97,7 +97,10 @@ public class ReviewCriticController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createModelAndView(review);
+			if (review.getGame() == null)
+				result = this.createModelAndView(review, "review.commit.error.not.game");
+			else
+				result = this.createModelAndView(review);
 		else
 			try {
 				review = this.reviewService.save(review);
@@ -130,7 +133,10 @@ public class ReviewCriticController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.editModelAndView(review);
+			if (review.getGame() == null)
+				result = this.editModelAndView(review, "review.commit.error.not.game");
+			else
+				result = this.editModelAndView(review);
 		else
 			try {
 				this.reviewService.save(review);

@@ -38,6 +38,7 @@ public class ReceiptService {
 
 		result = this.receiptRepository.findOne(receiptId);
 		Assert.notNull(result);
+		Assert.isTrue(result.getCustomer().getId() == this.customerService.findByPrincipal().getId());
 
 		return result;
 	}

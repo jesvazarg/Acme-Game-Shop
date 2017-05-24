@@ -27,7 +27,11 @@
 	</display:column>
 </display:table>
 
+
+
 <jstl:if test="${not empty games }">
+	<b><spring:message code="shoppingCart.total"/>: </b> 
+	<h2><jstl:out value="${total}" /></h2>
 	<spring:message code="discount.code"/>
 	<input type="text" value="" id="code" />
 	<input type="button" id="buttonBuy"
