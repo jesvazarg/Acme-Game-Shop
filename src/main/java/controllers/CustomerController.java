@@ -102,7 +102,7 @@ public class CustomerController extends AbstractController {
 			try {
 				customer = this.customerService.reconstructProfile(createCustomerForm, "edit");
 				this.customerService.save(customer);
-				result = new ModelAndView("redirect:/welcome/index.do");
+				result = new ModelAndView("redirect:/profile/myProfile.do");
 
 			} catch (final Throwable oops) {
 				if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
