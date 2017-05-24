@@ -88,6 +88,12 @@ public class CommentService {
 		this.commentRepository.delete(comment);
 	}
 
+	public void deleteWithGame(final Comment comment) {
+		Assert.notNull(comment);
+
+		this.commentRepository.delete(comment);
+	}
+
 	// Other business methods -------------------------------------------------
 
 }

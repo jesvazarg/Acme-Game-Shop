@@ -86,6 +86,11 @@ public class ShoppingCartService {
 		return this.shoppingCartRepository.save(shoppingCart);
 	}
 
+	public ShoppingCart saveWithGame(final ShoppingCart shoppingCart) {
+		Assert.notNull(shoppingCart);
+		return this.shoppingCartRepository.save(shoppingCart);
+	}
+
 	// Other business methods -------------------------------------------------
 	public ShoppingCart addGameToShoppingCart(final Game game) {
 		Assert.notNull(game);
@@ -185,6 +190,21 @@ public class ShoppingCartService {
 			result = false;
 
 		return result;
+
+	}
+
+	public ShoppingCart removeGameToShoppingCartWithGame(final Game game, ShoppingCart shoppingCart) {
+		Assert.notNull(game);
+		Collection<Game> gamesInCart;
+
+		gamesInCart = shoppingCart.getGames();
+
+		if (gamesInCart.contains(game))
+			gamesInCart.remove(game);
+		shoppingCart.setGames(gamesInCart);
+		shoppingCart = this.saveWithGame(shoppingCart);
+
+		return shoppingCart;
 
 	}
 }

@@ -18,6 +18,7 @@ import domain.Developer;
 import domain.Game;
 import domain.Review;
 import domain.Sense;
+import domain.ShoppingCart;
 
 @Service
 @Transactional
@@ -35,6 +36,18 @@ public class GameService {
 
 	@Autowired
 	private CustomerService		customerService;
+
+	@Autowired
+	private CommentService		commentService;
+
+	@Autowired
+	private SenseService		senseService;
+
+	@Autowired
+	private ReviewService		reviewsService;
+
+	@Autowired
+	private ShoppingCartService	shoppingCartService;
 
 
 	// Supporting services ----------------------------------------------------
@@ -118,10 +131,36 @@ public class GameService {
 		Assert.isTrue(game.getDeveloper().equals(developer));
 
 		Collection<Category> categories;
+		Collection<Comment> comments;
+		Collection<Sense> senses;
+		Collection<Review> reviews;
+		Collection<ShoppingCart> shoppingCarts;
 
+		/* Borramos las categorias */
 		categories = game.getCategories();
 		for (final Category category : categories)
 			this.categoryService.deleteGame(category, game);
+
+		/* Borramos los comentarios */
+		comments = game.getComments();
+		for (final Comment comment : comments)
+			this.commentService.deleteWithGame(comment);
+
+		/* Borramos los likes */
+		senses = game.getSenses();
+		for (final Sense sense : senses)
+			this.senseService.deleteWithGame(sense);
+
+		/* Borramos las criticas */
+		reviews = game.getReviews();
+		for (final Review review : reviews)
+			this.reviewsService.deleteWithGame(review);
+
+		/* Lo borramos de las shoppingCart que lo contengan */
+		shoppingCarts = this.shoppingCartService.findAll();
+		for (final ShoppingCart shoppingCart : shoppingCarts)
+			if (shoppingCart.getGames().contains(game))
+				this.shoppingCartService.removeGameToShoppingCartWithGame(game, shoppingCart);
 
 		this.gameRepository.delete(game);
 	}

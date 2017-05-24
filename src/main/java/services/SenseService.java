@@ -102,6 +102,13 @@ public class SenseService {
 		this.senseRepository.delete(sense);
 	}
 
+	public void deleteWithGame(final Sense sense) {
+		Assert.notNull(sense);
+		Assert.isTrue(sense.getId() != 0);
+
+		this.senseRepository.delete(sense);
+	}
+
 	// Other business methods -------------------------------------------------
 
 }

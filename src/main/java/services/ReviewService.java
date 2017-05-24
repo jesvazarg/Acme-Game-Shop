@@ -103,6 +103,13 @@ public class ReviewService {
 		this.reviewRepository.delete(review);
 	}
 
+	public void deleteWithGame(final Review review) {
+		Assert.notNull(review);
+		Assert.isTrue(review.getId() != 0);
+
+		this.reviewRepository.delete(review);
+	}
+
 	// Other business methods -------------------------------------------------
 	public void publishReview(final Review review) {
 		Assert.notNull(review);
