@@ -64,10 +64,13 @@ public class CategoryService {
 
 	public Category create() {
 		Category result;
+		Collection<Game> games;
 
 		Assert.notNull(this.administratorService.findByPrincipal());
+		games = new ArrayList<Game>();
 
 		result = new Category();
+		result.setGames(games);
 
 		return result;
 	}
@@ -80,13 +83,14 @@ public class CategoryService {
 		principal = this.actorService.findByPrincipal();
 		Assert.isTrue((this.actorService.checkAuthority(principal, Authority.ADMIN)) || (this.actorService.checkAuthority(principal, Authority.DEVELOPER)));
 		if (this.actorService.checkAuthority(principal, Authority.ADMIN))
-			Assert.isTrue(category.getGames().size() == 0);
+			Assert.isTrue(category.getGames().isEmpty());
+		else
+			Assert.isTrue(this.categoryRepository.findOne(category.getId()).getName().equals(category.getName()));
 
 		result = this.categoryRepository.save(category);
 
 		return result;
 	}
-
 	public void delete(final Category category) {
 		Assert.notNull(category);
 		Assert.isTrue(category.getId() != 0);
