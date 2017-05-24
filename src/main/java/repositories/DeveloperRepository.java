@@ -16,7 +16,7 @@ public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
 	Developer findByUserAccountId(int userAccountId);
 
 	//C7: Los desarrolladores que tengan el mayor número de juegos cuyas ventas superen las 1000 unidades
-	@Query("select d,count(g) from Developer d join d.games g where g.sellsNumber>1000 group by g.developer order by g.sellsNumber DESC")
+	@Query("select d.id,count(g) from Developer d join d.games g where g.sellsNumber>5 group by g.developer order by g.sellsNumber DESC")
 	Collection<Object[]> developersWithBestSellersQuantity();
 
 	//C3: Los desarrolladores con más ventas

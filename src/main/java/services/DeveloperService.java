@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -225,4 +226,57 @@ public class DeveloperService {
 		return createDeveloperForm;
 	}
 
+	public Collection<Developer> developersWithBestSellersQuantity() {
+		Collection<Object[]> aux;
+		final Collection<Developer> result = new HashSet<Developer>();
+		aux = this.developerRepository.developersWithBestSellersQuantity();
+		Long vendedorDeReferencia = 0L;
+		for (final Object[] valueAux : aux) {
+
+			vendedorDeReferencia = (Long) valueAux[1];
+
+			System.out.println("valor de la id" + valueAux[0]);
+			System.out.println("numero de ventas" + valueAux[1]);
+
+			break;
+
+		}
+
+		for (final Object[] valueAux : aux) {
+			final Long sells = (Long) valueAux[1];
+
+			if (sells < vendedorDeReferencia)
+				break;
+			Developer developer;
+			developer = this.findOne((int) valueAux[0]);
+			result.add(developer);
+		}
+		return result;
+	}
+
+	/*
+	 * public Collection<Recipe> findByContestIdOrderByLikeDislike(int contestId){
+	 * Collection<Object[]> aux;
+	 * Collection<Recipe> result;
+	 * 
+	 * result = new HashSet<Recipe>();
+	 * aux = recipeRepository.findByContestIdOrderByLikeDislike(contestId);
+	 * 
+	 * int i=0;
+	 * for(Object[] valueAux:aux){
+	 * if(i==2){
+	 * break;
+	 * }
+	 * Recipe recipe;
+	 * Object recipeId = valueAux[0];
+	 * 
+	 * recipe = findOne((int) recipeId);
+	 * result.add(recipe);
+	 * 
+	 * i++;
+	 * }
+	 * 
+	 * return result;
+	 * }
+	 */
 }
