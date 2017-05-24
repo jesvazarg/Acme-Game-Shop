@@ -81,7 +81,7 @@ public class DashboardAdministratorController extends AbstractController {
 		List<Game> b1;
 		Collection<Developer> b2_1;
 		Collection<Developer> b2_2;
-		//List<Object> b3;
+		Object[] b3;
 
 		//Level A
 		Double[] a1;
@@ -108,7 +108,7 @@ public class DashboardAdministratorController extends AbstractController {
 		b1 = this.gameService.findGameBestAndWorstScoreReviews();
 		b2_1 = this.developerService.developerWithGameBetterReview();
 		b2_2 = this.developerService.developerWithGameWorstReview();
-		//b3 = this.reviewService.MaxAvgMinReviewsPerCritic();
+		b3 = this.reviewService.MaxAvgMinReviewsPerCritic();
 
 		//Level A
 		a1 = this.actorService.minAvgMaxMessagesSent();
@@ -136,7 +136,7 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("b1", b1);
 		result.addObject("b2_1", b2_1);
 		result.addObject("b2_2", b2_2);
-		//result.addObject("b3", b3);
+		result.addObject("b3", b3);
 
 		//Level A
 		result.addObject("a1", a1);

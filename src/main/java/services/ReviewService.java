@@ -3,6 +3,7 @@ package services;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -130,21 +131,16 @@ public class ReviewService {
 	public Object[] MaxAvgMinReviewsPerCritic() {
 		final Object[] res = new Object[3];
 		final Double aux1 = this.reviewRepository.AvgReviewsPerCritic();
-		final Double[] aux2 = this.reviewRepository.MaxMinReviewsPerCritic();
-		res[0] = (int) (double) aux2[0];
+		final List<Long> aux2 = this.reviewRepository.MaxMinReviewsPerCritic();
+		if (aux2 == null) {
+			res[0] = 0.00;
+			res[2] = 0.00;
+		} else {
+			res[0] = aux2.get(0);
+			res[2] = aux2.get(aux2.size() - 1);
+		}
 		res[1] = Math.round(aux1 * 100) / 100.0;
-		res[2] = (int) (double) aux2[aux2.length - 1];
 		return res;
 	}
-
-	//	public List<Object> MaxAvgMinReviewsPerCritic() {
-	//		final List<Object> res = new ArrayList<Object>();
-	//		final Double aux1 = this.reviewRepository.AvgReviewsPerCritic();
-	//		final Double[] aux2 = this.reviewRepository.MaxMinReviewsPerCritic();
-	//		res.add((int) (double) aux2[0]);
-	//		res.add(Math.round(aux1 * 100) / 100.0);
-	//		res.add((int) (double) aux2[aux2.length - 1]);
-	//		return res;
-	//	}
 
 }

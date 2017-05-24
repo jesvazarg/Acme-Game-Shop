@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.DiscountRepository;
+import security.Authority;
+import domain.Actor;
 import domain.Discount;
 
 @Service
@@ -25,6 +27,9 @@ public class DiscountService {
 
 	@Autowired
 	private CustomerService			customerService;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	// Constructors------------------------------------------------------------
@@ -67,6 +72,12 @@ public class DiscountService {
 	public Discount save(final Discount discount) {
 		Assert.notNull(discount);
 		Discount result;
+		Actor principal;
+
+		principal = this.actorService.findByPrincipal();
+		Assert.isTrue((this.actorService.checkAuthority(principal, Authority.ADMIN)) || (this.actorService.checkAuthority(principal, Authority.CUSTOMER)));
+		if (this.actorService.checkAuthority(principal, Authority.CUSTOMER))
+			Assert.isTrue(this.discountRepository.findOne(discount.getId()).getPercentage().equals(discount.getPercentage()));
 
 		result = this.discountRepository.save(discount);
 

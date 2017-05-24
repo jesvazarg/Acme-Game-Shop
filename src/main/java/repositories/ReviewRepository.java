@@ -2,6 +2,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +25,6 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	Double AvgReviewsPerCritic();
 	// El máximo y el mínimo número de críticas publicadas por crítico.
 	@Query("select count(r) from Critic c join c.reviews r where r.draft=false group by c order by count(r) DESC")
-	Double[] MaxMinReviewsPerCritic();
+	List<Long> MaxMinReviewsPerCritic();
 
 }
