@@ -58,7 +58,7 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	/* select (select count(s) from Sense s where s.like=true group by s.game)*1.0/count(s1) from Sense s1 where s1.like=false group by s1.game; */
 
 	//B1 Los juegos con mejores y peores críticas.
-	@Query("select g from Game g join g.reviews r group by g order by sum(r.score) DESC")
+	@Query("select g from Game g join g.reviews r where r.draft=false group by g order by avg(r.score) DESC")
 	List<Game> findGamesOrderByScoreReviews();
 
 }

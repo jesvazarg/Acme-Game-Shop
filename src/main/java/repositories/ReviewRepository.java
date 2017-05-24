@@ -19,7 +19,11 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	Collection<Review> findAllPublishedReview(int gameId);
 
 	//B3 El máximo, la media y el mínimo número de críticas publicadas por crítico.
-	@Query("select max(c.reviews.size), avg(c.reviews.size), min(c.reviews.size) from Critic c")
-	Double[] MaxAvgMinReviewsPerCritic();
+	// Media del número de críticas publicadas por crítico
+	@Query("select count(r)/(select count(c1) from Critic c1) from Critic c join c.reviews r where r.draft=false")
+	Double AvgReviewsPerCritic();
+	// El máximo y el mínimo número de críticas publicadas por crítico.
+	@Query("select count(r) from Critic c join c.reviews r where r.draft=false group by c order by count(r) DESC")
+	Double[] MaxMinReviewsPerCritic();
 
 }

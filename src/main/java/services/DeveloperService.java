@@ -165,7 +165,9 @@ public class DeveloperService {
 	}
 
 	public Double avgDeveloperPerSellGames() {
-		return this.developerRepository.avgDeveloperPerSellGames();
+		Double res = this.developerRepository.avgDeveloperPerSellGames();
+		res = Math.round(res * 100) / 100.0;
+		return res;
 	}
 
 	public Collection<Developer> developerWithGameBetterReview() {

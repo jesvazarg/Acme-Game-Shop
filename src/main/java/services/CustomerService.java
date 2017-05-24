@@ -289,4 +289,8 @@ public class CustomerService {
 			result = true;
 		return result;
 	}
+
+	public Collection<Customer> findCustomersWithMoreComments() {
+		return this.customerRepository.findCustomersWithMoreComments();
+	}
 }

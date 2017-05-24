@@ -127,8 +127,24 @@ public class ReviewService {
 		return this.reviewRepository.findPublishReview(gameId, criticId);
 	}
 
-	public Double[] MaxAvgMinReviewsPerCritic() {
-		return this.reviewRepository.MaxAvgMinReviewsPerCritic();
+	public Object[] MaxAvgMinReviewsPerCritic() {
+		final Object[] res = new Object[3];
+		final Double aux1 = this.reviewRepository.AvgReviewsPerCritic();
+		final Double[] aux2 = this.reviewRepository.MaxMinReviewsPerCritic();
+		res[0] = (int) (double) aux2[0];
+		res[1] = Math.round(aux1 * 100) / 100.0;
+		res[2] = (int) (double) aux2[aux2.length - 1];
+		return res;
 	}
+
+	//	public List<Object> MaxAvgMinReviewsPerCritic() {
+	//		final List<Object> res = new ArrayList<Object>();
+	//		final Double aux1 = this.reviewRepository.AvgReviewsPerCritic();
+	//		final Double[] aux2 = this.reviewRepository.MaxMinReviewsPerCritic();
+	//		res.add((int) (double) aux2[0]);
+	//		res.add(Math.round(aux1 * 100) / 100.0);
+	//		res.add((int) (double) aux2[aux2.length - 1]);
+	//		return res;
+	//	}
 
 }

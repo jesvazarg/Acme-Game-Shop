@@ -30,17 +30,32 @@
 	
 	<br/>
 	<fieldset>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c2"/></b></legend>
+		<display:table name="c2" id="customer" requestURI="${requestURI}" pagesize="5" class="displaytag">
+			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
+			<acme:column code="admin.dashboard.actor.surname" property="surname"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phone" property="phone"/>
+		</display:table>
+	</fieldset>
+	
+	<br/>
+	<fieldset>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c3"/></b></legend>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c3_1"/></b></legend>
 		<display:table name="c3_1" id="developer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
 			<acme:column code="admin.dashboard.actor.surname" property="surname"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phone" property="phone"/>
 			<acme:column code="admin.dashboard.developer.company" property="company" sortable="true"/>
 		</display:table>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c3_2"/></b></legend>
 		<display:table name="c3_2" id="developer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
 			<acme:column code="admin.dashboard.actor.surname" property="surname"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phone" property="phone"/>
 			<acme:column code="admin.dashboard.developer.company" property="company" sortable="true"/>
 		</display:table>
 	</fieldset>
@@ -52,6 +67,25 @@
 			<ul><li>
 					<b><spring:message code="admin.dashboard.title"/>:</b>
 					<jstl:out value="${gameC4.title}"/>
+			</li></ul>
+		</jstl:forEach>
+	</fieldset>
+	
+	<br/>
+	<fieldset>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c5"/></b></legend>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c5_1"/></b></legend>
+		<jstl:forEach var="gameC5_1" items="${c5_1}">
+			<ul><li>
+					<b><spring:message code="admin.dashboard.title"/>:</b>
+					<jstl:out value="${gameC5_1.title}"/>
+			</li></ul>
+		</jstl:forEach>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c5_2"/></b></legend>
+		<jstl:forEach var="gameC5_2" items="${c5_2}">
+			<ul><li>
+					<b><spring:message code="admin.dashboard.title"/>:</b>
+					<jstl:out value="${gameC5_2.title}"/>
 			</li></ul>
 		</jstl:forEach>
 	</fieldset>
@@ -162,12 +196,16 @@
 		<display:table name="b2_1" id="developer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
 			<acme:column code="admin.dashboard.actor.surname" property="surname"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phone" property="phone"/>
 			<acme:column code="admin.dashboard.developer.company" property="company" sortable="true"/>
 		</display:table>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b2_2"/></b></legend>
 		<display:table name="b2_2" id="developer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
 			<acme:column code="admin.dashboard.actor.surname" property="surname"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phone" property="phone"/>
 			<acme:column code="admin.dashboard.developer.company" property="company" sortable="true"/>
 		</display:table>
 	</fieldset>
@@ -193,6 +231,24 @@
 	
 	<br/>
 	<h2><spring:message code="admin.dashboard.levelA"/></h2>
+	
+	<fieldset>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.a1"/></b></legend>
+			<ul>
+				<li>
+					<b><spring:message code="admin.dashboard.min"/>:</b>
+					<jstl:out value="${a1[0]}"/>
+				</li>
+				<li>
+					<b><spring:message code="admin.dashboard.avg"/>:</b>
+					<jstl:out value="${a1[1]}"/>
+				</li>
+				<li>
+					<b><spring:message code="admin.dashboard.max"/>:</b>
+					<jstl:out value="${a1[2]}"/>
+				</li>
+			</ul>
+	</fieldset>
 	
 	<br/>
 	<fieldset>

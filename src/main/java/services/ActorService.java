@@ -195,7 +195,16 @@ public class ActorService {
 	//		return result;
 	//	}
 
-	public Double[] minAvgMaxMessagesReceived() {
-		return this.actorRepository.minAvgMaxMessagesReceived();
+	public Object[] minAvgMaxMessagesReceived() {
+		final Object[] res = new Object[3];
+		final Double[] aux = this.actorRepository.minAvgMaxMessagesReceived();
+		res[0] = (int) (double) aux[0];
+		res[1] = Math.round(aux[1] * 100) / 100.0;
+		res[2] = (int) (double) aux[2];
+		return res;
+	}
+
+	public Double[] minAvgMaxMessagesSent() {
+		return this.actorRepository.minAvgMaxMessagesSent();
 	}
 }

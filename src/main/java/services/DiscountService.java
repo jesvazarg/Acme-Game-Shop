@@ -118,8 +118,13 @@ public class DiscountService {
 		return this.discountRepository.getDiscountWithCode(code);
 	}
 
-	public Double[] MaxAvgMinPercentagePerDiscount() {
-		return this.discountRepository.MaxAvgMinPercentagePerDiscount();
+	public Object[] MaxAvgMinPercentagePerDiscount() {
+		final Object[] res = new Object[3];
+		final Double[] aux = this.discountRepository.MaxAvgMinPercentagePerDiscount();
+		res[0] = (int) (double) aux[0];
+		res[1] = Math.round(aux[1] * 100) / 100.0;
+		res[2] = (int) (double) aux[2];
+		return res;
 	}
 
 }

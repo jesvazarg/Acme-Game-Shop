@@ -228,4 +228,12 @@ public class GameService {
 		}
 		return res;
 	}
+
+	public Collection<Game> findBestSellerGames() {
+		return this.gameRepository.findBestSellerGames();
+	}
+
+	public Collection<Game> findWorstSellerGames() {
+		return this.gameRepository.findWorstSellerGames();
+	}
 }
