@@ -37,6 +37,9 @@ public class ShoppingCartService {
 	@Autowired
 	private CreditCardService		creditCardService;
 
+	@Autowired
+	private GameService				gameService;
+
 
 	// Constructors -----------------------------------------------------------
 	public ShoppingCartService() {
@@ -136,12 +139,12 @@ public class ShoppingCartService {
 			orderedGames.setPrice(aux.getPrice() * ((100 - percentage) / 100.0));
 			orderedGames.setReceipt(receipt);
 			this.orderedGamesService.save(orderedGames);
+			this.gameService.sell(aux);
 		}
 		final Collection<Game> gamesEmpty = new ArrayList<Game>();
 		shoppingCart.setGames(gamesEmpty);
 		this.save(shoppingCart);
 	}
-
 	public Boolean haveGame(final Game game) {
 		Boolean result = false;
 		Customer customer;

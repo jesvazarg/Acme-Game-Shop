@@ -88,6 +88,19 @@ public class GameService {
 		return result;
 	}
 
+	public void sell(final Game game) {
+		Assert.notNull(game);
+		Customer customer;
+		final Game result;
+
+		customer = this.customerService.findByPrincipal();
+		Assert.notNull(customer);
+		game.setSellsNumber(game.getSellsNumber() + 1);
+
+		this.gameRepository.save(game);
+		//return result;
+	}
+
 	public Game save(final Game game) {
 		Assert.notNull(game);
 		Developer developer;
