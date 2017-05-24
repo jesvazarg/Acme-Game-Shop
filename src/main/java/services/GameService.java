@@ -91,7 +91,6 @@ public class GameService {
 	public void sell(final Game game) {
 		Assert.notNull(game);
 		Customer customer;
-		final Game result;
 
 		customer = this.customerService.findByPrincipal();
 		Assert.notNull(customer);

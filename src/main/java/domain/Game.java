@@ -81,6 +81,8 @@ public class Game extends DomainEntity {
 		this.sellsNumber = sellsNumber;
 	}
 
+	@NotNull
+	@Min(0)
 	public Double getPrice() {
 		return this.price;
 	}
