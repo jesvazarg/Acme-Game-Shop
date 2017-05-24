@@ -34,7 +34,12 @@
 	
 	<br/>
 	<acme:submit name="save" code="category.save" />
-	<acme:cancel url="game/display.do?gameId=${game.id}" code="game.cancel" />
+	<jstl:if test="${game.id == 0}">
+		<acme:cancel url="" code="game.cancel" />
+	</jstl:if>
+	<jstl:if test="${game.id != 0}">
+		<acme:cancel url="game/display.do?gameId=${game.id}" code="game.cancel" />
+	</jstl:if>
 	
 </form:form>
 </jstl:if>

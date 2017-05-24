@@ -16,7 +16,16 @@
 	
 	<acme:column code="discount.code" property="code" sortable="false" style="${style}"/>
 	<acme:column code="discount.percentage" property="percentage" sortable="true" style="${style}"/>
-	<acme:column code="discount.used" property="used" sortable="true" style="${style}"/>
+	
+	<spring:message code="discount.used" var="usedHeader" />
+	<display:column title="${usedHeader}" sortable="true" style="${style}">
+		<jstl:if test="${discount.used}">
+			<spring:message code="discount.yes" />
+		</jstl:if>
+		<jstl:if test="${!discount.used}">
+			<spring:message code="discount.no" />
+		</jstl:if>
+	</display:column>
 	
 	<spring:message code="discount.edit" var="editHeader" />
 	<display:column title="${editHeader}" style="${style}">

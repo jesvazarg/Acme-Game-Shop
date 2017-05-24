@@ -28,10 +28,18 @@
 			<jstl:out value="${review.score}" />
 		</li>
 		
-		<li>
-			<b><spring:message code="review.draft" />:</b>
-			<jstl:out value="${review.draft}" />
-		</li>
+		<jstl:if test="${isMine}">
+			<li>
+				<b><spring:message code="review.draft" />:</b>
+				<jstl:if test="${review.draft}">
+					<spring:message code="review.yes" />
+				</jstl:if>
+				<jstl:if test="${!review.draft}">
+					<spring:message code="review.no" />
+				</jstl:if>
+			</li>
+		</jstl:if>
+		
 		<security:authorize access="isAuthenticated()">
 			<li>
 				<b><spring:message code="review.game" />:</b>

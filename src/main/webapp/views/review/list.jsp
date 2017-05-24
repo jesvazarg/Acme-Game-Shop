@@ -18,7 +18,17 @@
 	<acme:column code="review.title" property="title" sortable="true" style="${style}"/>
 	<acme:column code="review.moment" property="moment" sortable="true" style="${style}"/>
 	<acme:column code="review.score" property="score" sortable="true" style="${style}"/>
-	<acme:column code="review.draft" property="draft" sortable="true" style="${style}"/>
+	
+	<spring:message code="review.draft" var="draftHeader" />
+	<display:column title="${draftHeader}" sortable="true" style="${style}">
+		<jstl:if test="${review.draft}">
+			<spring:message code="review.yes" />
+		</jstl:if>
+		<jstl:if test="${!review.draft}">
+			<spring:message code="review.no" />
+		</jstl:if>
+	</display:column>
+	
 	
 	<spring:message code="review.game" var="gameHeader" />
 	<display:column title="${gameHeader}" style="${style}">

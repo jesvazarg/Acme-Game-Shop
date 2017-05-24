@@ -31,9 +31,7 @@
 			<jstl:out value="${game.description}"/>
 		</li>
 		
-		<li>
-			<img src="${game.picture}" style = "max-width: 400 px; max-height: 400px;"/>
-		</li>
+		<img src="${game.picture}" style = "max-width: 400 px; max-height: 400px;"/>
 		
 		<li>
 			<b><spring:message code="game.age" />:</b>
