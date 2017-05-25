@@ -205,30 +205,69 @@ public class GameService {
 		return this.gameRepository.gamesMoreThatAVG();
 	}
 
-	public List<Game> findGameBestAndWorstScoreReviews() {
-		List<Game> lista;
-		final List<Game> res = new ArrayList<Game>();
+	public List<Collection<Game>> findGameBestAndWorstScoreReviews() {
+		final List<Collection<Game>> res = new ArrayList<Collection<Game>>();
+		final Collection<Game> resMax = new ArrayList<Game>();
+		final Collection<Game> resMin = new ArrayList<Game>();
+		List<Object[]> lista;
+		Double avg = 0.0;
+		Double max = -1.0;
+		Double min = 11.0;
 
 		lista = this.gameRepository.findGamesOrderByScoreReviews();
-		if (!lista.isEmpty()) {
-			res.add(lista.get(0));
-			res.add(lista.get(lista.size() - 1));
+		for (int i = 0; i < lista.size(); i++) {
+			avg = (Double) lista.get(i)[1];
+			if (avg >= max) {
+				resMax.add((Game) lista.get(i)[0]);
+				max = avg;
+			} else
+				break;
 		}
+		res.add(resMax);
+		for (int i = lista.size() - 1; i >= 0; i--) {
+			avg = (Double) lista.get(i)[1];
+			if (avg <= min) {
+				resMin.add((Game) lista.get(i)[0]);
+				min = avg;
+			} else
+				break;
+		}
+		res.add(resMin);
+
 		return res;
 	}
 
-	public List<Game> findGameBestAndWorstScoreComments() {
-		List<Game> lista;
-		final List<Game> res = new ArrayList<Game>();
+	public List<Collection<Game>> findGameBestAndWorstScoreComments() {
+		final List<Collection<Game>> res = new ArrayList<Collection<Game>>();
+		final Collection<Game> resMax = new ArrayList<Game>();
+		final Collection<Game> resMin = new ArrayList<Game>();
+		List<Object[]> lista;
+		Double avg = 0.0;
+		Double max = -1.0;
+		Double min = 11.0;
 
 		lista = this.gameRepository.findGamesOrderByScoreComments();
-		if (!lista.isEmpty()) {
-			res.add(lista.get(0));
-			res.add(lista.get(lista.size() - 1));
+		for (int i = 0; i < lista.size(); i++) {
+			avg = (Double) lista.get(i)[1];
+			if (avg >= max) {
+				resMax.add((Game) lista.get(i)[0]);
+				max = avg;
+			} else
+				break;
 		}
+		res.add(resMax);
+		for (int i = lista.size() - 1; i >= 0; i--) {
+			avg = (Double) lista.get(i)[1];
+			if (avg <= min) {
+				resMin.add((Game) lista.get(i)[0]);
+				min = avg;
+			} else
+				break;
+		}
+		res.add(resMin);
+
 		return res;
 	}
-
 	public Collection<Game> findBestSellerGames() {
 		return this.gameRepository.findBestSellerGames();
 	}
@@ -237,19 +276,20 @@ public class GameService {
 		return this.gameRepository.findWorstSellerGames();
 	}
 
-	public Object[] ratioLikeDislikePerGame() {
-		final Object[] res = new Object[2];
+	public Collection<Object[]> ratioLikeDislikePerGame() {
+		final Collection<Object[]> result = new ArrayList<Object[]>();
 		final Collection<Game> games = this.findAll();
 		for (final Game g : games) {
+			final Object[] res = new Object[2];
 			final int like = this.gameRepository.gameMoreLikes2(g.getId());
 			final int dislike = this.gameRepository.gameLessLikes2(g.getId());
 			res[0] = g.getTitle();
 			if (like == 0 && dislike == 0)
-				res[1] = (double) 0;
+				res[1] = 0.0;
 			else
 				res[1] = ((double) (like - dislike) / (double) (like + dislike)) * 100;
-
+			result.add(res);
 		}
-		return res;
+		return result;
 	}
 }

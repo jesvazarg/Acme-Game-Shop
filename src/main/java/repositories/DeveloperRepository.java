@@ -2,6 +2,7 @@
 package repositories;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,11 +32,8 @@ public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
 	@Query("select sum(g.sellsNumber)/(select count(d) from Developer d)*1.0 from Game g")
 	Double avgDeveloperPerSellGames();
 
-	//B2: Los desarrolladores cuyos juegos posean la mejor crítica
-	@Query("select d from Developer d join d.games g join g.reviews r where ((r.score)=(select max(re.score) from Review re))")
-	Collection<Developer> developerWithGameBetterReview();
+	//B2: Los desarrolladores cuyos juegos posean la mejor y peor crítica
+	@Query("select r.game, avg(r.score) from Review r where r.draft=false group by r.game order by avg(r.score) DESC")
+	List<Object[]> developerWithGameBetterAndWorstReview();
 
-	//B2: Los desarrolladores cuyos juegos posean la peor crítica
-	@Query("select d from Developer d join d.games g join g.reviews r where ((r.score)=(select min(re.score) from Review re))")
-	Collection<Developer> developerWithGameWorstReview();
 }

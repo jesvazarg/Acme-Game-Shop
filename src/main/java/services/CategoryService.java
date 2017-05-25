@@ -215,15 +215,36 @@ public class CategoryService {
 		return categories;
 	}
 
-	public List<Category> findCategoryOrderBySellsNumber() {
-		List<Category> lista;
-		final List<Category> res = new ArrayList<Category>();
+	public List<Collection<Category>> findCategoryOrderBySellsNumber() {
+		final List<Collection<Category>> res = new ArrayList<Collection<Category>>();
+		final Collection<Category> resMax = new ArrayList<Category>();
+		final Collection<Category> resMin = new ArrayList<Category>();
+		List<Object[]> lista;
+		Long avg = 0L;
+		Long max = -1L;
+		Long min;
 
 		lista = this.categoryRepository.findCategoryOrderBySellsNumber();
-		if (!lista.isEmpty()) {
-			res.add(lista.get(0));
-			res.add(lista.get(lista.size() - 1));
+		for (int i = 0; i < lista.size(); i++) {
+			avg = (Long) lista.get(i)[1];
+			if (avg >= max) {
+				resMax.add((Category) lista.get(i)[0]);
+				max = avg;
+			} else
+				break;
 		}
+		res.add(resMax);
+		min = max;
+		for (int i = lista.size() - 1; i >= 0; i--) {
+			avg = (Long) lista.get(i)[1];
+			if (avg <= min) {
+				resMin.add((Category) lista.get(i)[0]);
+				min = avg;
+			} else
+				break;
+		}
+		res.add(resMin);
+
 		return res;
 	}
 

@@ -12,14 +12,14 @@
 	
 	<fieldset>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c1"/></b></legend>
-		<legend class="dashLegend"><spring:message code="admin.dashboard.c1_1"/></legend>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c1_1"/></b></legend>
 		<jstl:forEach var="gameC1_1" items="${c1_1}">
 			<ul><li>
 					<b><spring:message code="admin.dashboard.title"/>:</b>
 					<jstl:out value="${gameC1_1.title}"/>
 			</li></ul>
 		</jstl:forEach>
-		<legend class="dashLegend"><spring:message code="admin.dashboard.c1_2"/></legend>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c1_2"/></b></legend>
 		<jstl:forEach var="gameC1_2" items="${c1_2}">
 			<ul><li>
 					<b><spring:message code="admin.dashboard.title"/>:</b>
@@ -93,30 +93,38 @@
 	<br/>
 	<fieldset>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c6"/></b></legend>
-		<jstl:if test="${c6.size() > 0}">
-			<legend class="dashLegend"><spring:message code="admin.dashboard.c6.mayor"/></legend>
-			<ul>
-				<li>
-					<b><spring:message code="admin.dashboard.title"/>:</b>
-					<jstl:out value="${c6[0].title}"/>
-				</li>
-			</ul>
-			<legend class="dashLegend"><spring:message code="admin.dashboard.c6.menor"/></legend>
-			<ul>
-				<li>
-					<b><spring:message code="admin.dashboard.title"/>:</b>
-					<jstl:if test="${c6.size() > 1}">
-						<jstl:out value="${c6[1].title}"/>
-					</jstl:if>
-					<jstl:if test="${c6.size() == 1}">
-						<jstl:out value="${c6[0].title}"/>
-					</jstl:if>
-				</li>
-			</ul>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c6_1"/></b></legend>
+		<jstl:if test="${c6_1.isEmpty()}">
+			<spring:message code="admin.dashboard.empty"/>
 		</jstl:if>
-		<jstl:if test="${c6.size() == 0}">
-			<spring:message code="admin.dashboard.c6.vacio"/>
+		<jstl:forEach var="gameC6_1" items="${c6_1}">
+			<ul><li>
+					<b><spring:message code="admin.dashboard.title"/>:</b>
+					<jstl:out value="${gameC6_1.title}"/>
+			</li></ul>
+		</jstl:forEach>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c6_2"/></b></legend>
+		<jstl:if test="${c6_2.isEmpty()}">
+			<spring:message code="admin.dashboard.empty"/>
 		</jstl:if>
+		<jstl:forEach var="gameC6_2" items="${c6_2}">
+			<ul><li>
+					<b><spring:message code="admin.dashboard.title"/>:</b>
+					<jstl:out value="${gameC6_2.title}"/>
+			</li></ul>
+		</jstl:forEach>
+	</fieldset>
+	
+	<br/>
+	<fieldset>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c7"/></b></legend>
+		<display:table name="c7" id="developer" requestURI="${requestURI}" pagesize="5" class="displaytag">
+			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
+			<acme:column code="admin.dashboard.actor.surname" property="surname"/>
+			<acme:column code="admin.dashboard.actor.email" property="email"/>
+			<acme:column code="admin.dashboard.actor.phone" property="phone"/>
+			<acme:column code="admin.dashboard.developer.company" property="company" sortable="true"/>
+		</display:table>
 	</fieldset>
 	
 	<br/>
@@ -131,30 +139,42 @@
 	<br/>
 	<fieldset>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c9"/></b></legend>
-		<jstl:if test="${c9.size() > 0}">
-			<legend class="dashLegend"><spring:message code="admin.dashboard.c9.mayor"/></legend>
-			<ul>
-				<li>
-					<b><spring:message code="admin.dashboard.name"/>:</b>
-					<jstl:out value="${c9[0].name}"/>
-				</li>
-			</ul>
-			<legend class="dashLegend"><spring:message code="admin.dashboard.c9.menor"/></legend>
-			<ul>
-				<li>
-					<b><spring:message code="admin.dashboard.name"/>:</b>
-					<jstl:if test="${c9.size() > 1}">
-						<jstl:out value="${c9[1].name}"/>
-					</jstl:if>
-					<jstl:if test="${c9.size() == 1}">
-						<jstl:out value="${c9[0].name}"/>
-					</jstl:if>
-				</li>
-			</ul>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c9_1"/></b></legend>
+		<jstl:if test="${c9_1.isEmpty()}">
+			<spring:message code="admin.dashboard.empty"/>
 		</jstl:if>
-		<jstl:if test="${c9.size() == 0}">
-			<spring:message code="admin.dashboard.c9.vacio"/>
+		<jstl:forEach var="gameC9_1" items="${c9_1}">
+			<ul><li>
+					<b><spring:message code="admin.dashboard.name"/>:</b>
+					<jstl:out value="${gameC9_1.name}"/>
+			</li></ul>
+		</jstl:forEach>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c9_2"/></b></legend>
+		<jstl:if test="${c9_2.isEmpty()}">
+			<spring:message code="admin.dashboard.empty"/>
 		</jstl:if>
+		<jstl:forEach var="gameC9_2" items="${c9_2}">
+			<ul><li>
+					<b><spring:message code="admin.dashboard.name"/>:</b>
+					<jstl:out value="${gameC9_2.name}"/>
+			</li></ul>
+		</jstl:forEach>
+	</fieldset>
+	
+	<br/>
+	<fieldset>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c10"/></b></legend>
+		<display:table name="c10" id="par" requestURI="${requestURI}" pagesize="5" class="displaytag">
+			<spring:message code="admin.dashboard.title" var="titleHeader" />
+			<display:column title="${titleHeader}" >
+				<jstl:out value="${par[0]}"/>
+			</display:column>
+			
+			<spring:message code="admin.dashboard.ratio" var="ratioHeader" />
+			<display:column title="${ratioHeader}" >
+				<jstl:out value="${par[1]}%"/>
+			</display:column>
+		</display:table>
 	</fieldset>
 	
 	
@@ -163,30 +183,26 @@
 	
 	<fieldset>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b1"/></b></legend>
-		<jstl:if test="${b1.size() > 0}">
-			<legend class="dashLegend"><spring:message code="admin.dashboard.b1.mejor"/></legend>
-			<ul>
-				<li>
-					<b><spring:message code="admin.dashboard.title"/>:</b>
-					<jstl:out value="${b1[0].title}"/>
-				</li>
-			</ul>
-			<legend class="dashLegend"><spring:message code="admin.dashboard.b1.peor"/></legend>
-			<ul>
-				<li>
-					<b><spring:message code="admin.dashboard.title"/>:</b>
-					<jstl:if test="${b1.size() > 1}">
-						<jstl:out value="${b1[1].title}"/>
-					</jstl:if>
-					<jstl:if test="${b1.size() == 1}">
-						<jstl:out value="${b1[0].title}"/>
-					</jstl:if>
-				</li>
-			</ul>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b1_1"/></b></legend>
+		<jstl:if test="${b1_1.isEmpty()}">
+			<spring:message code="admin.dashboard.empty"/>
 		</jstl:if>
-		<jstl:if test="${b1.size() == 0}">
-			<spring:message code="admin.dashboard.b1.vacio"/>
+		<jstl:forEach var="gameB1_1" items="${b1_1}">
+			<ul><li>
+					<b><spring:message code="admin.dashboard.title"/>:</b>
+					<jstl:out value="${gameB1_1.title}"/>
+			</li></ul>
+		</jstl:forEach>
+		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b1_2"/></b></legend>
+		<jstl:if test="${b1_2.isEmpty()}">
+			<spring:message code="admin.dashboard.empty"/>
 		</jstl:if>
+		<jstl:forEach var="gameB1_2" items="${b1_2}">
+			<ul><li>
+					<b><spring:message code="admin.dashboard.title"/>:</b>
+					<jstl:out value="${gameB1_2.title}"/>
+			</li></ul>
+		</jstl:forEach>
 	</fieldset>
 	
 	<br/>

@@ -2,7 +2,6 @@
 package controllers.administrator;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,14 +69,17 @@ public class DashboardAdministratorController extends AbstractController {
 		Collection<Game> c4;
 		Collection<Game> c5_1;
 		Collection<Game> c5_2;
-		List<Game> c6;
+		Collection<Game> c6_1;
+		Collection<Game> c6_2;
 		Collection<Developer> c7;
 		Double c8;
-		List<Category> c9;
-		Object[] c10_1;
+		Collection<Category> c9_1;
+		Collection<Category> c9_2;
+		Collection<Object[]> c10;
 
 		//Level B
-		List<Game> b1;
+		Collection<Game> b1_1;
+		Collection<Game> b1_2;
 		Collection<Developer> b2_1;
 		Collection<Developer> b2_2;
 		Object[] b3;
@@ -96,16 +98,19 @@ public class DashboardAdministratorController extends AbstractController {
 		c4 = this.gameService.gamesMoreThatAVG();
 		c5_1 = this.gameService.findBestSellerGames();
 		c5_2 = this.gameService.findWorstSellerGames();
-		c6 = this.gameService.findGameBestAndWorstScoreComments();
+		c6_1 = this.gameService.findGameBestAndWorstScoreComments().get(0);
+		c6_2 = this.gameService.findGameBestAndWorstScoreComments().get(1);
 		c7 = this.developerService.developersWithBestSellersQuantity();
 		c8 = this.developerService.avgDeveloperPerSellGames();
-		c9 = this.categoryService.findCategoryOrderBySellsNumber();
-		c10_1 = this.gameService.ratioLikeDislikePerGame();
+		c9_1 = this.categoryService.findCategoryOrderBySellsNumber().get(0);
+		c9_2 = this.categoryService.findCategoryOrderBySellsNumber().get(1);
+		c10 = this.gameService.ratioLikeDislikePerGame();
 
 		//Level B
-		b1 = this.gameService.findGameBestAndWorstScoreReviews();
-		b2_1 = this.developerService.developerWithGameBetterReview();
-		b2_2 = this.developerService.developerWithGameWorstReview();
+		b1_1 = this.gameService.findGameBestAndWorstScoreReviews().get(0);
+		b1_2 = this.gameService.findGameBestAndWorstScoreReviews().get(1);
+		b2_1 = this.developerService.developerWithGameBetterAndWorstReview().get(0);
+		b2_2 = this.developerService.developerWithGameBetterAndWorstReview().get(1);
 		b3 = this.reviewService.MaxAvgMinReviewsPerCritic();
 
 		//Level A
@@ -123,14 +128,17 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("c4", c4);
 		result.addObject("c5_1", c5_1);
 		result.addObject("c5_2", c5_2);
-		result.addObject("c6", c6);
+		result.addObject("c6_1", c6_1);
+		result.addObject("c6_2", c6_2);
 		result.addObject("c7", c7);
 		result.addObject("c8", c8);
-		result.addObject("c9", c9);
-		result.addObject("c10_1", c10_1);
+		result.addObject("c9_1", c9_1);
+		result.addObject("c9_2", c9_2);
+		result.addObject("c10", c10);
 
 		//Level B
-		result.addObject("b1", b1);
+		result.addObject("b1_1", b1_1);
+		result.addObject("b1_2", b1_2);
 		result.addObject("b2_1", b2_1);
 		result.addObject("b2_2", b2_2);
 		result.addObject("b3", b3);

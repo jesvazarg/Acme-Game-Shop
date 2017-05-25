@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -171,14 +172,40 @@ public class DeveloperService {
 		return res;
 	}
 
-	public Collection<Developer> developerWithGameBetterReview() {
-		return this.developerRepository.developerWithGameBetterReview();
-	}
+	public List<Collection<Developer>> developerWithGameBetterAndWorstReview() {
+		final List<Collection<Developer>> res = new ArrayList<Collection<Developer>>();
+		final Collection<Developer> resMax = new ArrayList<Developer>();
+		final Collection<Developer> resMin = new ArrayList<Developer>();
+		List<Object[]> lista;
+		Game game;
+		Double avg = 0.0;
+		Double max = -1.0;
+		Double min = 11.0;
 
-	public Collection<Developer> developerWithGameWorstReview() {
-		return this.developerRepository.developerWithGameWorstReview();
-	}
+		lista = this.developerRepository.developerWithGameBetterAndWorstReview();
+		for (int i = 0; i < lista.size(); i++) {
+			avg = (Double) lista.get(i)[1];
+			if (avg >= max) {
+				game = (Game) lista.get(i)[0];
+				resMax.add(game.getDeveloper());
+				max = avg;
+			} else
+				break;
+		}
+		res.add(resMax);
+		for (int i = lista.size() - 1; i >= 0; i--) {
+			avg = (Double) lista.get(i)[1];
+			if (avg <= min) {
+				game = (Game) lista.get(i)[0];
+				resMin.add(game.getDeveloper());
+				min = avg;
+			} else
+				break;
+		}
+		res.add(resMin);
 
+		return res;
+	}
 	public Developer reconstructProfile(final CreateDeveloperForm createDeveloperForm, final String type) {
 		Assert.notNull(createDeveloperForm);
 		Developer developer = null;

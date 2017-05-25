@@ -13,7 +13,7 @@ import domain.Category;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
 	//C9 Las categorías con mayor y menor número de ventas.
-	@Query("select c from Category c join c.games g group by c order by sum(g.sellsNumber) DESC")
-	List<Category> findCategoryOrderBySellsNumber();
+	@Query("select c, sum(g.sellsNumber) from Category c join c.games g group by c order by sum(g.sellsNumber) DESC")
+	List<Object[]> findCategoryOrderBySellsNumber();
 
 }
