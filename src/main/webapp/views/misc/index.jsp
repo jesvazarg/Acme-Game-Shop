@@ -16,4 +16,9 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jsp:forward page="/welcome/index.do" />
+<security:authorize access="!isAuthenticated()">
+	<jsp:forward page="/welcome/indexNotAuth.do" />
+</security:authorize>
+<security:authorize access="isAuthenticated()">
+	<jsp:forward page="/welcome/index.do" />
+</security:authorize>

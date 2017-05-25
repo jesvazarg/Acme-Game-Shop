@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.BannerService;
 import domain.Banner;
 
@@ -30,6 +31,9 @@ public class WelcomeController extends AbstractController {
 	@Autowired
 	private BannerService	bannerService;
 
+	@Autowired
+	private ActorService	actorService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -39,8 +43,8 @@ public class WelcomeController extends AbstractController {
 
 	// Index ------------------------------------------------------------------		
 
-	@RequestMapping(value = "/index")
-	public ModelAndView index(@RequestParam(required = false, defaultValue = "John Doe") final String name) {
+	@RequestMapping(value = "/indexNotAuth")
+	public ModelAndView indexNotAuth(@RequestParam(required = false, defaultValue = "") final String name) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
@@ -49,6 +53,26 @@ public class WelcomeController extends AbstractController {
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
 		banner = this.bannerService.getRandomBanner();
+
+		result = new ModelAndView("welcome/index");
+		result.addObject("name", name);
+		result.addObject("moment", moment);
+		result.addObject("banner", banner);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/index")
+	public ModelAndView index(@RequestParam(required = false, defaultValue = "") String name) {
+		ModelAndView result;
+		SimpleDateFormat formatter;
+		String moment;
+		Banner banner;
+
+		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		moment = formatter.format(new Date());
+		banner = this.bannerService.getRandomBanner();
+		name = this.actorService.findByPrincipal().getName();
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);

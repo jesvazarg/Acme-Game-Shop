@@ -25,11 +25,16 @@
 .jMenu li a {
 	padding: 10px;
 	display: block;
-	background-color: transparent;
+	background-color: DarkBlue;
 	color: white;
 	text-transform: uppercase;
 	cursor: pointer;
 	font-size: 12px;
+	text-decoration: none;
+}
+
+.jMenu li a:hover {
+	background-color: DodgerBlue;
 	text-decoration: none;
 }
 
@@ -51,7 +56,7 @@
 }
 
 .jMenu li ul li.arrow {
-	background-color: #322f32;
+	background-color: DodgerBlue;
 	background-image: url('../images/arrow_down.png');
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -80,7 +85,7 @@
 }
 
 .jMenu li ul li a:hover {
-	background-color: #514c52;
+	background-color: DodgerBlue;
 	border-top: 1px solid #322f32;
 	border-bottom: 1px solid #322f32;
 	text-decoration: none;
