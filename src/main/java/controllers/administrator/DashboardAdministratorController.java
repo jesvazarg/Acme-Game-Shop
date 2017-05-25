@@ -74,8 +74,7 @@ public class DashboardAdministratorController extends AbstractController {
 		Collection<Developer> c7;
 		Double c8;
 		List<Category> c9;
-		//		Double c10_1;
-		//		Double c10_2;
+		Object[] c10_1;
 
 		//Level B
 		List<Game> b1;
@@ -101,8 +100,7 @@ public class DashboardAdministratorController extends AbstractController {
 		c7 = this.developerService.developersWithBestSellersQuantity();
 		c8 = this.developerService.avgDeveloperPerSellGames();
 		c9 = this.categoryService.findCategoryOrderBySellsNumber();
-		//		c10_1 = this.gameService.likeFromAgame(int);
-		//		c10_2 = this.gameService.dislikeFromAgame(int);
+		c10_1 = this.gameService.ratioLikeDislikePerGame();
 
 		//Level B
 		b1 = this.gameService.findGameBestAndWorstScoreReviews();
@@ -129,8 +127,7 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("c7", c7);
 		result.addObject("c8", c8);
 		result.addObject("c9", c9);
-		//		result.addObject("c10_1",c10_1);
-		//		result.addObject("c10_2",c10_2);
+		result.addObject("c10_1", c10_1);
 
 		//Level B
 		result.addObject("b1", b1);

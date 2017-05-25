@@ -231,16 +231,18 @@ public class DeveloperService {
 		final Collection<Developer> result = new HashSet<Developer>();
 		aux = this.developerRepository.developersWithBestSellersQuantity();
 		Long vendedorDeReferencia = 0L;
+
+		//Obtengo el valor del numero de ventas del mejor vendedor.
 		for (final Object[] valueAux : aux) {
 
 			vendedorDeReferencia = (Long) valueAux[1];
 
-			System.out.println("valor de la id" + valueAux[0]);
-			System.out.println("numero de ventas" + valueAux[1]);
-
 			break;
 
 		}
+
+		//Comparo el numero de ventas de cada developer y en cuanto llego al primer developer
+		//que está por debajo, paro el for y devuelvo los developers con mejores ventas.
 
 		for (final Object[] valueAux : aux) {
 			final Long sells = (Long) valueAux[1];
@@ -254,29 +256,4 @@ public class DeveloperService {
 		return result;
 	}
 
-	/*
-	 * public Collection<Recipe> findByContestIdOrderByLikeDislike(int contestId){
-	 * Collection<Object[]> aux;
-	 * Collection<Recipe> result;
-	 * 
-	 * result = new HashSet<Recipe>();
-	 * aux = recipeRepository.findByContestIdOrderByLikeDislike(contestId);
-	 * 
-	 * int i=0;
-	 * for(Object[] valueAux:aux){
-	 * if(i==2){
-	 * break;
-	 * }
-	 * Recipe recipe;
-	 * Object recipeId = valueAux[0];
-	 * 
-	 * recipe = findOne((int) recipeId);
-	 * result.add(recipe);
-	 * 
-	 * i++;
-	 * }
-	 * 
-	 * return result;
-	 * }
-	 */
 }

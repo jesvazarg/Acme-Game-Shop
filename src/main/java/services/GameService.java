@@ -236,4 +236,20 @@ public class GameService {
 	public Collection<Game> findWorstSellerGames() {
 		return this.gameRepository.findWorstSellerGames();
 	}
+
+	public Object[] ratioLikeDislikePerGame() {
+		final Object[] res = new Object[2];
+		final Collection<Game> games = this.findAll();
+		for (final Game g : games) {
+			final int like = this.gameRepository.gameMoreLikes2(g.getId());
+			final int dislike = this.gameRepository.gameLessLikes2(g.getId());
+			res[0] = g.getTitle();
+			if (like == 0 && dislike == 0)
+				res[1] = (double) 0;
+			else
+				res[1] = ((double) (like - dislike) / (double) (like + dislike)) * 100;
+
+		}
+		return res;
+	}
 }

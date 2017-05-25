@@ -26,9 +26,17 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select distinct g from Game g join g.senses s where ((s.like=true) and (s.size=(select max(s.size) from Game g join g.senses s where s.like=true)))")
 	Collection<Game> gameMoreLikes();
 
+	//Opcional
+	@Query("select count(s) from Sense s where s.game.id=?1 and s.like=true")
+	Integer gameMoreLikes2(int gameId);
+
 	//C1: Los juegos que menos "me gusta" tiene
 	@Query("select distinct g from Game g join g.senses s where ((s.like=false) and (s.size=(select max(s.size) from Game g join g.senses s where s.like=false)))")
 	Collection<Game> gameLessLikes();
+
+	//Opcional
+	@Query("select count(s) from Sense s where s.game.id=?1 and s.like=false")
+	Integer gameLessLikes2(int gameId);
 
 	//C4: Los juegos que superen la media de ventas por juego del sistema
 	@Query("select g from Game g where ((g.sellsNumber)>=(select avg(g.sellsNumber) from Game g))")
