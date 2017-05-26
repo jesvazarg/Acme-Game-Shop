@@ -25,24 +25,22 @@ import domain.Game;
 public class GameTest extends AbstractTest {
 
 	// System under test ------------------------------------------------------
-	@Autowired
-	private DeveloperService	developerService;
 
 	@Autowired
-	private GameService			gameService;
+	private GameService		gameService;
 
 	@Autowired
-	private CategoryService		categoryService;
+	private CategoryService	categoryService;
 
 
 	// Tests ------------------------------------------------------------------
 	// FUNCTIONAL REQUIREMENTS
 	//-	Un actor autenticado como developer debe ser capaz de:
-	//	Crear juegos.
+	//	Crear, editar y borrar juegos.
 
-	//El primer test negativo es causado porque no nos hemos logueado correctmente como developer, el segundo de
-	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es probocado porque le
-	//pasamos un id de game que no existe.
+	//El primer test negativo es causado porque no nos hemos logueado developer, el segundo de
+	//ellos se produce porque introducimos un campo vacio (descripcion) y el tercero es provocado porque le
+	//pasamos un id de categoria que no existe.
 	@Test
 	public void driverCreateGame() {
 		final Object testingData[][] = {
@@ -57,7 +55,7 @@ public class GameTest extends AbstractTest {
 			}, {
 				"developer1", "Titulo5", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 12.0, 90, ConstraintViolationException.class
 			}, {
-				"developer1", "Titulo5", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 12.0, 70, IllegalArgumentException.class
+				"developer1", "Titulo5", "Descripcion5", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 12.0, 70, IllegalArgumentException.class
 			}
 		};
 
@@ -98,30 +96,9 @@ public class GameTest extends AbstractTest {
 
 	}
 
-	//	@Test
-	//	public void crearJuego() {
-	//		this.authenticate("developer1");
-	//
-	//		final Game game;
-	//		Game aux;
-	//
-	//		game = this.gameService.create();
-	//		game.setTitle("Titulo");
-	//		game.setDescription("description");
-	//		game.setPicture("http:google.com");
-	//		game.setAge(10);
-	//		game.setPrice(20.0);
-	//
-	//		final Collection<Category> categories = new ArrayList<Category>();
-	//		final Category category = this.categoryService.findOne(89);
-	//		categories.add(category);
-	//		aux = this.gameService.save(game);
-	//		this.categoryService.select(categories, aux);
-	//
-	//		this.gameService.findAll();
-	//		this.unauthenticate();
-	//	}
-
+	//El primer test negativo es causado porque no nos hemos logueado developer, el segundo de
+	//ellos se produce porque introducimos un campo vacio (descripcion) y el tercero es provocado porque le
+	//pasamos un id de categoria que no existe.
 	@Test
 	public void driverEditGame() {
 		final Object testingData[][] = {
@@ -136,7 +113,7 @@ public class GameTest extends AbstractTest {
 			}, {
 				"developer1", "Titulo5", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 12.0, 90, 94, ConstraintViolationException.class
 			}, {
-				"developer1", "Titulo5", "", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 12.0, 90, 70, IllegalArgumentException.class
+				"developer1", "Titulo5", "Descripcion5", "http://mrbean-website-cache.s3.amazonaws.com/wp-content/uploads/2013/11/smiling-mr-bean-grey.jpg", 11, 12.0, 90, 70, IllegalArgumentException.class
 			}
 		};
 
@@ -152,7 +129,6 @@ public class GameTest extends AbstractTest {
 			this.authenticate(username);
 
 			Game game;
-			final Game aux;
 
 			game = this.gameService.findOne(gameId);
 			game.setTitle(title);
@@ -179,7 +155,8 @@ public class GameTest extends AbstractTest {
 
 	}
 
-	//
+	//El primer test negativo es causado porque la id del juego es de un juego que pertence a otro developer 
+	//y el segundo es porque no estamos logueado como developer.
 
 	@Test
 	public void driverDeleteGame() {
