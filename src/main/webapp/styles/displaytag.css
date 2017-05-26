@@ -8,6 +8,15 @@
  * 
  */
  
+fieldset {
+	background-color: Lavender;
+}
+
+legend#title {
+	background-color: white;
+	font-size: 150%;
+}
+
 table {
 	border: 1px solid #666;
 	width: 80%;

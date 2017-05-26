@@ -29,6 +29,6 @@
 	
 	<acme:submit name="save" code="messageEmail.save" />
 	
-	<acme:cancel url="chorbi/list.do" code="messageEmail.cancel" />
+	<acme:cancel url="messageEmail/listOut.do" code="messageEmail.cancel" />
 	
 </form:form>

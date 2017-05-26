@@ -8,10 +8,9 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="hasRole('ADMIN')">
-	<h2><spring:message code="admin.dashboard.levelC"/></h2>
 	
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c1"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c1"/></b></legend>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c1_1"/></b></legend>
 		<jstl:forEach var="gameC1_1" items="${c1_1}">
 			<ul><li>
@@ -30,7 +29,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c2"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c2"/></b></legend>
 		<display:table name="c2" id="customer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
 			<acme:column code="admin.dashboard.actor.surname" property="surname"/>
@@ -41,7 +40,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c3"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c3"/></b></legend>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c3_1"/></b></legend>
 		<display:table name="c3_1" id="developer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
@@ -62,7 +61,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c4"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c4"/></b></legend>
 		<jstl:forEach var="gameC4" items="${c4}">
 			<ul><li>
 					<b><spring:message code="admin.dashboard.title"/>:</b>
@@ -73,7 +72,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c5"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c5"/></b></legend>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c5_1"/></b></legend>
 		<jstl:forEach var="gameC5_1" items="${c5_1}">
 			<ul><li>
@@ -92,7 +91,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c6"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c6"/></b></legend>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c6_1"/></b></legend>
 		<jstl:if test="${c6_1.isEmpty()}">
 			<spring:message code="admin.dashboard.empty"/>
@@ -117,7 +116,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c7"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c7"/></b></legend>
 		<display:table name="c7" id="developer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
 			<acme:column code="admin.dashboard.actor.surname" property="surname"/>
@@ -128,7 +127,8 @@
 	</fieldset>
 	
 	<br/>
-	<fieldset><legend class="dashLegend"><b><spring:message code="admin.dashboard.c8"/></b></legend>
+	<fieldset>
+	<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c8"/></b></legend>
 		<ul>
 			<li>
 				<jstl:out value="${c8}" />
@@ -138,7 +138,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c9"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c9"/></b></legend>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c9_1"/></b></legend>
 		<jstl:if test="${c9_1.isEmpty()}">
 			<spring:message code="admin.dashboard.empty"/>
@@ -163,7 +163,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.c10"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.c10"/></b></legend>
 		<display:table name="c10" id="par" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<spring:message code="admin.dashboard.title" var="titleHeader" />
 			<display:column title="${titleHeader}" >
@@ -179,10 +179,8 @@
 	
 	
 	<br/>
-	<h2><spring:message code="admin.dashboard.levelB"/></h2>
-	
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b1"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.b1"/></b></legend>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b1_1"/></b></legend>
 		<jstl:if test="${b1_1.isEmpty()}">
 			<spring:message code="admin.dashboard.empty"/>
@@ -207,7 +205,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b2"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.b2"/></b></legend>
 		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b2_1"/></b></legend>
 		<display:table name="b2_1" id="developer" requestURI="${requestURI}" pagesize="5" class="displaytag">
 			<acme:column code="admin.dashboard.actor.name" property="name" sortable="true"/>
@@ -228,7 +226,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.b3"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.b3"/></b></legend>
 			<ul>
 				<li>
 					<b><spring:message code="admin.dashboard.max"/>:</b>
@@ -246,10 +244,8 @@
 	</fieldset>
 	
 	<br/>
-	<h2><spring:message code="admin.dashboard.levelA"/></h2>
-	
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.a1"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.a1"/></b></legend>
 			<ul>
 				<li>
 					<b><spring:message code="admin.dashboard.min"/>:</b>
@@ -268,7 +264,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.a2"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.a2"/></b></legend>
 			<ul>
 				<li>
 					<b><spring:message code="admin.dashboard.min"/>:</b>
@@ -287,7 +283,7 @@
 	
 	<br/>
 	<fieldset>
-		<legend class="dashLegend"><b><spring:message code="admin.dashboard.a3"/></b></legend>
+		<legend id="title" class="dashLegend"><b><spring:message code="admin.dashboard.a3"/></b></legend>
 			<ul>
 				<li>
 					<b><spring:message code="admin.dashboard.max"/>:</b>

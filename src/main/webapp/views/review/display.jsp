@@ -11,7 +11,7 @@
 
 <div>
 	<fieldset>
-		<legend class="dashLegend"><b><jstl:out value="${review.title}" /></b></legend>
+		<legend id="title" class="dashLegend"><b><jstl:out value="${review.title}" /></b></legend>
 		<br/>
 		
 		<jstl:out value="${review.moment}" />

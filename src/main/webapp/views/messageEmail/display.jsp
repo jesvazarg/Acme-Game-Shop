@@ -49,15 +49,13 @@
 
 <jstl:if test="${isRecipient==true}">
 	<div>
-		<a href="messageEmail/reply.do?messageEmailId=${messageEmail.id}"><spring:message
-				code="messageEmail.reply" /></a>
+		<acme:button url="messageEmail/reply.do?messageEmailId=${messageEmail.id}" code="messageEmail.reply"/>
 	</div>
 </jstl:if>
 
 <jstl:if test="${isRecipient==false}">
 	<div>
-		<a href="messageEmail/forward.do?messageEmailId=${messageEmail.id}"><spring:message
-				code="messageEmail.forward" /></a>
+		<acme:button url="messageEmail/forward.do?messageEmailId=${messageEmail.id}" code="messageEmail.forward"/>
 	</div>
 </jstl:if>
 

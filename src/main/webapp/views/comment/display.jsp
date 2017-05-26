@@ -18,7 +18,7 @@
 			<jstl:out value="${comment.title}" />
 		</li>
 		<li>
-			<b><spring:message code="comment.score"/>:</b>
+			<b><spring:message code="comment.description"/>:</b>
 			<jstl:out value="${comment.description}" />
 		</li>
 		<security:authorize access="isAuthenticated()">

@@ -19,13 +19,13 @@
 	<acme:column code="review.moment" property="moment" sortable="true" style="${style}"/>
 	<acme:column code="review.score" property="score" sortable="true" style="${style}"/>
 	
-	<spring:message code="review.draft" var="draftHeader" />
-	<display:column title="${draftHeader}" sortable="true" style="${style}">
+	<spring:message code="review.published" var="publishedHeader" />
+	<display:column title="${publishedHeader}" sortable="true" style="${style}">
 		<jstl:if test="${review.draft}">
-			<spring:message code="review.yes" />
+			<spring:message code="review.no" />
 		</jstl:if>
 		<jstl:if test="${!review.draft}">
-			<spring:message code="review.no" />
+			<spring:message code="review.yes" />
 		</jstl:if>
 	</display:column>
 	
