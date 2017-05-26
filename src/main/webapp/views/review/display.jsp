@@ -30,12 +30,12 @@
 		
 		<jstl:if test="${isMine}">
 			<li>
-				<b><spring:message code="review.draft" />:</b>
+				<b><spring:message code="review.published" />:</b>
 				<jstl:if test="${review.draft}">
-					<spring:message code="review.yes" />
+					<spring:message code="review.no" />
 				</jstl:if>
 				<jstl:if test="${!review.draft}">
-					<spring:message code="review.no" />
+					<spring:message code="review.yes" />
 				</jstl:if>
 			</li>
 		</jstl:if>
