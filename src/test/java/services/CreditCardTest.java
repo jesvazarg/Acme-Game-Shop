@@ -2,13 +2,13 @@
 package services;
 
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.CreditCard;
@@ -31,67 +31,48 @@ public class CreditCardTest extends AbstractTest {
 
 	// Tests ------------------------------------------------------------------
 
-	//Crear una nueva tarjeta de crédito o editar la tarjeta de crédito de un chorbi ya existente
+	//Crear una nueva tarjeta de crédito de un actor ya existente
 	@Test
 	public void driverCreateAndEditCreditCard() {
 		final Object testingData[][] = {
 			{
-				"Pablo Escobar", "VISA", "4928756507439105", "3", "2020", "745", 273, null
+				"Pablo Escobar", "VISA", "4928756507439105", 3, 2020, 745, 85, null
 			}, {
-				"Rick Grimes", "DISCOVER", "6420559532032202", "8", "2021", "156", 274, null
+				"Rick Grimes", "DISCOVER", "6420559532032202", 8, 2021, 156, 85, null
 			}, {
-				"Ragnar Lothbrok", "DANKORT", "5019767397639669", "1", "2019", "688", 273, IllegalArgumentException.class
+				"Ragnar Lothbrok", "", "5019767397639669", 1, 2019, 688, 85, IllegalArgumentException.class
 			}, {
-				"Phil Dunphy", "MASTERCARD", "5293764977707328", "1", "2015", "688", 274, IllegalArgumentException.class
+				"Phil Dunphy", "MASTERCARD", "5293764977707328", 1, 2015, 688, 85, IllegalArgumentException.class
 			}, {
-				"Sheldon Cooper", "VISA", "44952880865", "1", "2015", "688", 273, IllegalArgumentException.class
+				"Sheldon Cooper", "VISA", "44952880865", 16, 2018, 688, 85, ConstraintViolationException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
-			this.createAndEditCreditCard((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (Integer) testingData[i][6],
-				(Class<?>) testingData[i][7], "create");
+			this.createCreditCard((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (Integer) testingData[i][3], (Integer) testingData[i][4], (Integer) testingData[i][5], (Integer) testingData[i][6],
+				(Class<?>) testingData[i][7]);
 
-		testingData[0][6] = 277;
-		testingData[1][6] = 278;
-		testingData[1][7] = IllegalArgumentException.class;
-		for (int i = 0; i < testingData.length; i++)
-			this.createAndEditCreditCard((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (Integer) testingData[i][6],
-				(Class<?>) testingData[i][7], "edit");
 	}
-	protected void createAndEditCreditCard(final String holderName, final String brandName, final String number, final String expirationMonth, final String expirationYear, final String cvv, final Integer id, final Class<?> expected,
-		final String createOrEdit) {
+	protected void createCreditCard(final String holderName, final String brandName, final String number, final Integer expirationMonth, final Integer expirationYear, final Integer cvv, final Integer id, final Class<?> expected) {
 
 		Class<?> caught = null;
 		Developer developer = null;
-		final Integer expirationMonthInt = Integer.parseInt(expirationMonth);
-		final Integer expirationYearInt = Integer.parseInt(expirationYear);
-		final Integer cvvInt = Integer.parseInt(cvv);
 
 		try {
-			this.authenticate("developer1");
+			this.authenticate("developer3");
 			CreditCard creditCard = null;
-			if (createOrEdit.equals("create")) {
-				developer = this.developerService.findOne(id);
-				creditCard = this.creditCardService.create();
-			} else if (createOrEdit.equals("edit")) {
-				developer = this.developerService.findOne(id);
-				creditCard = developer.getCreditCard();
-				Assert.notNull(creditCard);
-			}
+
+			developer = this.developerService.findOne(id);
+			creditCard = this.creditCardService.create();
 
 			creditCard.setHolderName(holderName);
 			creditCard.setBrandName(brandName);
 			creditCard.setNumber(number);
-			creditCard.setExpirationMonth(expirationMonthInt);
-			creditCard.setExpirationYear(expirationYearInt);
-			creditCard.setCvv(cvvInt);
+			creditCard.setExpirationMonth(expirationMonth);
+			creditCard.setExpirationYear(expirationYear);
+			creditCard.setCvv(cvv);
 
-			creditCard = this.creditCardService.save(creditCard);
+			creditCard = this.creditCardService.saveRegister(creditCard);
 
-			if (createOrEdit.equals("create")) {
-				developer.setCreditCard(creditCard);
-				this.developerService.save(developer);
-			}
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
