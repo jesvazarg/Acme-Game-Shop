@@ -17,16 +17,41 @@
 value="<spring:message code="game.searchButton"/>" />
 </security:authorize>
 
+<br>
+<security:authorize access="isAuthenticated()">
+<spring:message code="game.filterByCategory"/>
+<select id="categorySelected" name="category">
+    <jstl:forEach items="${categories}" var="category">
+        <option value="${category.id}">${category.name}</option>
+    </jstl:forEach>
+</select>
+<input type="button" id="Filter"
+value="<spring:message code="game.filterButton"/>" />
+</security:authorize>
+
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#buttonSearch").click(function(){
+		$(document).on('click',"#buttonSearch",function(game){
+			game.preventDefault();
 			window.location.replace('game/search.do?key=' + $("#textSearch").val());
 		});
-		$("#buttonSearch").onsubmit(function(){
-			window.location.replace('game/search.do?key=' + $("#textSearch").val());
+		
+		
+		$(document).on('click',"#Filter",function(game){
+			game.preventDefault();
+			var e = document.getElementById("categorySelected");
+			var strUser = e.options[e.selectedIndex].text;
+			window.location.replace('game/filter.do?key='+ strUser);
 		});
+
 	});
+	
+
+	
+		
 </script>
+
+
 
 
 <display:table name="games" id="game" requestURI="game/list.do" class="displaytag">

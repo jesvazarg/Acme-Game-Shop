@@ -301,4 +301,13 @@ public class GameService {
 		final Customer customer = this.customerService.findByPrincipal();
 		return this.gameRepository.findByRecipeKeyWordWithAge(this.customerService.edadCustomer(customer), key);
 	}
+
+	public Collection<Game> findByCategory(final String key) {
+		return this.gameRepository.findGameByCategoryKeyWord(key);
+	}
+
+	public Collection<Game> findByCategoryWithAge(final String key) {
+		final Customer customer = this.customerService.findByPrincipal();
+		return this.gameRepository.findGameByCategoryKeyWordWithAge(this.customerService.edadCustomer(customer), key);
+	}
 }

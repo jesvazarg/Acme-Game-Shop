@@ -75,4 +75,10 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select g from Game g where g.age<=?1 and (g.title like concat('%', ?2, '%') or g.description like concat('%', ?2, '%'))")
 	Collection<Game> findByRecipeKeyWordWithAge(int age, String key);
 
+	@Query("select g from Game g join g.categories cat where cat.name like ?1")
+	Collection<Game> findGameByCategoryKeyWord(String key);
+
+	@Query("select g from Game g join g.categories cat where g.age<=?1 and cat.name like ?2")
+	Collection<Game> findGameByCategoryKeyWordWithAge(Integer edadCustomer, String key);
+
 }
