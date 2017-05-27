@@ -203,9 +203,12 @@ public class GameController extends AbstractController {
 		ModelAndView result;
 		Collection<Game> games;
 		Collection<Sense> senses;
+		Collection<Category> categories;
 
 		final Actor actor = this.actorService.findByPrincipal();
 		senses = this.senseService.findAll();
+
+		categories = this.categoryService.findAll();
 
 		final Customer customer = this.customerService.findByUserAccount(actor.getUserAccount());
 		if (customer != null)
@@ -217,6 +220,7 @@ public class GameController extends AbstractController {
 		result.addObject("games", games);
 		result.addObject("principal", actor);
 		result.addObject("senseList", senses);
+		result.addObject("categories", categories);
 
 		return result;
 	}
