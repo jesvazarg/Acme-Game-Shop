@@ -9,13 +9,12 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Customer;
+import forms.CreateCustomerForm;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -64,32 +63,29 @@ public class CustomerTest extends AbstractTest {
 	protected void registrarUnCliente(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String phone, final String birthdate, final Boolean isAgree,
 		final Class<?> expected) {
 		Class<?> caught;
-		Md5PasswordEncoder encoder;
-		String passwordEncoded;
 		String[] fecha;
 		final Calendar calendar = Calendar.getInstance();
 
 		caught = null;
 		try {
-			final Customer customer = this.customerService.create();
+			final CreateCustomerForm createCustomerForm = new CreateCustomerForm();
 
-			Assert.isTrue(password.equals(confirmPassword));
-			customer.getUserAccount().setUsername(username);
-			encoder = new Md5PasswordEncoder();
-			passwordEncoded = encoder.encodePassword(password, null);
-			customer.getUserAccount().setPassword(passwordEncoded);
+			createCustomerForm.setUsername(username);
+			createCustomerForm.setPassword(password);
+			createCustomerForm.setConfirmPassword(confirmPassword);
+			createCustomerForm.setIsAgree(isAgree);
 
-			customer.setName(name);
-			customer.setSurname(surname);
-			customer.setEmail(email);
-			customer.setPhone(phone);
+			createCustomerForm.setName(name);
+			createCustomerForm.setSurname(surname);
+			createCustomerForm.setEmail(email);
+			createCustomerForm.setPhone(phone);
 			/* Pasamos el atributo birthdate de String a Date */
 			fecha = birthdate.split("/");
 			calendar.set(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
 
-			customer.setBirthdate(calendar.getTime());
+			createCustomerForm.setBirthdate(calendar.getTime());
 
-			Assert.isTrue(isAgree);
+			final Customer customer = this.customerService.reconstructProfile(createCustomerForm, "create");
 
 			this.customerService.saveRegister(customer);
 
@@ -131,33 +127,32 @@ public class CustomerTest extends AbstractTest {
 
 	protected void editarUnCliente(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String phone, final String birthdate, final Class<?> expected) {
 		Class<?> caught;
-		Md5PasswordEncoder encoder;
-		String passwordEncoded;
 		String[] fecha;
 		final Calendar calendar = Calendar.getInstance();
 
 		caught = null;
 		try {
 			this.authenticate(username);
-			final Customer customer = this.customerService.findByPrincipal();
+			Customer customer = this.customerService.findByPrincipal();
+			final CreateCustomerForm createCustomerForm = this.customerService.constructProfile(customer);
 
-			Assert.isTrue(password.equals(confirmPassword));
-			customer.getUserAccount().setUsername(username);
-			encoder = new Md5PasswordEncoder();
-			passwordEncoded = encoder.encodePassword(password, null);
-			customer.getUserAccount().setPassword(passwordEncoded);
+			createCustomerForm.setUsername(username);
+			createCustomerForm.setPassword(password);
+			createCustomerForm.setConfirmPassword(confirmPassword);
 
-			customer.setName(name);
-			customer.setSurname(surname);
-			customer.setEmail(email);
-			customer.setPhone(phone);
+			createCustomerForm.setName(name);
+			createCustomerForm.setSurname(surname);
+			createCustomerForm.setEmail(email);
+			createCustomerForm.setPhone(phone);
 			/* Pasamos el atributo birthdate de String a Date */
 			fecha = birthdate.split("/");
 			calendar.set(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
 
-			customer.setBirthdate(calendar.getTime());
+			createCustomerForm.setBirthdate(calendar.getTime());
 
-			this.customerService.saveRegister(customer);
+			customer = this.customerService.reconstructProfile(createCustomerForm, "edit");
+
+			this.customerService.save(customer);
 
 			this.customerService.findAll();
 
