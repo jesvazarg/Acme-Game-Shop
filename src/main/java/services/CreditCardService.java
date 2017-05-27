@@ -82,6 +82,9 @@ public class CreditCardService {
 	public CreditCard save(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
 		CreditCard result;
+		Actor principal;
+		principal = this.actorService.findByPrincipal();
+		Assert.notNull(principal);
 
 		this.checkCreditCard(creditCard);
 
@@ -96,6 +99,8 @@ public class CreditCardService {
 
 		principal = this.customerService.findByPrincipal();
 		Assert.notNull(principal);
+		Assert.notNull(principal.getCreditCard());
+		Assert.isTrue(principal.getCreditCard().getId() == (creditCard.getId()));
 		principal.setCreditCard(null);
 		this.customerService.save(principal);
 		Assert.isTrue(creditCard.getId() != 0);
@@ -115,7 +120,7 @@ public class CreditCardService {
 
 		final String brandName = creditCard.getBrandName().toUpperCase();
 		Assert.isTrue(brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX"));
-
+		Assert.isTrue(creditCard.getExpirationMonth() < 13);
 	}
 
 	public Boolean checkCreditCardBoolean(final CreditCard creditCard) {
