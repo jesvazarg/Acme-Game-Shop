@@ -53,19 +53,17 @@ public class ReceiptCustomerController extends AbstractController {
 		ModelAndView result;
 		Receipt receipt;
 		Collection<OrderedGames> orderedGames;
-		Double total = 0.0;
+		Double[] desglose;
 
 		receipt = this.receiptService.findOne(receiptId);
 		orderedGames = receipt.getOrderedGames();
 
-		/* Precio total de los juegos */
-		for (final OrderedGames aux : orderedGames)
-			total = total + aux.getPrice();
+		desglose = this.receiptService.desglosePrecios(orderedGames);
 
 		result = new ModelAndView("receipt/display");
 		result.addObject("receipt", receipt);
 		result.addObject("orderedGames", orderedGames);
-		result.addObject("total", total);
+		result.addObject("desglose", desglose);
 		result.addObject("requestURI", "receipt/customer/display.do");
 
 		return result;

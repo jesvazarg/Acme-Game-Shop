@@ -33,24 +33,20 @@
 	<acme:column code="game.price" property="price" sortable="true"/>
 </display:table>
 
-<display:table name="total" id="row" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
-	
-	<spring:message code="receipt.subtotal" var="subtotalHeader" />
-	<display:column title="${subtotalHeader}">
-		<jstl:out value="${total*0.79}" />
-	</display:column>
-	
-	<spring:message code="receipt.iva" var="ivaHeader" />
-	<display:column title="${ivaHeader}">
-		<jstl:out value="(21%) ${total*0.21}" />
-	</display:column>
-	
-	<spring:message code="receipt.total" var="totalHeader" />
-	<display:column title="${totalHeader}">
-		<jstl:out value="${total}" />
-	</display:column>
-	
-</display:table>
+			<ul>
+				<li>
+					<b><spring:message code="receipt.subtotal"/>:</b>
+					<jstl:out value="${desglose[1]}"/>
+				</li>
+				<li>
+					<b><spring:message code="receipt.iva"/>:</b>
+					<jstl:out value="${desglose[2]}"/>
+				</li>
+				<li>
+					<b><spring:message code="receipt.total"/>:</b>
+					<jstl:out value="${desglose[0]}"/>
+				</li>
+			</ul>
 			
 <br/>
 <acme:cancel url="receipt/customer/list.do" code="receipt.cancel" />

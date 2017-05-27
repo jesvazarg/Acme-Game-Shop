@@ -75,5 +75,22 @@ public class ReceiptService {
 	}
 
 	// Other business methods -------------------------------------------------
+	public Double[] desglosePrecios(final Collection<OrderedGames> ordered) {
+		Assert.notNull(ordered);
+		final Double[] res = new Double[3];
+		Double total = 0.0;
+		/* Precio total de los juegos */
+		for (final OrderedGames aux : ordered)
+			total = total + aux.getPrice();
+		res[0] = Math.round(total * 100) / 100.0;
+
+		/* Subtotal */
+		res[1] = Math.round((total * 0.79) * 100) / 100.0;
+
+		/* IVA */
+		res[2] = Math.round((total * 0.21) * 100) / 100.0;
+
+		return res;
+	}
 
 }
