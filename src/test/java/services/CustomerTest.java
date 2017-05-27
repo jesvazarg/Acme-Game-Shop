@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Customer;
@@ -91,6 +92,44 @@ public class CustomerTest extends AbstractTest {
 
 			this.customerService.findAll();
 
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//Con este test comprobamos que nos logueamos correctamente
+	@Test
+	public void driverLoguearteComoCustomer() {
+		final Object testingData[][] = {
+			{
+				"customer1", null
+			}, {
+				"customer2", null
+			}, {
+				"noName", IllegalArgumentException.class
+			}, {
+				"", IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.loguearteComoCustomer((String) testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+
+	protected void loguearteComoCustomer(final String username, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(username);
+
+			final Customer customer = this.customerService.findByPrincipal();
+			Assert.notNull(customer);
+
+			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}

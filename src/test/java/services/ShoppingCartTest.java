@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.Discount;
 import domain.Game;
 import domain.ShoppingCart;
 
@@ -30,6 +31,9 @@ public class ShoppingCartTest extends AbstractTest {
 
 	@Autowired
 	private GameService			gameService;
+
+	@Autowired
+	private DiscountService		discountService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -98,25 +102,27 @@ public class ShoppingCartTest extends AbstractTest {
 	public void driverComprarJuegosDelCarrito() {
 		final Object testingData[][] = {
 			{
-				"customer1", 94, null
+				"customer1", 94, "HRJ-732-J9W", null
 			}, {
-				"customer1", 95, null
+				"customer1", 95, "EJ9-HT9-H8F", null
 			}, {
-				"NoExist", 94, IllegalArgumentException.class
+				"NoExist", 94, "HRJ-732-J9W", IllegalArgumentException.class
 			}, {
-				"customer1", 0, IllegalArgumentException.class
+				"customer1", 0, "KN0-13F-JBE", IllegalArgumentException.class
 			}, {
-				"customer2", 95, NullPointerException.class
+				"customer2", 95, "HRJ-732-J9W", NullPointerException.class
 			}, {
-				"customer3", 96, NullPointerException.class
+				"customer3", 96, "KN0-13F-JBE", NullPointerException.class
+			}, {
+				"customer1", 94, "000-025-214", IllegalArgumentException.class
 			}
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.comprarJuegosDelCarrito((String) testingData[i][0], (int) testingData[i][1], (Class<?>) testingData[i][2]);
+			this.comprarJuegosDelCarrito((String) testingData[i][0], (int) testingData[i][1], (String) testingData[i][2], (Class<?>) testingData[i][3]);
 	}
 
-	protected void comprarJuegosDelCarrito(final String username, final int idGame, final Class<?> expected) {
+	protected void comprarJuegosDelCarrito(final String username, final int idGame, final String code, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -124,12 +130,18 @@ public class ShoppingCartTest extends AbstractTest {
 			this.authenticate(username);
 			ShoppingCart shoppingCart;
 			Game game;
+			final Discount discount;
+			Integer porcentaje;
+
+			discount = this.discountService.getDiscountWithCode(code);
+			Assert.notNull(discount);
+			porcentaje = discount.getPercentage();
 
 			game = this.gameService.findOne(idGame);
 			shoppingCart = this.shoppingCartService.addGameToShoppingCart(game);
 			Assert.isTrue(shoppingCart.getGames().contains(game));
 
-			this.shoppingCartService.buyGamesInShoppingCart(shoppingCart, 0);
+			this.shoppingCartService.buyGamesInShoppingCart(shoppingCart, porcentaje);
 
 			this.unauthenticate();
 
