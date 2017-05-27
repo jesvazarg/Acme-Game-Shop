@@ -183,4 +183,38 @@ public class GameController extends AbstractController {
 		return result;
 	}
 
+	// Search ----------------------------------------------------------------
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView searchButton(@RequestParam final String key) {
+
+		ModelAndView result;
+		Collection<Game> games;
+		Collection<Sense> senses;
+
+		final Actor actor = this.actorService.findByPrincipal();
+		senses = this.senseService.findAll();
+
+		final Customer customer = this.customerService.findByUserAccount(actor.getUserAccount());
+		if (customer != null)
+			games = this.gameService.findByKeyWithAge(key);
+		else
+			games = this.gameService.findByKey(key);
+
+		result = new ModelAndView("game/list");
+		result.addObject("games", games);
+		result.addObject("principal", actor);
+		result.addObject("senseList", senses);
+
+		return result;
+		/*
+		 * ModelAndView result;
+		 * Collection<Game> games = gameService.findByKey(key);
+		 * 
+		 * result = new ModelAndView("game/list");
+		 * result.addObject("games", games);
+		 * 
+		 * return result;
+		 */
+	}
+
 }

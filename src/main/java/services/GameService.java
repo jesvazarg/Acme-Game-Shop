@@ -292,4 +292,13 @@ public class GameService {
 		}
 		return result;
 	}
+
+	public Collection<Game> findByKey(final String key) {
+		return this.gameRepository.findByRecipeKeyWord(key);
+	}
+
+	public Collection<Game> findByKeyWithAge(final String key) {
+		final Customer customer = this.customerService.findByPrincipal();
+		return this.gameRepository.findByRecipeKeyWordWithAge(this.customerService.edadCustomer(customer), key);
+	}
 }

@@ -74,6 +74,7 @@
 		
 		<security:intercept-url pattern="/game/list.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/game/display.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/game/search.do" access="isAuthenticated()" /> 
 		
 		<security:intercept-url pattern="/review/display.do" access="isAuthenticated()" />
 		

@@ -69,4 +69,10 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select g, avg(r.score) from Game g join g.reviews r where r.draft=false group by g order by avg(r.score) DESC")
 	List<Object[]> findGamesOrderByScoreReviews();
 
+	@Query("select g from Game g where g.title like concat('%', ?1, '%') or g.description like concat('%', ?1, '%')")
+	Collection<Game> findByRecipeKeyWord(String key);
+
+	@Query("select g from Game g where g.age<=?1 and (g.title like concat('%', ?2, '%') or g.description like concat('%', ?2, '%'))")
+	Collection<Game> findByRecipeKeyWordWithAge(int age, String key);
+
 }

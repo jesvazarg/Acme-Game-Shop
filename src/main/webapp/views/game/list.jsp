@@ -10,6 +10,25 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<security:authorize access="isAuthenticated()">
+<spring:message code="game.searchText"/>
+<input type="text" value="" id="textSearch" />
+<input type="button" id="buttonSearch"
+value="<spring:message code="game.searchButton"/>" />
+</security:authorize>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#buttonSearch").click(function(){
+			window.location.replace('game/search.do?key=' + $("#textSearch").val());
+		});
+		$("#buttonSearch").onsubmit(function(){
+			window.location.replace('game/search.do?key=' + $("#textSearch").val());
+		});
+	});
+</script>
+
+
 <display:table name="games" id="game" requestURI="game/list.do" class="displaytag">
 	
 
