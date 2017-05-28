@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Calendar;
+
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 
@@ -14,6 +16,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Developer;
+import forms.CreateDeveloperForm;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -87,6 +90,108 @@ public class DeveloperTest extends AbstractTest {
 
 			this.developerService.findAll();
 
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//Con este test comprobamos que nos logueamos correctamente
+	@Test
+	public void driverLogInDeveloper() {
+		final Object testingData[][] = {
+			{
+				"developer1", null
+			}, {
+				"developer2", null
+			}, {
+				"admin", IllegalArgumentException.class
+			}, {
+				"", IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.loguearteComoCustomer((String) testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+
+	protected void loguearteComoCustomer(final String username, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(username);
+
+			final Developer developer = this.developerService.findByPrincipal();
+			Assert.notNull(developer);
+
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//Con este test lo que hacemos es modificar el perfil del developer que esta logueado
+	//Las pruebas que dan errores son porque la contraseña no es igual que la confirmacion de la contraseña,
+	//porque intentamos loguearnos con un cliente que no existe y porque ponemos un correo electronico no valido
+
+	@Test
+	public void driverEditDeveloper() {
+		final Object testingData[][] = {
+			{
+				"developer1", "password", "password", "pepe", "fernandez", "pepe@gmail.com", "1254", "Nintendo", null
+			}, {
+				"developer2", "password", "password", "pepe", "fernandez", "pepe@gmail.com", "1254", "Ubisoft", null
+			}, {
+				"developer3", "password", "password", "pepe", "fernandez", "pepe@gmail.com", "1254", "Blizzard", null
+			}, {
+				"developer1", "password", "passwordError", "pepe", "fernandez", "pepe@gmail.com", "1254", "EA", IllegalArgumentException.class
+			}, {
+				"papepipopu", "password", "password", "pepe", "fernandez", "pepe@gmail.com", "1254", "Riot", IllegalArgumentException.class
+			}, {
+				"developer1", "password", "password", "pepe", "fernandez", "noTengoCorreo", "1254", "Sony", ConstraintViolationException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.editarUnCliente((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6],
+				(String) testingData[i][7], (Class<?>) testingData[i][8]);
+	}
+
+	protected void editarUnCliente(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String phone, final String company, final Class<?> expected) {
+		Class<?> caught;
+		final String[] fecha;
+		final Calendar calendar = Calendar.getInstance();
+
+		caught = null;
+		try {
+			this.authenticate(username);
+			Developer developer = this.developerService.findByPrincipal();
+			final CreateDeveloperForm createDeveloperForm = this.developerService.constructProfile(developer);
+
+			createDeveloperForm.setUsername(username);
+			createDeveloperForm.setPassword(password);
+			createDeveloperForm.setConfirmPassword(confirmPassword);
+
+			createDeveloperForm.setName(name);
+			createDeveloperForm.setSurname(surname);
+			createDeveloperForm.setEmail(email);
+			createDeveloperForm.setPhone(phone);
+
+			createDeveloperForm.setCompany(company);
+
+			developer = this.developerService.reconstructProfile(createDeveloperForm, "edit");
+
+			this.developerService.save(developer);
+
+			this.developerService.findAll();
+
+			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
