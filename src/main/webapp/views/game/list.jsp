@@ -82,29 +82,33 @@ value="<spring:message code="game.filterButton"/>" />
 
 <display:table name="games" id="game" requestURI="game/list.do" class="displaytag">
 	
+	<jstl:set var="style" value="none"/>
+	<jstl:if test="${game[1] == true}">
+		<jstl:set var="style" value="font-weight:bold;text-shadow: 0.1em 0.1em 0.2em darkgrey"/>
+	</jstl:if>
 
 	<spring:message code="game.title" var="titleHeader" />
-	<display:column title="${titleHeader}" >
+	<display:column title="${titleHeader}" style="${style}">
 				<jstl:out value="${game[0].title}"/>
 	</display:column>
 	
 	<spring:message code="game.picture" var="pictureHeader" />
-	<display:column title="${pictureHeader}">
+	<display:column title="${pictureHeader}" style="${style}">
 		<a href="${game[0].picture}"><img src="${game[0].picture}" style = "max-width: 100 px; max-height: 100px;"/></a>
 	</display:column>
 	
 	<spring:message code="game.age" var="ageHeader" />
-	<display:column title="${ageHeader}" >
+	<display:column title="${ageHeader}" style="${style}">
 				<jstl:out value="${game[0].age}"/>
 	</display:column>
 	
 	<spring:message code="game.price" var="priceHeader" />
-	<display:column title="${priceHeader}" >
+	<display:column title="${priceHeader}" style="${style}">
 				<jstl:out value="${game[0].price}"/>
 	</display:column>
 	
 	
-	<display:column>
+	<display:column style="${style}">
 		<security:authorize access="isAuthenticated()">
 			<a href="game/display.do?gameId=${game[0].id}"><spring:message code="game.display"/></a>
 		</security:authorize>
@@ -114,7 +118,7 @@ value="<spring:message code="game.filterButton"/>" />
 	</display:column>
 	
 		<security:authorize access="hasRole('CUSTOMER')">
-			<display:column style="width:150px">
+			<display:column style="${style}">
 					<jstl:set var="haveLike" value="${false}"/>
 					<jstl:set var="haveDislike" value="${false}"/>
 					<jstl:if test="${!principal.senses.isEmpty()}">
