@@ -194,7 +194,8 @@ public class GameTest extends AbstractTest {
 
 	}
 
-	//El primer test negativo es causado porque no estamos logueados.
+	//Probamos la búsqueda de juegos usando una palabra clave contenia en su nombre o en
+	// su descripcion.El primer test negativo es causado porque no estamos logueados.
 
 	@Test
 	public void driverFindGameByNameOrDescription() {
@@ -229,6 +230,7 @@ public class GameTest extends AbstractTest {
 
 	}
 
+	//Probamos el filtrado de juegos mediante un rango de precios o una categoria
 	//El primer test negativo es causado porque no estamos logueados.
 
 	@Test

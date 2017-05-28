@@ -34,6 +34,7 @@ public class DeveloperTest extends AbstractTest {
 	// FUNCTIONAL REQUIREMENTS
 	//Registrarse en el sistema como developer.
 	//Loguearse en el sistema usando sus credenciales.
+	//Editar su perfil
 
 	//En este primer test vamos a registrarnos como developer
 	//El primer test negativo se produce porque el atributo Contraseña y Repetir contraseña no son iguales,
@@ -114,10 +115,10 @@ public class DeveloperTest extends AbstractTest {
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.loguearteComoCustomer((String) testingData[i][0], (Class<?>) testingData[i][1]);
+			this.logDeveloper((String) testingData[i][0], (Class<?>) testingData[i][1]);
 	}
 
-	protected void loguearteComoCustomer(final String username, final Class<?> expected) {
+	protected void logDeveloper(final String username, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
@@ -159,11 +160,11 @@ public class DeveloperTest extends AbstractTest {
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.editarUnCliente((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6],
-				(String) testingData[i][7], (Class<?>) testingData[i][8]);
+			this.editDeveloper((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (String) testingData[i][6], (String) testingData[i][7],
+				(Class<?>) testingData[i][8]);
 	}
 
-	protected void editarUnCliente(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String phone, final String company, final Class<?> expected) {
+	protected void editDeveloper(final String username, final String password, final String confirmPassword, final String name, final String surname, final String email, final String phone, final String company, final Class<?> expected) {
 		Class<?> caught;
 		final String[] fecha;
 		final Calendar calendar = Calendar.getInstance();

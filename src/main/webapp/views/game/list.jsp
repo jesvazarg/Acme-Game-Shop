@@ -27,7 +27,9 @@ value="<spring:message code="game.searchButton"/>" />
         <option value="${category.id}">${category.name}</option>
     </jstl:forEach>
 </select>
+<spring:message code="game.minimunPrice"/>
 <input type="number" min=0 value="" id="minNumber" />
+<spring:message code="game.maximunPrice"/>
 <input type="number" min =0 value="" id="maxNumber" />
 <input type="button" id="Filter"
 value="<spring:message code="game.filterButton"/>" />
