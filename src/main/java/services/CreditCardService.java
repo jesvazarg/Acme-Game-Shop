@@ -81,16 +81,11 @@ public class CreditCardService {
 
 	public CreditCard save(final CreditCard creditCard) {
 		Assert.notNull(creditCard);
-		CreditCard result;
 		Actor principal;
 		principal = this.actorService.findByPrincipal();
 		Assert.notNull(principal);
 
-		this.checkCreditCard(creditCard);
-
-		result = this.creditCardRepository.save(creditCard);
-
-		return result;
+		return this.creditCardRepository.save(creditCard);
 	}
 
 	public void delete(final CreditCard creditCard) {
@@ -138,6 +133,21 @@ public class CreditCardService {
 
 	}
 
+	public Boolean checkCreditCardBooleanForm(final CreateCreditCardForm createCreditCardForm) {
+		Boolean result = true;
+		final Calendar expiryDate = Calendar.getInstance();
+		expiryDate.set(createCreditCardForm.getExpirationYear(), createCreditCardForm.getExpirationMonth() - 1, 1);
+		final Calendar today = Calendar.getInstance();
+		expiryDate.add(Calendar.DAY_OF_YEAR, -1);
+
+		final String brandName = createCreditCardForm.getBrandName().toUpperCase();
+
+		if (expiryDate.after(today) == false || (brandName.equals("VISA") || brandName.equals("MASTERCARD") || brandName.equals("DISCOVER") || brandName.equals("DINNERS") || brandName.equals("AMEX")) == false)
+			result = false;
+		return result;
+
+	}
+
 	public CreditCard reconstructCreditCard(final CreateCreditCardForm createCreditCardForm, final String type) {
 		Assert.notNull(createCreditCardForm);
 		CreditCard creditCard = null;
@@ -157,6 +167,7 @@ public class CreditCardService {
 		creditCard.setExpirationYear(createCreditCardForm.getExpirationYear());
 		creditCard.setCvv(createCreditCardForm.getCvv());
 
+		Assert.isTrue(this.checkCreditCardBoolean(creditCard));
 		return creditCard;
 	}
 

@@ -58,7 +58,12 @@ public class CriticAdministratorController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				result = this.createModelAndView(criticForm, "critic.commit.error");
+				if (!criticForm.getPassword().equals(criticForm.getConfirmPassword()))
+					result = this.createModelAndView(criticForm, "critic.commit.error.password");
+				else if (criticForm.getIsAgree().equals(false))
+					result = this.createModelAndView(criticForm, "critic.commit.error.isAgree");
+				else
+					result = this.createModelAndView(criticForm, "critic.commit.error");
 
 			}
 		return result;

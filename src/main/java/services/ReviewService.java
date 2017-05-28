@@ -82,9 +82,11 @@ public class ReviewService {
 		Assert.isTrue(review.getCritic().getId() == principal.getId());
 
 		publishReview = this.reviewRepository.findPublishReview(review.getGame().getId(), review.getCritic().getId());
-		if (publishReview != null)
-			if ((publishReview.getId() != review.getId()) && (review.getDraft() == false))
+		if (publishReview != null) {
+			Assert.isTrue(publishReview.getId() != review.getId());
+			if ((review.getDraft() == false))
 				canBePublished = false;
+		}
 		Assert.isTrue(canBePublished);
 
 		result = this.reviewRepository.save(review);
@@ -96,10 +98,14 @@ public class ReviewService {
 		Assert.notNull(review);
 		Assert.isTrue(review.getId() != 0);
 		Critic principal;
+		Review publishReview;
 
 		principal = this.criticService.findByPrincipal();
 		Assert.notNull(principal);
 		Assert.isTrue(review.getCritic().getId() == principal.getId());
+
+		publishReview = this.reviewRepository.findPublishReview(review.getGame().getId(), review.getCritic().getId());
+		Assert.isTrue(publishReview.getId() != review.getId());
 
 		this.reviewRepository.delete(review);
 	}

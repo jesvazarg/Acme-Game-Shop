@@ -83,7 +83,13 @@ public class CreditCardActorController extends AbstractController {
 				result = new ModelAndView("redirect:/creditCard/display.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.error");
+				final String brandname = createCreditCardForm.getBrandName().toUpperCase();
+				if (!brandname.equals("VISA") && !brandname.equals("MASTERCARD") && !brandname.equals("DISCOVER") && !brandname.equals("DINNERS") && !brandname.equals("AMEX"))
+					result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.brandname");
+				else if (!this.creditCardService.checkCreditCardBooleanForm(createCreditCardForm))
+					result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.expirationDate");
+				else
+					result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.error");
 
 			}
 		return result;
@@ -119,12 +125,17 @@ public class CreditCardActorController extends AbstractController {
 				result = new ModelAndView("redirect:/creditCard/display.do");
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(createCreditCardForm, "creditCard.commit.error");
+				final String brandname = createCreditCardForm.getBrandName().toUpperCase();
+				if (!brandname.equals("VISA") && !brandname.equals("MASTERCARD") && !brandname.equals("DISCOVER") && !brandname.equals("DINNERS") && !brandname.equals("AMEX"))
+					result = this.editionEditModelAndView(createCreditCardForm, "creditCard.commit.brandname");
+				else if (!this.creditCardService.checkCreditCardBooleanForm(createCreditCardForm))
+					result = this.editionEditModelAndView(createCreditCardForm, "creditCard.commit.expirationDate");
+				else
+					result = this.editionEditModelAndView(createCreditCardForm, "creditCard.commit.error");
 
 			}
 		return result;
 	}
-
 	// Delete ------------------------------------------------------
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)

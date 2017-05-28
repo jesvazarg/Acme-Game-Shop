@@ -59,7 +59,10 @@ public class CriticController extends AbstractController {
 				result = new ModelAndView("redirect:/profile/myProfile.do");
 
 			} catch (final Throwable oops) {
-				result = this.editModelAndView(criticForm, "critic.commit.error");
+				if (!criticForm.getPassword().equals(criticForm.getConfirmPassword()))
+					result = this.editModelAndView(criticForm, "critic.commit.error.password");
+				else
+					result = this.editModelAndView(criticForm, "critic.commit.error");
 
 			}
 		return result;
