@@ -13,6 +13,10 @@ import domain.Game;
 @Repository
 public interface GameRepository extends JpaRepository<Game, Integer> {
 
+	/* Encontrar los juegos que tengan una critica publicada por el critico pasado por parametro */
+	@Query("select g from Game g join g.reviews r where r.critic.id=?1 and r.draft=false")
+	Collection<Game> findGamesWithPublishedReviewsByCritic(int criticId);
+
 	@Query("select g from Game g where g.developer.id=?1")
 	Collection<Game> findByCustomerId(int id);
 

@@ -141,6 +141,7 @@
 		<security:intercept-url pattern="/review/critic/create.do" access="hasRole('CRITIC')" />
 		<security:intercept-url pattern="/review/critic/edit.do" access="hasRole('CRITIC')" />
 		<security:intercept-url pattern="/review/critic/delete.do" access="hasRole('CRITIC')" />
+		<security:intercept-url pattern="/review/critic/publish.do" access="hasRole('CRITIC')" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

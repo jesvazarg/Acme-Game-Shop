@@ -121,9 +121,18 @@ public class ReviewService {
 	public void publishReview(final Review review) {
 		Assert.notNull(review);
 		Assert.isTrue(review.getDraft() == true);
+		Critic principal;
+		Review publishReview;
 
-		review.setDraft(false);
-		this.save(review);
+		principal = this.criticService.findByPrincipal();
+		Assert.notNull(principal);
+		Assert.isTrue(review.getCritic().getId() == principal.getId());
+
+		publishReview = this.reviewRepository.findPublishReview(review.getGame().getId(), review.getCritic().getId());
+		if (publishReview == null)
+			review.setDraft(false);
+
+		this.reviewRepository.save(review);
 	}
 
 	public Collection<Review> findAllPublishedReview(final int gameId) {

@@ -12,6 +12,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
+	<form:hidden path="draft" />
 	<form:hidden path="game" />
 	<form:hidden path="critic" />
 	
@@ -38,27 +39,19 @@
 	<form:errors path="score" cssClass="error" />
 	<br/>
 	
-	
-	<br/>
-		<form:label path="draft">
-			<spring:message code="review.draft" />
-		</form:label>
-		<form:checkbox path="draft"/>
-		<br/>
-	
+
 	<jstl:if test="${review.id != 0}">
 		<acme:submit name="save" code="review.save" />
 		<acme:submit name="delete" code="review.delete" />
 		<acme:cancel url="review/display.do?reviewId=${review.id}" code="review.cancel" />
 	</jstl:if>
 	<jstl:if test="${review.id == 0}">
+		<acme:submit name="register" code="review.save" />
 		<jstl:if test="${review.game != null}">
-			<acme:submit name="register" code="review.save" />
 			<acme:cancel url="game/display.do?gameId=${review.game.id}" code="review.cancel" />
 		</jstl:if>
 		
 		<jstl:if test="${review.game == null}">
-			<acme:submit name="register" code="review.save" />
 			<acme:cancel url="game/list.do" code="review.cancel" />
 		</jstl:if>
 	</jstl:if>

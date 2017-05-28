@@ -6,6 +6,17 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<script>
+	function publish(id){
+		var check = confirm('<spring:message code="review.confirm.publish" />');
+		if(check==true){
+			location='review/critic/publish.do?reviewId='+ id;
+		}
+	}
+</script>
+
 
 <display:table name="${reviews}" id="review" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 	
@@ -16,7 +27,10 @@
 	
 	
 	<acme:column code="review.title" property="title" sortable="true" style="${style}"/>
-	<acme:column code="review.moment" property="moment" sortable="true" style="${style}"/>
+	<spring:message code="review.moment" var="momentHeader" />
+	<display:column title="${momentHeader}" sortable="true" style="${style}">
+		<fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${review.moment}" />
+	</display:column>
 	<acme:column code="review.score" property="score" sortable="true" style="${style}"/>
 	
 	<spring:message code="review.published" var="publishedHeader" />
@@ -39,5 +53,17 @@
 	<display:column title="${displayHeader}" style="${style}">
 		<a href="review/display.do?reviewId=${review.id}"><spring:message code="review.display"/></a>
 	</display:column>
+	
+	<display:column style="${style}">
+		<jstl:if test="${review.draft}">
+			<jstl:if test="${!games.contains(review.game)}">
+				<input type="button" name="publish"
+    		 	value="<spring:message code="review.publish" />"
+    			 onclick="publish(${review.id})"/>
+    		 </jstl:if>
+		</jstl:if>
+	</display:column>
+	
+	
 	
 </display:table>

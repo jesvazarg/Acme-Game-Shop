@@ -48,13 +48,16 @@ public class ReviewCriticController extends AbstractController {
 		ModelAndView result;
 		Collection<Review> reviews;
 		Critic principal;
+		Collection<Game> games;
 
 		principal = this.criticService.findByPrincipal();
 		reviews = principal.getReviews();
+		games = this.gameService.findGamesWithPublishedReviewsByCritic(principal.getId());
 
 		result = new ModelAndView("review/list");
 		result.addObject("reviews", reviews);
 		result.addObject("principal", principal);
+		result.addObject("games", games);
 		result.addObject("requestURI", "review/critic/list.do");
 
 		return result;
@@ -173,6 +176,21 @@ public class ReviewCriticController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(review, "review.commit.error");
 			}
+
+		return result;
+	}
+
+	// Publish ---------------------------------------------------------------
+	@RequestMapping(value = "/publish", method = RequestMethod.GET)
+	public ModelAndView publish(@RequestParam final int reviewId) {
+		ModelAndView result;
+		Review review;
+
+		review = this.reviewService.findOne(reviewId);
+
+		this.reviewService.publishReview(review);
+
+		result = new ModelAndView("redirect:list.do");
 
 		return result;
 	}

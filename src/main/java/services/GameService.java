@@ -338,4 +338,9 @@ public class GameService {
 		}
 		return result;
 	}
+
+	public Collection<Game> findGamesWithPublishedReviewsByCritic(final int criticId) {
+
+		return this.gameRepository.findGamesWithPublishedReviewsByCritic(criticId);
+	}
 }

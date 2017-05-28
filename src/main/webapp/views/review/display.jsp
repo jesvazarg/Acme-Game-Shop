@@ -14,8 +14,7 @@
 		<legend id="title" class="dashLegend"><b><jstl:out value="${review.title}" /></b></legend>
 		<br/>
 		
-		<jstl:out value="${review.moment}" />
-		<!-- <fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${review.moment}" /> -->
+		<fmt:formatDate type="both" dateStyle="long" timeStyle="short" value="${review.moment}" />
 		<br/><br/>
 		
 		<jstl:out value="${review.description}" />
@@ -66,7 +65,9 @@
 	</ul>
 	
 	<jstl:if test="${isMine}">
-		<acme:button code="review.edit" url="review/critic/edit.do?reviewId=${review.id}"/>
+		<jstl:if test="${!review.draft}">
+			<acme:button code="review.edit" url="review/critic/edit.do?reviewId=${review.id}"/>
+		</jstl:if>
 	</jstl:if>
 	
 </div>
