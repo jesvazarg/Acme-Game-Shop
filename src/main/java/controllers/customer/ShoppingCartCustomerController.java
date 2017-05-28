@@ -76,6 +76,8 @@ public class ShoppingCartCustomerController extends AbstractController {
 			result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.notCreditCard");
 		else if (!(this.creditCardService.checkCreditCardBoolean(customer.getCreditCard())))
 			result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.validCreditCard");
+		else if (!this.shoppingCartService.puedoComprarElCarrito())
+			result = this.createEditModelAndView(shoppingCart, "shoppingCart.commit.error.age");
 		else if (code != "") {
 			Discount discount;
 			discount = this.discountService.getDiscountWithCode(code);

@@ -3,6 +3,7 @@ package controllers.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import services.CustomerService;
 import services.GameService;
 import services.SenseService;
 import controllers.AbstractController;
+import domain.Customer;
 import domain.Game;
 import domain.Sense;
 
@@ -42,6 +44,8 @@ public class SenseCustomerController extends AbstractController {
 		final Sense sense;
 		boolean exist = false;
 		final Game game = this.gameService.findOne(gameId);
+		final Customer customer = this.customerService.findByPrincipal();
+		Assert.isTrue(this.customerService.edadCustomer(customer) >= game.getAge());
 
 		try {
 			for (final Sense t : this.senseService.findAll())
@@ -68,6 +72,8 @@ public class SenseCustomerController extends AbstractController {
 		final Sense sense;
 		boolean exist = false;
 		final Game game = this.gameService.findOne(gameId);
+		final Customer customer = this.customerService.findByPrincipal();
+		Assert.isTrue(this.customerService.edadCustomer(customer) >= game.getAge());
 
 		try {
 			for (final Sense t : this.senseService.findAll())

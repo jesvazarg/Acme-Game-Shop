@@ -207,4 +207,22 @@ public class ShoppingCartService {
 		return shoppingCart;
 
 	}
+
+	public Boolean puedoComprarElCarrito() {
+		Customer customer;
+		Collection<Game> games;
+		ShoppingCart cart;
+		Boolean res = true;
+
+		customer = this.customerService.findByPrincipal();
+		cart = customer.getShoppingCart();
+		games = cart.getGames();
+		for (final Game aux : games)
+			if (this.customerService.edadCustomer(customer) < aux.getAge()) {
+				res = false;
+				break;
+			}
+		return res;
+
+	}
 }
