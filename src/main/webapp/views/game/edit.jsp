@@ -44,8 +44,8 @@
 </form:form>
 </jstl:if>
 <jstl:if test="${message.equals('game.commit.error.notCreditCard')}">
-	<acme:button url="creditCard/developer/create.do" code="game.newCreditCard"/>
+	<acme:button url="creditCard/create.do" code="game.newCreditCard"/>
 </jstl:if>
 <jstl:if test="${message.equals('game.commit.error.validCreditCard')}">
-	<acme:button url="creditCard/developer/edit.do" code="game.editCreditCard"/>
+	<acme:button url="creditCard/edit.do" code="game.editCreditCard"/>
 </jstl:if>
