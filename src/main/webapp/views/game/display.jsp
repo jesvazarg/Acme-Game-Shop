@@ -154,6 +154,7 @@
 
 <acme:button url="comment/customer/create.do?gameId=${game.id}" code="game.comment.create"/>
 <br/>
+<br/>
 
 <jstl:if test="${canAddToShoppingcart==true}">
 <acme:button url="shoppingCart/customer/addGame.do?gameId=${game.id}" code="game.add.shoppingcart"/>

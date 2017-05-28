@@ -34,6 +34,7 @@
 	<h2><jstl:out value="${total}" /></h2>
 	<spring:message code="discount.code"/>
 	<input type="text" value="" id="code" />
+	</br>
 	<input type="button" id="buttonBuy"
 	value="<spring:message code="shoppingCart.buy"/>" />
 	

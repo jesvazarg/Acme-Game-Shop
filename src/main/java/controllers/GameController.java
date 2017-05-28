@@ -185,14 +185,17 @@ public class GameController extends AbstractController {
 		else
 			canAddToShoppingcart = false;
 
-		result = new ModelAndView("game/display");
-		result.addObject("game", game);
-		result.addObject("canAddToShoppingcart", canAddToShoppingcart);
-		result.addObject("reviews", reviews);
-		result.addObject("isOwner", isOwner);
-		result.addObject("actor", actor);
-		result.addObject("requestURI", "game/display.do");
-
+		if (this.actorService.checkAuthority(actor, "CUSTOMER") && (this.customerService.edadCustomer((Customer) actor) < game.getAge()))
+			result = new ModelAndView("redirect:/game/list.do");
+		else {
+			result = new ModelAndView("game/display");
+			result.addObject("game", game);
+			result.addObject("canAddToShoppingcart", canAddToShoppingcart);
+			result.addObject("reviews", reviews);
+			result.addObject("isOwner", isOwner);
+			result.addObject("actor", actor);
+			result.addObject("requestURI", "game/display.do");
+		}
 		return result;
 	}
 
