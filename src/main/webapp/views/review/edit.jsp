@@ -41,7 +41,7 @@
 	
 	<br/>
 		<form:label path="draft">
-			<spring:message code="review.published" />
+			<spring:message code="review.draft" />
 		</form:label>
 		<form:checkbox path="draft"/>
 		<br/>

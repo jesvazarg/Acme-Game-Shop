@@ -71,3 +71,11 @@
 	
 </div>
 
+<security:authorize access="isAuthenticated()">
+	<acme:button url="game/display.do?gameId=${review.game.id}" code="review.back" />
+</security:authorize>
+
+<security:authorize access="!isAuthenticated()">
+	<acme:button url="game/displayNotAuth.do?gameId=${review.game.id}" code="review.back" />
+</security:authorize>
+

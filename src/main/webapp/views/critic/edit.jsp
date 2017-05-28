@@ -28,6 +28,11 @@
 	</jstl:if>
 	
 	<acme:submit name="save" code="critic.save" />
-	<acme:cancel url="profile/myProfile.do" code="critic.cancel" />
+	<jstl:if test="${requestURI == 'critic/administrator/create.do'}">
+		<acme:cancel url="" code="critic.cancel" />
+	</jstl:if>
+	<jstl:if test="${requestURI == 'critic/edit.do'}">
+		<acme:cancel url="profile/myProfile.do" code="critic.cancel" />
+	</jstl:if>
 </form:form>
 
