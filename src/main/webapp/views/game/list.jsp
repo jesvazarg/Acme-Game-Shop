@@ -83,20 +83,33 @@ value="<spring:message code="game.filterButton"/>" />
 <display:table name="games" id="game" requestURI="game/list.do" class="displaytag">
 	
 
+	<spring:message code="game.title" var="titleHeader" />
+	<display:column title="${titleHeader}" >
+				<jstl:out value="${game[0].title}"/>
+	</display:column>
 	
-	<acme:column code="game.title" property="title"/>
 	<spring:message code="game.picture" var="pictureHeader" />
 	<display:column title="${pictureHeader}">
-		<a href="${game.picture}"><img src="${game.picture}" style = "max-width: 100 px; max-height: 100px;"/></a>
+		<a href="${game[0].picture}"><img src="${game[0].picture}" style = "max-width: 100 px; max-height: 100px;"/></a>
 	</display:column>
-	<acme:column code="game.age" property="age"/>
-	<acme:column code="game.price" property="price"/>
+	
+	<spring:message code="game.age" var="ageHeader" />
+	<display:column title="${ageHeader}" >
+				<jstl:out value="${game[0].age}"/>
+	</display:column>
+	
+	<spring:message code="game.price" var="priceHeader" />
+	<display:column title="${priceHeader}" >
+				<jstl:out value="${game[0].price}"/>
+	</display:column>
+	
+	
 	<display:column>
 		<security:authorize access="isAuthenticated()">
-			<a href="game/display.do?gameId=${game.id}"><spring:message code="game.display"/></a>
+			<a href="game/display.do?gameId=${game[0].id}"><spring:message code="game.display"/></a>
 		</security:authorize>
 		<security:authorize access="!isAuthenticated()">
-			<a href="game/displayNotAuth.do?gameId=${game.id}"><spring:message code="game.display"/></a>
+			<a href="game/displayNotAuth.do?gameId=${game[0].id}"><spring:message code="game.display"/></a>
 		</security:authorize>
 	</display:column>
 	
@@ -108,7 +121,7 @@ value="<spring:message code="game.filterButton"/>" />
 						<jstl:forEach var="sense" items="${principal.senses}">
 							<jstl:choose>
 								<jstl:when test="${senseList.contains(sense)}">
-									<jstl:if test="${sense.game.id==game.id}">
+									<jstl:if test="${sense.game.id==game[0].id}">
 										<jstl:if test="${sense.like==true}">
 											<jstl:set var="haveLike" value="${true}"/>
 										</jstl:if>
@@ -121,12 +134,12 @@ value="<spring:message code="game.filterButton"/>" />
 						</jstl:forEach>
 					</jstl:if>
 					<jstl:if test="${haveLike==false}">
-						<li><a href="sense/customer/like.do?gameId=${game.id}">
+						<li><a href="sense/customer/like.do?gameId=${game[0].id}">
 							<spring:message code="game.like"/>
 						</a></li>
 					</jstl:if>
 					<jstl:if test="${haveDislike==false}">
-						<li><a href="sense/customer/dislike.do?gameId=${game.id}">
+						<li><a href="sense/customer/dislike.do?gameId=${game[0].id}">
 							<spring:message code="game.dislike"/></a></li>
 					</jstl:if>
 			</display:column>

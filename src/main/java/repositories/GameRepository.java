@@ -105,4 +105,7 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select g from Game g where g.age<=?1 and g.price>=?2")
 	Collection<Game> findGameByAgeMinPrice(Integer edadCustomer, Double minPrice);
 
+	@Query("select avg(r.score) from Game g join g.reviews r where g.id=?1 and r.draft=false group by g")
+	Double avgFromGame(Integer gameid);
+
 }

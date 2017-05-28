@@ -319,4 +319,23 @@ public class GameService {
 		final Customer customer = this.customerService.findByPrincipal();
 		return this.gameRepository.findGameByCategoryKeyWordWithAge(this.customerService.edadCustomer(customer), key);
 	}
+
+	public Collection<Object[]> avgGreaterthanEight(final Collection<Game> games) {
+		final Collection<Object[]> result = new ArrayList<Object[]>();
+
+		for (final Game g : games) {
+			final Object[] res = new Object[2];
+			final Double avg = this.gameRepository.avgFromGame(g.getId());
+			res[0] = g;
+			if (avg == null)
+				res[1] = false;
+			else if (avg < 8)
+				res[1] = false;
+			else
+				res[1] = true;
+
+			result.add(res);
+		}
+		return result;
+	}
 }

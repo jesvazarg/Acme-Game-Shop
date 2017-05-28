@@ -67,12 +67,14 @@ public class GameController extends AbstractController {
 	@RequestMapping(value = "/listNotAuth", method = RequestMethod.GET)
 	public ModelAndView listNotAuth() {
 		ModelAndView result;
+		Collection<Object[]> auxGames;
 		Collection<Game> games;
 
 		games = this.gameService.findAllUnderThirteen();
+		auxGames = this.gameService.avgGreaterthanEight(games);
 
 		result = new ModelAndView("game/list");
-		result.addObject("games", games);
+		result.addObject("games", auxGames);
 
 		return result;
 	}
@@ -84,6 +86,7 @@ public class GameController extends AbstractController {
 		Collection<Game> games;
 		Collection<Sense> senses;
 		Collection<Category> categories;
+		Collection<Object[]> auxGames;
 
 		final Actor actor = this.actorService.findByPrincipal();
 		senses = this.senseService.findAll();
@@ -93,11 +96,14 @@ public class GameController extends AbstractController {
 		final Customer customer = this.customerService.findByUserAccount(actor.getUserAccount());
 		if (customer != null)
 			games = this.gameService.findByAge();
+
 		else
 			games = this.gameService.findAll();
 
+		auxGames = this.gameService.avgGreaterthanEight(games);
+
 		result = new ModelAndView("game/list");
-		result.addObject("games", games);
+		result.addObject("games", auxGames);
 		result.addObject("principal", actor);
 		result.addObject("senseList", senses);
 		result.addObject("categories", categories);
@@ -112,6 +118,7 @@ public class GameController extends AbstractController {
 		Collection<Game> games;
 		Collection<Sense> senses;
 		Collection<Category> categories;
+		Collection<Object[]> auxGames;
 
 		final Actor actor = this.actorService.findByPrincipal();
 		Developer developer;
@@ -126,8 +133,10 @@ public class GameController extends AbstractController {
 		else
 			games = this.gameService.findByDeveloperId(developer.getId());
 
+		auxGames = this.gameService.avgGreaterthanEight(games);
+
 		result = new ModelAndView("game/list");
-		result.addObject("games", games);
+		result.addObject("games", auxGames);
 		result.addObject("principal", actor);
 		result.addObject("senseList", senses);
 		result.addObject("categories", categories);
@@ -207,6 +216,7 @@ public class GameController extends AbstractController {
 		Collection<Game> games;
 		Collection<Sense> senses;
 		Collection<Category> categories;
+		Collection<Object[]> auxGames;
 
 		final Actor actor = this.actorService.findByPrincipal();
 		senses = this.senseService.findAll();
@@ -219,8 +229,10 @@ public class GameController extends AbstractController {
 		else
 			games = this.gameService.findByKey(key);
 
+		auxGames = this.gameService.avgGreaterthanEight(games);
+
 		result = new ModelAndView("game/list");
-		result.addObject("games", games);
+		result.addObject("games", auxGames);
 		result.addObject("principal", actor);
 		result.addObject("senseList", senses);
 		result.addObject("categories", categories);
@@ -236,6 +248,8 @@ public class GameController extends AbstractController {
 		Collection<Game> games;
 		Collection<Sense> senses;
 		Collection<Category> categories;
+		Collection<Object[]> auxGames;
+
 		Double minPrice2 = 0.0;
 		Double maxPrice2 = 0.0;
 		final Actor actor = this.actorService.findByPrincipal();
@@ -254,8 +268,10 @@ public class GameController extends AbstractController {
 		else
 			games = this.gameService.findByCategoryOrPrice(key, minPrice2, maxPrice2);
 
+		auxGames = this.gameService.avgGreaterthanEight(games);
+
 		result = new ModelAndView("game/list");
-		result.addObject("games", games);
+		result.addObject("games", auxGames);
 		result.addObject("principal", actor);
 		result.addObject("senseList", senses);
 		result.addObject("categories", categories);
