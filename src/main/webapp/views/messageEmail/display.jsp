@@ -59,23 +59,6 @@
 	</div>
 </jstl:if>
 
-
-<form:form method="post" action="messageEmail/delete.do" modelAttribute="messageEmail" >
-
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="moment" />
-	<form:hidden path="deletedForSender"/>
-	<form:hidden path="deletedForRecipient"/>
-	<form:hidden path="sender" />
-	<form:hidden path="recipient" />
-	<form:hidden path="attachments" />
-	
-	
-	<jstl:if test="${messageEmail.id != 0}">
-		<input type="submit" name="delete"
-			value="<spring:message code="messageEmail.delete" />"
-			onclick="return confirm('<spring:message code="messageEmail.confirm.delete" />')" />&nbsp;
-	</jstl:if>
-</form:form>
-
+<div>
+		<acme:button url="messageEmail/delete.do?messageEmailId=${messageEmail.id}" code="messageEmail.delete" />
+</div>

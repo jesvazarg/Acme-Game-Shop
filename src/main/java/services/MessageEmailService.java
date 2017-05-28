@@ -39,11 +39,11 @@ public class MessageEmailService {
 	// Simple CRUD methods ----------------------------------------------------
 	public MessageEmail findOne(final int messageEmailId) {
 		Assert.isTrue(messageEmailId != 0);
-		MessageEmail chirp;
+		MessageEmail messageEmail;
 
-		chirp = this.messageEmailRepository.findOne(messageEmailId);
-		Assert.notNull(chirp);
-		return chirp;
+		messageEmail = this.messageEmailRepository.findOne(messageEmailId);
+		Assert.notNull(messageEmail);
+		return messageEmail;
 	}
 
 	public Collection<MessageEmail> findAll() {
@@ -56,13 +56,11 @@ public class MessageEmailService {
 
 	public MessageEmail create() {
 		MessageEmail result;
-		//final Chorbi chorbi;
 
 		Calendar calendar;
 
 		result = new MessageEmail();
 		final Actor actor = this.actorService.findByPrincipal();
-		//chorbi = this.chorbiService.findByPrincipal();
 
 		Assert.notNull(actor);
 
@@ -124,8 +122,6 @@ public class MessageEmailService {
 
 		result.setRecipient(messageEmail.getSender());
 		result.setSubject("Re: " + messageEmail.getSubject());
-		//result.setText(message.getText());
-		//result.setAttachments(message.getAttachments());
 
 		return result;
 	}
@@ -135,14 +131,21 @@ public class MessageEmailService {
 		final Actor actor = this.actorService.findByPrincipal();
 		Assert.isTrue(messageEmail.getSender().equals(actor) || messageEmail.getRecipient().equals(actor));
 
-		if (messageEmail.getRecipient().equals(actor) && messageEmail.getDeletedForRecipient() == false) {
-			messageEmail.setDeletedForRecipient(true);
-			this.save(messageEmail);
-		} else if (messageEmail.getSender().equals(actor) && messageEmail.getDeletedForSender() == false) {
-			messageEmail.setDeletedForSender(true);
-			this.save(messageEmail);
-		} else if ((messageEmail.getSender().equals(actor) || messageEmail.getRecipient().equals(actor)) && messageEmail.getDeletedForRecipient() == true && messageEmail.getDeletedForSender() == true)
+		if ((messageEmail.getSender().equals(actor) || messageEmail.getRecipient().equals(actor)) && messageEmail.getDeletedForRecipient() == true && messageEmail.getDeletedForSender() == true)
 			this.messageEmailRepository.delete(messageEmail);
+		if (messageEmail.getRecipient().equals(actor) && messageEmail.getDeletedForRecipient() == false) {
+			if (messageEmail.getDeletedForSender() == false) {
+				messageEmail.setDeletedForRecipient(true);
+				this.save(messageEmail);
+			} else
+				this.messageEmailRepository.delete(messageEmail);
+
+		} else if (messageEmail.getSender().equals(actor) && messageEmail.getDeletedForSender() == false)
+			if (messageEmail.getDeletedForRecipient() == false) {
+				messageEmail.setDeletedForSender(true);
+				this.save(messageEmail);
+			} else
+				this.messageEmailRepository.delete(messageEmail);
 
 	}
 
@@ -199,11 +202,5 @@ public class MessageEmailService {
 
 		return res;
 	}
-
-	//	public Double[] minAvgMaxChirpsSent() {
-	//		final Double[] result = this.chirpRepository.minAvgMaxChirpsSent();
-	//		result[1] = Math.round(result[1] * 100) / 100.0;
-	//		return result;
-	//	}
 
 }

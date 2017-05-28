@@ -78,8 +78,11 @@ public class MessageEmailController extends AbstractController {
 
 		/* Seguridad */
 		if (!messageEmail.getRecipient().equals(actor) && !messageEmail.getSender().equals(actor))
-			return result = new ModelAndView("redirect:../../welcome/index.do");
-		/*----*/
+			return result = new ModelAndView("redirect:../welcome/index.do");
+		else if (messageEmail.getSender().equals(actor) && messageEmail.getDeletedForSender() == true)
+			return result = new ModelAndView("redirect:../welcome/index.do");
+		else if (messageEmail.getRecipient().equals(actor) && messageEmail.getDeletedForRecipient() == true)
+			return result = new ModelAndView("redirect:../welcome/index.do");
 		else {
 			if (messageEmail.getRecipient().equals(actor))
 				isRecipient = true;
@@ -138,7 +141,7 @@ public class MessageEmailController extends AbstractController {
 		return result;
 	}
 
-	//Reply ------------------------------------------------------------------------
+	//Forward ------------------------------------------------------------------------
 	@RequestMapping(value = "/forward", method = RequestMethod.GET)
 	public ModelAndView forward(@RequestParam final int messageEmailId) {
 		ModelAndView result;
@@ -147,7 +150,7 @@ public class MessageEmailController extends AbstractController {
 
 		/* Seguridad */
 		if (!messageEmailRequest.getRecipient().equals(actor) && !messageEmailRequest.getSender().equals(actor))
-			return result = new ModelAndView("redirect:../../welcome/index.do");
+			return result = new ModelAndView("redirect:../welcome/index.do");
 		/*----*/
 		else {
 
@@ -175,19 +178,27 @@ public class MessageEmailController extends AbstractController {
 		return result;
 	}
 
-	//Reply ------------------------------------------------------------------------
-	@RequestMapping(value = "/delete", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final MessageEmail messageEmail, final BindingResult binding) {
+	//Delete ------------------------------------------------------------------------
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@Valid final int messageEmailId) {
 		ModelAndView result;
-		final MessageEmail messageEmailToDel = this.messageEmailService.findOne(messageEmail.getId());
+
+		final MessageEmail messageEmail = this.messageEmailService.findOne(messageEmailId);
 		final Actor actor = this.actorService.findByPrincipal();
+
 		/* Seguridad */
 		if (!messageEmail.getRecipient().equals(actor) && !messageEmail.getSender().equals(actor))
-			return result = new ModelAndView("redirect:../../welcome/index.do");
+			return result = new ModelAndView("redirect:../welcome/index.do");
+
 		else
 			try {
-				this.messageEmailService.delete(messageEmailToDel);
-				result = new ModelAndView("redirect:../messageEmail/listIn.do");
+				if (messageEmail.getRecipient().equals(actor)) {
+					this.messageEmailService.delete(messageEmail);
+					result = new ModelAndView("redirect:../messageEmail/listIn.do");
+				} else {
+					this.messageEmailService.delete(messageEmail);
+					result = new ModelAndView("redirect:../messageEmail/listOut.do");
+				}
 			} catch (final Throwable oops) {
 				result = new ModelAndView("redirect:../messageEmail/listIn.do");
 			}
