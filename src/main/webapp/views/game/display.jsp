@@ -130,7 +130,14 @@
 	
 	<spring:message code="review.display"/>
 	<display:column title="${displayHeader}">
-		<a href="comment/display.do?commentId=${comment.id}"><spring:message code="review.display"/></a>
+		<security:authorize access="isAuthenticated()">
+			<a href="comment/displayAuth.do?commentId=${comment.id}"><spring:message code="review.display"/></a>
+		</security:authorize>
+		
+		<security:authorize access="!isAuthenticated()">
+			<a href="comment/displayNoAuth.do?commentId=${comment.id}"><spring:message code="review.display"/></a>
+		</security:authorize>
+		
 	</display:column>
 	
 	<security:authorize access="hasRole('CUSTOMER')">

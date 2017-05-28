@@ -49,7 +49,7 @@
 		<security:intercept-url pattern="/game/displayNotAuth.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/review/displayNotAuth.do" access="permitAll" />
-		<security:intercept-url pattern="/comment/display.do" access="permitAll" />
+		<security:intercept-url pattern="/comment/displayNoAuth.do" access="permitAll" />
 		
 		<!-- CUSTOMER and DEVELOPER -->
 		<security:intercept-url pattern="/creditCard/display.do" access="hasAnyRole('CUSTOMER','DEVELOPER')" /> 
@@ -78,6 +78,8 @@
 		<security:intercept-url pattern="/game/filter.do" access="isAuthenticated()" /> 
 		
 		<security:intercept-url pattern="/review/display.do" access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/comment/displayAuth.do" access="isAuthenticated()" />
 		
 
 		<!-- CUSTOMER -->

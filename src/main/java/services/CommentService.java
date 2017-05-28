@@ -26,6 +26,12 @@ public class CommentService {
 	@Autowired
 	private CustomerService		customerService;
 
+	@Autowired
+	private ActorService		actorService;
+
+	@Autowired
+	private GameService			gameService;
+
 
 	// Constructors -----------------------------------------------------------
 	public CommentService() {

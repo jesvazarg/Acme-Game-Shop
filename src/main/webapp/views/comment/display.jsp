@@ -37,9 +37,9 @@
 </div>
 
 <security:authorize access="isAuthenticated()">
-	<acme:button url="game/display.do?gameId=+ ${game.id}" code="comment.back" />
+	<acme:button url="game/display.do?gameId=${game.id}" code="comment.back" />
 </security:authorize>
 
 <security:authorize access="!isAuthenticated()">
-	<acme:button url="game/displayNotAuth.do?gameId=+ ${game.id}" code="comment.back" />
+	<acme:button url="game/displayNotAuth.do?gameId=${game.id}" code="comment.back" />
 </security:authorize>
