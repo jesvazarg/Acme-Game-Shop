@@ -193,4 +193,80 @@ public class GameTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 
 	}
+
+	//El primer test negativo es causado porque no estamos logueados.
+
+	@Test
+	public void driverFindGameByNameOrDescription() {
+		final Object testingData[][] = {
+			{
+				"developer1", "diablo", null
+			}, {
+				"developer1", "esclavo", null
+			}, {
+				"", "diablo", IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.findGameByNameOrDescription((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	protected void findGameByNameOrDescription(final String user, final String game, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(user);
+			final Collection<Game> games = this.gameService.findByKey(game);
+
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
+
+	//El primer test negativo es causado porque no estamos logueados.
+
+	@Test
+	public void driverFilterGameByCategoryOrPrice() {
+		final Object testingData[][] = {
+			{
+				"developer1", "sport", 0.0, 0.0, null
+			}, {
+				"customer1", "sport", 0.0, 60.0, null
+			}, {
+				"customer1", "sport", 15.0, 0.0, null
+			}, {
+				"customer1", "sport", 25.0, 60.0, null
+			}, {
+				"customer1", "sport", 0.0, 60.0, null
+			}, {
+				"", "sport", 0.0, 60.0, IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.filterGameByCategoryOrPrice((String) testingData[i][0], (String) testingData[i][1], (Double) testingData[i][2], (Double) testingData[i][3], (Class<?>) testingData[i][4]);
+	}
+
+	protected void filterGameByCategoryOrPrice(final String user, final String category, final Double minPrice, final Double maxPrice, final Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+		try {
+			this.authenticate(user);
+			final Collection<Game> games = this.gameService.findByCategoryOrPrice(category, minPrice, maxPrice);
+
+			this.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+
+	}
 }
