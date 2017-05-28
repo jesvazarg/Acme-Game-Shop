@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -302,11 +303,19 @@ public class GameService {
 		return this.gameRepository.findByRecipeKeyWordWithAge(this.customerService.edadCustomer(customer), key);
 	}
 
-	public Collection<Game> findByCategory(final String key) {
-		return this.gameRepository.findGameByCategoryKeyWord(key);
+	public Collection<Game> findByCategoryOrPrice(final String key, final Double minPrice, final Double maxPrice) {
+		if (StringUtils.isEmpty(key)) {
+			if (maxPrice == 0)
+				return this.gameRepository.findGameByMinPrice(minPrice);
+			else
+				return this.gameRepository.findGameByMinPriceAndMaxPrice(minPrice, maxPrice);
+		} else if (maxPrice == 0)
+			return this.gameRepository.findGameByCategoryKeyWordWithMinPrice(key, minPrice);
+		else
+			return this.gameRepository.findGameByCategoryKeyWordWithMinPriceAndMaxPrice(key, minPrice, maxPrice);
 	}
 
-	public Collection<Game> findByCategoryWithAge(final String key) {
+	public Collection<Game> findByCategoryOrPriceWithAge(final String key, final Double minPrice, final Double maxPrice) {
 		final Customer customer = this.customerService.findByPrincipal();
 		return this.gameRepository.findGameByCategoryKeyWordWithAge(this.customerService.edadCustomer(customer), key);
 	}

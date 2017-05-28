@@ -230,23 +230,29 @@ public class GameController extends AbstractController {
 
 	// Search ----------------------------------------------------------------
 	@RequestMapping(value = "/filter", method = RequestMethod.GET)
-	public ModelAndView filterButton(@RequestParam final String key) {
+	public ModelAndView filterButton(@RequestParam(required = false) final String key, @RequestParam(required = false) final Integer minPrice, @RequestParam(required = false) final Integer maxPrice) {
 
 		ModelAndView result;
 		Collection<Game> games;
 		Collection<Sense> senses;
 		Collection<Category> categories;
-
+		Double minPrice2 = 0.0;
+		Double maxPrice2 = 0.0;
 		final Actor actor = this.actorService.findByPrincipal();
 		senses = this.senseService.findAll();
 
 		categories = this.categoryService.findAll();
 
+		if (minPrice != null)
+			minPrice2 = (double) minPrice;
+
+		if (maxPrice != null)
+			maxPrice2 = (double) maxPrice;
 		final Customer customer = this.customerService.findByUserAccount(actor.getUserAccount());
 		if (customer != null)
-			games = this.gameService.findByCategoryWithAge(key);
+			games = this.gameService.findByCategoryOrPriceWithAge(key, minPrice2, maxPrice2);
 		else
-			games = this.gameService.findByCategory(key);
+			games = this.gameService.findByCategoryOrPrice(key, minPrice2, maxPrice2);
 
 		result = new ModelAndView("game/list");
 		result.addObject("games", games);

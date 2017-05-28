@@ -15,6 +15,7 @@
 <input type="text" value="" id="textSearch" />
 <input type="button" id="buttonSearch"
 value="<spring:message code="game.searchButton"/>" />
+<br>
 </security:authorize>
 
 <br>
@@ -25,6 +26,8 @@ value="<spring:message code="game.searchButton"/>" />
         <option value="${category.id}">${category.name}</option>
     </jstl:forEach>
 </select>
+<input type="number" min=0 value="" id="minNumber" />
+<input type="number" min =0 value="" id="maxNumber" />
 <input type="button" id="Filter"
 value="<spring:message code="game.filterButton"/>" />
 </security:authorize>
@@ -41,7 +44,17 @@ value="<spring:message code="game.filterButton"/>" />
 			game.preventDefault();
 			var e = document.getElementById("categorySelected");
 			var strUser = e.options[e.selectedIndex].text;
-			window.location.replace('game/filter.do?key='+ strUser);
+			console.log("o dubi du");
+			if(!$("#minNumber").val() && !$("#maxNumber").val()){
+				window.location.replace('game/filter.do?key='+ strUser);
+			}else if(!$("#minNumber").val()){
+				window.location.replace('game/filter.do?key='+ strUser + '&' + 'maxPrice=' + $("#maxNumber").val());
+			}else if(!$("#maxNumber").val()){
+				window.location.replace('game/filter.do?key='+ strUser + '&' + 'minPrice=' + $("#minNumber").val());
+			}else{
+				window.location.replace('game/filter.do?key='+ strUser + '&' + 'minPrice=' + $("#minNumber").val() + '&' + 'maxPrice=' + $("#maxNumber").val());
+			}
+			
 		});
 
 	});

@@ -78,7 +78,31 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	@Query("select g from Game g join g.categories cat where cat.name like ?1")
 	Collection<Game> findGameByCategoryKeyWord(String key);
 
+	@Query("select g from Game g join g.categories cat where cat.name like ?1 and g.price>=?2 and g.price<=?3")
+	Collection<Game> findGameByCategoryKeyWordWithMinPriceAndMaxPrice(String key, Double minPrice, Double maxPrice);
+
+	@Query("select g from Game g join g.categories cat where cat.name like ?1 and g.price>=?2")
+	Collection<Game> findGameByCategoryKeyWordWithMinPrice(String key, Double minPrice);
+
 	@Query("select g from Game g join g.categories cat where g.age<=?1 and cat.name like ?2")
 	Collection<Game> findGameByCategoryKeyWordWithAge(Integer edadCustomer, String key);
+
+	@Query("select g from Game g join g.categories cat where g.age<=?1 and cat.name like ?2 and g.price>=?3 and g.price<=?4")
+	Collection<Game> findGameByCategoryKeyWordWithAgeMinPriceAndMaxPrice(Integer edadCustomer, String key, Double minPrice, Double maxPrice);
+
+	@Query("select g from Game g join g.categories cat where g.age<=?1 and cat.name like ?2 and g.price>=?3")
+	Collection<Game> findGameByCategoryKeyWordWithAgeMinPrice(Integer edadCustomer, String key, Double minPrice);
+
+	@Query("select g from Game g where g.price>=?1 and g.price<=?2")
+	Collection<Game> findGameByMinPriceAndMaxPrice(Double minPrice, Double maxPrice);
+
+	@Query("select g from Game g where g.price>=?1")
+	Collection<Game> findGameByMinPrice(Double minPrice);
+
+	@Query("select g from Game g where g.age<=?1 and g.price>=?2 and g.price<=?3")
+	Collection<Game> findGameByAgeMinPriceAndMaxPrice(Integer edadCustomer, Double minPrice, Double maxPrice);
+
+	@Query("select g from Game g where g.age<=?1 and g.price>=?2")
+	Collection<Game> findGameByAgeMinPrice(Integer edadCustomer, Double minPrice);
 
 }
