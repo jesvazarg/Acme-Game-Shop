@@ -116,7 +116,10 @@ public class MessageEmailController extends AbstractController {
 				this.messageEmailService.save(messageEmail);
 				result = new ModelAndView("redirect:../messageEmail/listOut.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(messageEmail, "messageEmail.commit.error");
+				if (!this.messageEmailService.validatorURL(messageEmail.getAttachments()))
+					result = this.createEditModelAndView(messageEmail, "messageEmail.commit.error.attachments");
+				else
+					result = this.createEditModelAndView(messageEmail, "messageEmail.commit.error");
 			}
 
 		return result;
@@ -172,7 +175,10 @@ public class MessageEmailController extends AbstractController {
 				this.messageEmailService.save(messageEmail);
 				result = new ModelAndView("redirect:../messageEmail/listOut.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(messageEmail, "messageEmail.commit.error");
+				if (!this.messageEmailService.validatorURL(messageEmail.getAttachments()))
+					result = this.createEditModelAndView(messageEmail, "messageEmail.commit.error.attachments");
+				else
+					result = this.createEditModelAndView(messageEmail, "messageEmail.commit.error");
 			}
 
 		return result;
