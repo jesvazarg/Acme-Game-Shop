@@ -65,18 +65,10 @@
 	</ul>
 	
 	<jstl:if test="${isMine}">
-		<jstl:if test="${!review.draft}">
+		<jstl:if test="${review.draft}">
 			<acme:button code="review.edit" url="review/critic/edit.do?reviewId=${review.id}"/>
 		</jstl:if>
 	</jstl:if>
 	
 </div>
-
-<security:authorize access="isAuthenticated()">
-	<acme:button url="game/display.do?gameId=${review.game.id}" code="review.back" />
-</security:authorize>
-
-<security:authorize access="!isAuthenticated()">
-	<acme:button url="game/displayNotAuth.do?gameId=${review.game.id}" code="review.back" />
-</security:authorize>
 
