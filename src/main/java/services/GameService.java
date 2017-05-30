@@ -317,7 +317,17 @@ public class GameService {
 
 	public Collection<Game> findByCategoryOrPriceWithAge(final String key, final Double minPrice, final Double maxPrice) {
 		final Customer customer = this.customerService.findByPrincipal();
-		return this.gameRepository.findGameByCategoryKeyWordWithAge(this.customerService.edadCustomer(customer), key);
+		Integer edadCustomer;
+		edadCustomer = this.customerService.edadCustomer(customer);
+		if (StringUtils.isEmpty(key)) {
+			if (maxPrice == 0)
+				return this.gameRepository.findGameByAgeMinPrice(edadCustomer, minPrice);
+			else
+				return this.gameRepository.findGameByAgeMinPriceAndMaxPrice(edadCustomer, minPrice, maxPrice);
+		} else if (maxPrice == 0)
+			return this.gameRepository.findGameByCategoryKeyWordWithAgeMinPrice(edadCustomer, key, minPrice);
+		else
+			return this.gameRepository.findGameByCategoryKeyWordWithAgeMinPriceAndMaxPrice(edadCustomer, key, minPrice, maxPrice);
 	}
 
 	public Collection<Object[]> avgGreaterthanEight(final Collection<Game> games) {
