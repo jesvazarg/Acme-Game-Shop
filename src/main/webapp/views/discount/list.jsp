@@ -29,7 +29,9 @@
 	
 	<spring:message code="discount.edit" var="editHeader" />
 	<display:column title="${editHeader}" style="${style}">
-		<a href="discount/administrator/edit.do?discountId=${discount.id}"><jstl:out value="${editHeader}" /></a>
+		<jstl:if test="${!discount.used}">
+			<a href="discount/administrator/edit.do?discountId=${discount.id}"><jstl:out value="${editHeader}" /></a>
+		</jstl:if>
 	</display:column>
 	
 	<spring:message code="discount.delete" var="deleteHeader" />

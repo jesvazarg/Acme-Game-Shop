@@ -66,7 +66,9 @@ public class CustomerController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
+				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
+					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.duplicate");
+				else if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
 					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.password");
 				else if (createCustomerForm.getIsAgree().equals(false))
 					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.isAgree");
@@ -105,7 +107,9 @@ public class CustomerController extends AbstractController {
 				result = new ModelAndView("redirect:/profile/myProfile.do");
 
 			} catch (final Throwable oops) {
-				if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
+				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
+					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error.duplicate");
+				else if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
 					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error.password");
 				else
 					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error");

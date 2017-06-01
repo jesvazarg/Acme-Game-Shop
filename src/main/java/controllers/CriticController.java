@@ -59,7 +59,9 @@ public class CriticController extends AbstractController {
 				result = new ModelAndView("redirect:/profile/myProfile.do");
 
 			} catch (final Throwable oops) {
-				if (!criticForm.getPassword().equals(criticForm.getConfirmPassword()))
+				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
+					result = this.editModelAndView(criticForm, "critic.commit.error.duplicate");
+				else if (!criticForm.getPassword().equals(criticForm.getConfirmPassword()))
 					result = this.editModelAndView(criticForm, "critic.commit.error.password");
 				else
 					result = this.editModelAndView(criticForm, "critic.commit.error");

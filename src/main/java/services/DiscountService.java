@@ -78,6 +78,8 @@ public class DiscountService {
 		Assert.isTrue((this.actorService.checkAuthority(principal, Authority.ADMIN)) || (this.actorService.checkAuthority(principal, Authority.CUSTOMER)));
 		if (this.actorService.checkAuthority(principal, Authority.CUSTOMER))
 			Assert.isTrue(this.discountRepository.findOne(discount.getId()).getPercentage().equals(discount.getPercentage()));
+		else
+			Assert.isTrue(!discount.getUsed());
 
 		result = this.discountRepository.save(discount);
 
