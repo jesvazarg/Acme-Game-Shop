@@ -143,7 +143,7 @@ public class ReviewCriticController extends AbstractController {
 		else
 			try {
 				this.reviewService.save(review);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/review/display.do?reviewId=" + review.getId());
 
 			} catch (final Throwable oops) {
 				Review publishReview;
