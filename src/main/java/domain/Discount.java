@@ -40,7 +40,7 @@ public class Discount extends DomainEntity {
 	}
 
 	@NotNull
-	@Range(min = 0, max = 100)
+	@Range(min = 1, max = 100)
 	public Integer getPercentage() {
 		return this.percentage;
 	}
