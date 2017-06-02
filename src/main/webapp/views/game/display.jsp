@@ -8,6 +8,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div>
 	<ul>
@@ -74,8 +75,11 @@
 <h3><spring:message code="game.reviews"/></h3>
 <display:table name="${reviews}" id="review" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 	
-	<acme:column code="review.title" property="title" sortable="true"/>
-	<acme:column code="review.moment" property="moment" sortable="true"/>
+	<acme:column code="review.title" property="title"/>
+	<spring:message code="review.moment" var="momentHeader" />
+	<display:column title="${momentHeader}" >
+		<fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${review.moment}" />
+	</display:column>
 	<acme:column code="review.score" property="score" sortable="true"/>
 	
 	<security:authorize access="isAuthenticated()">
@@ -111,7 +115,10 @@
 <display:table name="${game.comments}" id="comment" class="displaytag" pagesize="5" keepStatus="true" requestURI="${requestURI}">
 	
 	<acme:column code="review.title" property="title" sortable="false"/>
-	<acme:column code="review.moment" property="moment" sortable="false"/>
+	<spring:message code="review.moment" var="momentHeader" />
+	<display:column title="${momentHeader}" >
+		<fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${comment.moment}" />
+	</display:column>
 	<acme:column code="review.score" property="score" sortable="true"/>
 	
 	<security:authorize access="isAuthenticated()">
