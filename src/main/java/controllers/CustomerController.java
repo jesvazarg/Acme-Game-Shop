@@ -66,14 +66,15 @@ public class CustomerController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
-					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.duplicate");
-				else if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
+				if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
 					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.password");
 				else if (createCustomerForm.getIsAgree().equals(false))
 					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.isAgree");
+				else if ((oops.getCause().getCause().getMessage() != null) && (oops.getCause().getCause().getMessage().contains("Duplicate")))
+					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error.duplicate");
 				else
 					result = this.createEditModelAndView(createCustomerForm, "customer.commit.error");
+
 			}
 		return result;
 	}
@@ -107,10 +108,10 @@ public class CustomerController extends AbstractController {
 				result = new ModelAndView("redirect:/profile/myProfile.do");
 
 			} catch (final Throwable oops) {
-				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
-					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error.duplicate");
-				else if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
+				if (!createCustomerForm.getPassword().equals(createCustomerForm.getConfirmPassword()))
 					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error.password");
+				else if ((oops.getCause().getCause().getMessage() != null) && (oops.getCause().getCause().getMessage().contains("Duplicate")))
+					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error.duplicate");
 				else
 					result = this.editionEditModelAndView(createCustomerForm, "customer.commit.error");
 

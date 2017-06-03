@@ -66,12 +66,12 @@ public class DeveloperController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
-					result = this.createEditModelAndView(createDeveloperForm, "developer.commit.error.duplicate");
-				else if (!createDeveloperForm.getPassword().equals(createDeveloperForm.getConfirmPassword()))
+				if (!createDeveloperForm.getPassword().equals(createDeveloperForm.getConfirmPassword()))
 					result = this.createEditModelAndView(createDeveloperForm, "developer.commit.error.password");
 				else if (createDeveloperForm.getIsAgree().equals(false))
 					result = this.createEditModelAndView(createDeveloperForm, "developer.commit.error.isAgree");
+				else if ((oops.getCause().getCause().getMessage() != null) && (oops.getCause().getCause().getMessage().contains("Duplicate")))
+					result = this.createEditModelAndView(createDeveloperForm, "developer.commit.error.duplicate");
 				else
 					result = this.createEditModelAndView(createDeveloperForm, "developer.commit.error");
 			}
@@ -107,12 +107,12 @@ public class DeveloperController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
+				if (!createDeveloperForm.getPassword().equals(createDeveloperForm.getConfirmPassword()))
+					result = this.editionEditModelAndView(createDeveloperForm, "developer.commit.error.password");
+				else if ((oops.getCause().getCause().getMessage() != null) && (oops.getCause().getCause().getMessage().contains("Duplicate")))
 					result = this.editionEditModelAndView(createDeveloperForm, "developer.commit.error.duplicate");
-				else if (!createDeveloperForm.getPassword().equals(createDeveloperForm.getConfirmPassword()))
-					result = this.editionEditModelAndView(createDeveloperForm, "customer.commit.error.password");
 				else
-					result = this.editionEditModelAndView(createDeveloperForm, "customer.commit.error");
+					result = this.editionEditModelAndView(createDeveloperForm, "developer.commit.error");
 
 			}
 		return result;

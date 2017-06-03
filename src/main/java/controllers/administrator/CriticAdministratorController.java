@@ -58,12 +58,12 @@ public class CriticAdministratorController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 
 			} catch (final Throwable oops) {
-				if (oops.getCause().getCause().getMessage().contains("Duplicate"))
-					result = this.createModelAndView(criticForm, "critic.commit.error.duplicate");
-				else if (!criticForm.getPassword().equals(criticForm.getConfirmPassword()))
+				if (!criticForm.getPassword().equals(criticForm.getConfirmPassword()))
 					result = this.createModelAndView(criticForm, "critic.commit.error.password");
 				else if (criticForm.getIsAgree().equals(false))
 					result = this.createModelAndView(criticForm, "critic.commit.error.isAgree");
+				else if ((oops.getCause().getCause().getMessage() != null) && (oops.getCause().getCause().getMessage().contains("Duplicate")))
+					result = this.createModelAndView(criticForm, "critic.commit.error.duplicate");
 				else
 					result = this.createModelAndView(criticForm, "critic.commit.error");
 
