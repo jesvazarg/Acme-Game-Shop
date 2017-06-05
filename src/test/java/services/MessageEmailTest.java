@@ -31,10 +31,10 @@ public class MessageEmailTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 
 	// REQUISITOS FUNCIONALES
-	//Chirp to another actor.
-	//Browse the list of messages that he or she's got, and reply to any of them.
-	//Browse the list of messages that he or she's sent, and re-send any of them.
-	//Erase any of the messages that he or she's got or sent.
+	//Enviar mensajes a otro actor.
+	//Listar los mensajes que ha recibido y reponderlos.
+	//Listar los mensajes que ha enviado y reenviarlos.
+	//Borrar los mensahes que ha recibido o enviado.
 
 	//En este primer driver se comprueba que un actor pueda enviar un mensaje a otro actor
 

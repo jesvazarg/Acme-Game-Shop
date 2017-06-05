@@ -72,7 +72,7 @@ public class DiscountTest extends AbstractTest {
 	public void driverEditDiscount() {
 		final Object testingData[][] = {
 			{
-				"admin", 117, 0, null
+				"admin", 121, 1, null
 			}, {
 				"admin", 118, 100, null
 			}, {

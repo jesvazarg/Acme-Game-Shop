@@ -37,8 +37,8 @@ public class CommentTest extends AbstractTest {
 	//-	Un actor autenticado como cliente debe ser capaz de:
 	//	Añadir comentarios a los juegos.
 
-	//El primer test negativo es causado porque no nos hemos logueado correctmente como customer, el segundo de
-	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es probocado porque le
+	//El primer test negativo es causado porque no nos hemos logueado correctamente como customer, el segundo de
+	//ellos se produce porque le ponemos un score fuera del rango 0-10 y el tercero es provocado porque le
 	//pasamos un id de game que no existe.
 	@Test
 	public void driverAñadirComentarioAUnJuego() {

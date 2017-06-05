@@ -105,7 +105,8 @@ public class ReviewService {
 		Assert.isTrue(review.getCritic().getId() == principal.getId());
 
 		publishReview = this.reviewRepository.findPublishReview(review.getGame().getId(), review.getCritic().getId());
-		Assert.isTrue(publishReview.getId() != review.getId());
+		if (publishReview != null)
+			Assert.isTrue(publishReview.getId() != review.getId());
 
 		this.reviewRepository.delete(review);
 	}

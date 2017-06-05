@@ -34,7 +34,7 @@ public class CreditCardTest extends AbstractTest {
 	//Crear una nueva tarjeta de crédito de un actor ya existente
 	/*
 	 * El primer error se produce al introducir un campo en blanco, el segundo al poner
-	 * el año de expiracion en pasado (2015) y el tercero se produce por meter un número
+	 * el año de expiración en pasado (2015) y el tercero se produce por meter un número
 	 * incorrecto
 	 */
 
@@ -98,9 +98,9 @@ public class CreditCardTest extends AbstractTest {
 			}, {
 				"Rick Grimes", "DISCOVER", "6420559532032202", 8, 2021, 156, null
 			}, {
-				"Ragnar Lothbrok", "", "5019767397639669", 1, 2019, 688, IllegalArgumentException.class
+				"Ragnar Lothbrok", "", "5019767397639669", 1, 2019, 688, ConstraintViolationException.class
 			}, {
-				"Phil Dunphy", "MASTERCARD", "5293764977707328", 1, 2015, 688, IllegalArgumentException.class
+				"Phil Dunphy", "MASTERCARD", "5293764977707328", 1, 2015, 688, ConstraintViolationException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -128,7 +128,7 @@ public class CreditCardTest extends AbstractTest {
 			creditCard.setCvv(cvv);
 
 			creditCard = this.creditCardService.save(creditCard);
-
+			this.creditCardService.findAll();
 			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

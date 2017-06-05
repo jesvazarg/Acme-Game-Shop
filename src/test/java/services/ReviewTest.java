@@ -78,6 +78,7 @@ public class ReviewTest extends AbstractTest {
 			review = this.reviewService.save(review);
 			this.reviewService.findAll();
 			this.reviewService.findOne(review.getId());
+			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
@@ -89,9 +90,9 @@ public class ReviewTest extends AbstractTest {
 	public void driverEditReview() {
 		final Object testingData[][] = {
 			{
-				"critic1", 127, "Titulo", "descripción", 0, true, null
+				"critic1", 125, "Titulo", "descripción", 0, true, null
 			}, {
-				"critic2", 129, "Titulo2", "descripción2", 10, false, null
+				"critic2", 129, "Titulo2", "descripción2", 10, true, null
 			}, {
 				"critic1", 125, "Titulo3", "descripción3", 5, false, IncorrectResultSizeDataAccessException.class
 			}, {
@@ -123,6 +124,7 @@ public class ReviewTest extends AbstractTest {
 
 			review = this.reviewService.save(review);
 			this.reviewService.findAll();
+			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
@@ -134,7 +136,7 @@ public class ReviewTest extends AbstractTest {
 	public void driverDeleteReview() {
 		final Object testingData[][] = {
 			{
-				"critic1", 127, null
+				"critic1", 125, null
 			}, {
 				"critic2", 129, null
 			}, {
@@ -157,6 +159,7 @@ public class ReviewTest extends AbstractTest {
 
 			this.reviewService.delete(review);
 			this.reviewService.findAll();
+			this.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
